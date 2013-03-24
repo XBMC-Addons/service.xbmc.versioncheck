@@ -25,15 +25,6 @@ import xbmcaddon
 import xbmcgui
 import xbmcvfs
 
-# try to import apt to upgrade linux version
-try:
-    import apt
-    from aptdaemon import client
-    import aptdaemon.errors
-except:
-    print('python apt import error')
-
-    
 if sys.version_info < (2, 7):
     import simplejson
 else:
@@ -172,6 +163,14 @@ def _versionchecklinux(package):
     #check for linux using Apt
     if (platform.dist()[0] != "Ubuntu" and platform.dist()[0] != "Debian"):
         log("Unsupported platform %s" %platform.dist()[0])
+        sys.exit(0)
+    # try to import apt
+    try:
+        import apt
+        from aptdaemon import client
+        import aptdaemon.errors
+    except:
+        log('python apt import error')
         sys.exit(0)
     apt_client = client.AptClient()
     try:
