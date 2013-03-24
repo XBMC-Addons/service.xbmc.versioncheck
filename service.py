@@ -52,6 +52,8 @@ class Main:
             elif sys.argv[0] and sys.argv[1] == 'started':
                 if xbmc.getCondVisibility('System.Platform.Linux'):
                     oldversion = _versionchecklinux('xbmc')
+                elif xbmc.getCondVisibility('System.Platform.IOS'):
+                    oldversion = _versioncheckios('xbmc')
                 else:
                     oldversion = _versioncheck()
                 if oldversion[0]:
@@ -164,6 +166,42 @@ def _versionchecklinux(package):
     if (platform.dist()[0] != "Ubuntu" and platform.dist()[0] != "Debian"):
         log("Unsupported platform %s" %platform.dist()[0])
         sys.exit(0)
+    # try to import apt
+    try:
+        import apt
+        from aptdaemon import client
+        from aptdaemon import errors
+    except:
+        log('python apt import error')
+        sys.exit(0)
+    apt_client = client.AptClient()
+    try:
+        trans = apt_client.update_cache()
+        trans.run(reply_handler=_apttransstarted, error_handler=_apterrorhandler)
+    except errors.NotAuthorizedError:
+        log("You are not allowed to update the cache!")
+        sys.exit(0)
+    
+    trans = apt_client.upgrade_packages([package])
+    trans.simulate(reply_handler=_apttransstarted, error_handler=_apterrorhandler)
+    pkg = trans.packages[4][0]
+    if (pkg == package):
+       cache=apt.Cache()
+       cache.open(None)
+       cache.upgrade()
+       if (cache[package].installed.version != cache[package].candidate.version):
+           log("Version installed  %s" %cache[package].installed.version)
+           log("Version available  %s" %cache[package].candidate.version)
+           oldversion = True
+           msg = __localize__(32011)
+       else:
+           log("Already on newest version  %s" %cache[package].installed.version)
+    return oldversion, msg
+
+def _versioncheckios(package):
+    # initial vars
+    oldversion = False
+    msg = ''
     # try to import apt
     try:
         import apt
