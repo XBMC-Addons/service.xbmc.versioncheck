@@ -168,32 +168,39 @@ def _versionchecklinux(package):
     try:
         import apt
         from aptdaemon import client
-        import aptdaemon.errors
+        from aptdaemon import errors
     except:
         log('python apt import error')
         sys.exit(0)
     apt_client = client.AptClient()
     try:
         trans = apt_client.update_cache()
-        trans.run(reply_handler=apttransstarted, error_handler=apterrorhandler)
+        trans.run(reply_handler=_apttransstarted, error_handler=_apterrorhandler)
     except errors.NotAuthorizedError:
         log("You are not allowed to update the cache!")
         sys.exit(0)
     
     trans = apt_client.upgrade_packages([package])
-    trans.simulate(reply_handler=apttransstarted, error_handler=apterrorhandler)
+    trans.simulate(reply_handler=_apttransstarted, error_handler=_apterrorhandler)
     pkg = trans.packages[4][0]
     if (pkg == package):
        cache=apt.Cache()
        cache.open(None)
        cache.upgrade()
-       #print "Installed version", cache[package].installed.version
-       #print "Version available", cache[package].candidate.version
-       log("Version installed  %s" %cache[package].installed.version)
-       log("Version available  %s" %cache[package].candidate.version)
-       oldversion = True
-       msg = __localize__(32011)
+       if (cache[package].installed.version != cache[package].candidate.version):
+           log("Version installed  %s" %cache[package].installed.version)
+           log("Version available  %s" %cache[package].candidate.version)
+           oldversion = True
+           msg = __localize__(32011)
+       else:
+           log("Already on newest version  %s" %cache[package].installed.version)
     return oldversion, msg
+
+def _apttransstarted():
+    pass
+
+def _apterrorhandler(error):
+    raise error
 
 def _upgrademessage(msg):
     # Don't show while watching a video
