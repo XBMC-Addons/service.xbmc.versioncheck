@@ -19,11 +19,21 @@
 
 
 import os
+import platform
 import xbmc
 import xbmcaddon
 import xbmcgui
 import xbmcvfs
 
+# try to import apt to upgrade linux version
+try:
+    import apt
+    from aptdaemon import client
+    import aptdaemon.errors
+except:
+    print('python apt import error')
+
+    
 if sys.version_info < (2, 7):
     import simplejson
 else:
@@ -44,16 +54,24 @@ def log(txt):
 
 class Main:
     def __init__(self):
-        if __addon__.getSetting("versioncheck_enable") == 'true':
+        if __addon__.getSetting("versioncheck_enable") == 'true' and not xbmc.getCondVisibility('System.HasAddon(os.openelec.tv)'):
             if not sys.argv[0]:
                 xbmc.executebuiltin('XBMC.AlarmClock(CheckAtBoot,XBMC.RunScript(service.xbmc.versioncheck, started),00:00:30,silent)')
                 xbmc.executebuiltin('XBMC.AlarmClock(CheckWhileRunning,XBMC.RunScript(service.xbmc.versioncheck, started),24:00:00,silent,loop)')
             elif sys.argv[0] and sys.argv[1] == 'started':
-                versioncheck()
+                if xbmc.getCondVisibility('System.Platform.Linux'):
+                    oldversion = _versionchecklinux()
+                else:
+                    oldversion = _versioncheck()
+                if oldversion[0]:
+                    _upgrademessage(oldversion[1])
             else:
                 pass
                 
-def versioncheck():
+def _versioncheck():
+    # initial vars
+    oldversion = False
+    msg = ''
     # retrieve versionlists from supplied version file
     version_file = os.path.join(__addonpath__, 'resources/versions.txt')
     # Eden didn't have xbmcvfs.File()
@@ -103,6 +121,8 @@ def versioncheck():
             msg = __localize__(32008)
             oldversion = True
             log("Version available  %s" %versionlist_stable[0])
+        else:
+            log("Last available stable installed")
 
     ### Check to upgrade to newest available RC version if not installed stable
     ## Check also oldversion hasn't been set true by previous check because if so this need to be skipped
@@ -142,35 +162,68 @@ def versioncheck():
     else:
         # Nothing to see here, move along
         pass
+    return oldversion, msg
 
-    if oldversion:
-        # Don't show while watching a video
-        while(xbmc.Player().isPlayingVideo() and not xbmc.abortRequested):
-            xbmc.sleep(500)
-        # Detect if it's first run and only show OK dialog + ask to disable on that
-        firstrun = __addon__.getSetting("versioncheck_firstrun") != 'false'
-        if firstrun and not xbmc.abortRequested:
-            xbmcgui.Dialog().ok(__addonname__,
-                                msg,
-                                __localize__(32001),
-                                __localize__(32002))
-            # sets check to false which is checked on startup
-            if xbmcgui.Dialog().yesno(__addonname__,
-                                      __localize__(32009),
-                                      __localize__(32010)):
-                __addon__.setSetting("versioncheck_enable", 'false')
-            # set first run to false to only show a popup next startup / every two days
-            __addon__.setSetting("versioncheck_firstrun", 'false')
-        # Show notification after firstrun
-        elif not xbmc.abortRequested:
-            log(__localize__(32001) + '' + __localize__(32002))
-            xbmc.executebuiltin("XBMC.Notification(%s, %s, %d, %s)" %(__addonname__,
-                                                                      __localize__(32001) + '' + __localize__(32002),
-                                                                      15000,
-                                                                      __icon__))
-        else:
-            pass
-            
+
+def _versionchecklinux(package):
+    # initial vars
+    oldversion = False
+    msg = ''
+    #check for linux using Apt
+    if (platform.dist()[0] != "Ubuntu" and platform.dist()[0] != "Debian"):
+        log("Unsupported platform %s" %platform.dist()[0])
+        sys.exit(0)
+    apt_client = client.AptClient()
+    try:
+        trans = apt_client.update_cache()
+        trans.run(reply_handler=apttransstarted, error_handler=apterrorhandler)
+    except errors.NotAuthorizedError:
+        log("You are not allowed to update the cache!")
+        sys.exit(0)
+    
+    trans = apt_client.upgrade_packages([package])
+    trans.simulate(reply_handler=apttransstarted, error_handler=apterrorhandler)
+    pkg = trans.packages[4][0]
+    if (pkg == package):
+       cache=apt.Cache()
+       cache.open(None)
+       cache.upgrade()
+       #print "Installed version", cache[package].installed.version
+       #print "Version available", cache[package].candidate.version
+       log("Version installed  %s" %cache[package].installed.version)
+       log("Version available  %s" %cache[package].candidate.version)
+       oldversion = True
+       msg = __localize__(32011)
+    return oldversion, msg
+
+def _upgrademessage(msg):
+    # Don't show while watching a video
+    while(xbmc.Player().isPlayingVideo() and not xbmc.abortRequested):
+        xbmc.sleep(500)
+    # Detect if it's first run and only show OK dialog + ask to disable on that
+    firstrun = __addon__.getSetting("versioncheck_firstrun") != 'false'
+    if firstrun and not xbmc.abortRequested:
+        xbmcgui.Dialog().ok(__addonname__,
+                            msg,
+                            __localize__(32001),
+                            __localize__(32002))
+        # sets check to false which is checked on startup
+        if xbmcgui.Dialog().yesno(__addonname__,
+                                  __localize__(32009),
+                                  __localize__(32010)):
+            __addon__.setSetting("versioncheck_enable", 'false')
+        # set first run to false to only show a popup next startup / every two days
+        __addon__.setSetting("versioncheck_firstrun", 'false')
+    # Show notification after firstrun
+    elif not xbmc.abortRequested:
+        log(__localize__(32001) + '' + __localize__(32002))
+        xbmc.executebuiltin("XBMC.Notification(%s, %s, %d, %s)" %(__addonname__,
+                                                                  __localize__(32001) + '' + __localize__(32002),
+                                                                  15000,
+                                                                  __icon__))
+    else:
+        pass
+
 if (__name__ == "__main__"):
     log('Version %s started' % __addonversion__)
     Main()
