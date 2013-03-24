@@ -51,7 +51,7 @@ class Main:
                 xbmc.executebuiltin('XBMC.AlarmClock(CheckWhileRunning,XBMC.RunScript(service.xbmc.versioncheck, started),24:00:00,silent,loop)')
             elif sys.argv[0] and sys.argv[1] == 'started':
                 if xbmc.getCondVisibility('System.Platform.Linux'):
-                    oldversion = _versionchecklinux()
+                    oldversion = _versionchecklinux('xbmc')
                 else:
                     oldversion = _versioncheck()
                 if oldversion[0]:
