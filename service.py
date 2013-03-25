@@ -193,12 +193,12 @@ def _versioncheckapt(package):
        cache=apt.Cache()
        cache.open(None)
        cache.upgrade()
-       if ((not cache[package].installed is None) and (cache[package].installed.version != cache[package].candidate.version)):
+       if (cache[package].installed and cache[package].installed.version != cache[package].candidate.version):
            log("Version installed  %s" %cache[package].installed.version)
            log("Version available  %s" %cache[package].candidate.version)
            oldversion = True
            msg = __localize__(32011)
-       elif (not cache[package].installed is None):
+       elif (cache[package].installed):
            log("Already on newest version  %s" %cache[package].installed.version)
        else:
            log("No installed package found, probably manual install")
