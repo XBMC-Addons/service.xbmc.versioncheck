@@ -157,13 +157,19 @@ def _versioncheck():
 
 
 def _versionchecklinux(package):
+    if (platform.dist()[0] == "Ubuntu" or platform.dist()[0] == "Debian"):
+        oldversion, msg = _versioncheckapt(package)
+    else:
+        log("Unsupported platform %s" %platform.dist()[0])
+        sys.exit(0)
+    return oldversion, msg
+        
+def _versioncheckapt(package):
+    #check for linux using Apt
     # initial vars
     oldversion = False
     msg = ''
-    #check for linux using Apt
-    if (platform.dist()[0] != "Ubuntu" and platform.dist()[0] != "Debian"):
-        log("Unsupported platform %s" %platform.dist()[0])
-        sys.exit(0)
+    
     # try to import apt
     try:
         import apt
