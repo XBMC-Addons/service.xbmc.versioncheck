@@ -215,7 +215,11 @@ def _apterrorhandler(error):
 def _upgrademessage(msg):
     # Don't show while watching a video
     while(xbmc.Player().isPlayingVideo() and not xbmc.abortRequested):
-        xbmc.sleep(500)
+        xbmc.sleep(1000)
+    i = 0
+    while(i < 5 and not xbmc.abortRequested):
+        xbmc.sleep(1000)
+        i += 1
     # Detect if it's first run and only show OK dialog + ask to disable on that
     firstrun = __addon__.getSetting("versioncheck_firstrun") != 'false'
     if firstrun and not xbmc.abortRequested:
