@@ -24,38 +24,39 @@ import xbmc
 import xbmcaddon
 import xbmcgui
 import xbmcvfs
+import lib.common
+from lib.common import log, message_upgrade_success, message_restart
+from lib.common import upgrade_message as _upgrademessage
 
 if sys.version_info < (2, 7):
     import simplejson
 else:
     import json as simplejson
 
-__addon__        = xbmcaddon.Addon()
-__addonversion__ = __addon__.getAddonInfo('version')
-__addonname__    = __addon__.getAddonInfo('name')
-__addonpath__    = __addon__.getAddonInfo('path').decode('utf-8')
-__icon__         = __addon__.getAddonInfo('icon')
-__localize__    = __addon__.getLocalizedString
+__addon__        = lib.common.__addon__
+__addonversion__ = lib.common.__addonversion__
+__addonname__    = lib.common.__addonname__
+__addonpath__    = lib.common.__addonpath__
+__icon__         = lib.common.__icon__
+__localize__     = lib.common.__localize__
 
-def log(txt):
-    if isinstance (txt,str):
-        txt = txt.decode("utf-8")
-    message = u'%s: %s' % (__addonname__, txt)
-    xbmc.log(msg=message.encode("utf-8"), level=xbmc.LOGDEBUG)
 
 class Main:
     def __init__(self):
+        linux = False
+        packages = []
         if __addon__.getSetting("versioncheck_enable") == 'true' and not xbmc.getCondVisibility('System.HasAddon(os.openelec.tv)'):
             if not sys.argv[0]:
                 xbmc.executebuiltin('XBMC.AlarmClock(CheckAtBoot,XBMC.RunScript(service.xbmc.versioncheck, started),00:00:30,silent)')
                 xbmc.executebuiltin('XBMC.AlarmClock(CheckWhileRunning,XBMC.RunScript(service.xbmc.versioncheck, started),24:00:00,silent,loop)')
             elif sys.argv[0] and sys.argv[1] == 'started':
                 if xbmc.getCondVisibility('System.Platform.Linux'):
-                    oldversion = _versionchecklinux('xbmc')
+                    packages = ['xbmc']
+                    _versionchecklinux(packages)
                 else:
-                    oldversion = _versioncheck()
-                if oldversion[0]:
-                    _upgrademessage(oldversion[1])
+                    oldversion, message = _versioncheck()
+                    if oldversion:
+                        _upgrademessage(message, False)
             else:
                 pass
                 
@@ -156,97 +157,34 @@ def _versioncheck():
     return oldversion, msg
 
 
-def _versionchecklinux(package):
+def _versionchecklinux(packages):
     if (platform.dist()[0] == "Ubuntu" or platform.dist()[0] == "Debian"):
-        oldversion, msg = _versioncheckapt(package)
+        try:
+            # try aptdeamon first
+            from lib.aptdeamonhandler import AptdeamonHandler
+            handler = AptdeamonHandler()
+        except:
+            # fallback to shell
+            # since we need the user password, ask to check for new version first
+            if _upgrademessage(__localize__(32015), True):
+                from lib.shellhandlerapt import ShellHandlerApt
+                sudo = True
+                handler = ShellHandlerApt(sudo)
+
     else:
         log("Unsupported platform %s" %platform.dist()[0])
         sys.exit(0)
-    return oldversion, msg
-        
-def _versioncheckapt(package):
-    #check for linux using Apt
-    # initial vars
-    oldversion = False
-    msg = ''
-    result = ''
-    
-    # try to import apt
-    try:
-        import apt
-        from aptdaemon import client
-        from aptdaemon import errors
-    except:
-        log('python apt import error')
-        sys.exit(0)
-    apt_client = client.AptClient()
-    try:
-        result = apt_client.update_cache(wait=True)
-        if (result == "exit-success"):
-            log("Finished updating the cache")
-        else:
-            log("Error updating the cache %s" %result) 
-    except errors.NotAuthorizedError:
-        log("You are not allowed to update the cache")
-        sys.exit(0)
-    
-    trans = apt_client.upgrade_packages([package])
-    trans.simulate(reply_handler=_apttransstarted, error_handler=_apterrorhandler)
-    pkg = trans.packages[4][0]
-    if (pkg == package):
-       cache=apt.Cache()
-       cache.open(None)
-       cache.upgrade()
-       if (cache[package].installed and cache[package].installed.version != cache[package].candidate.version):
-           log("Version installed  %s" %cache[package].installed.version)
-           log("Version available  %s" %cache[package].candidate.version)
-           oldversion = True
-           msg = __localize__(32011)
-       elif (cache[package].installed):
-           log("Already on newest version  %s" %cache[package].installed.version)
-       else:
-           log("No installed package found, probably manual install")
-           sys.exit(0)
 
-    return oldversion, msg
-
-def _apttransstarted():
-    pass
-
-def _apterrorhandler(error):
-    raise error
-
-def _upgrademessage(msg):
-    # Don't show while watching a video
-    while(xbmc.Player().isPlayingVideo() and not xbmc.abortRequested):
-        xbmc.sleep(1000)
-    i = 0
-    while(i < 5 and not xbmc.abortRequested):
-        xbmc.sleep(1000)
-        i += 1
-    # Detect if it's first run and only show OK dialog + ask to disable on that
-    firstrun = __addon__.getSetting("versioncheck_firstrun") != 'false'
-    if firstrun and not xbmc.abortRequested:
-        xbmcgui.Dialog().ok(__addonname__,
-                            msg,
-                            __localize__(32001),
-                            __localize__(32002))
-        # sets check to false which is checked on startup
-        if xbmcgui.Dialog().yesno(__addonname__,
-                                  __localize__(32009),
-                                  __localize__(32010)):
-            __addon__.setSetting("versioncheck_enable", 'false')
-        # set first run to false to only show a popup next startup / every two days
-        __addon__.setSetting("versioncheck_firstrun", 'false')
-    # Show notification after firstrun
-    elif not xbmc.abortRequested:
-        log(__localize__(32001) + '' + __localize__(32002))
-        xbmc.executebuiltin("XBMC.Notification(%s, %s, %d, %s)" %(__addonname__,
-                                                                  __localize__(32001) + '' + __localize__(32002),
-                                                                  15000,
-                                                                  __icon__))
+    if handler:
+        if handler.check_upgrade_available(packages[0]):
+            if _upgrademessage(__localize__(32012), True):
+                if handler.upgrade_package(packages[0]): 
+                    message_upgrade_success()
+                    message_restart()
     else:
-        pass
+        log("Error: no handler found")
+
+
 
 if (__name__ == "__main__"):
     log('Version %s started' % __addonversion__)
