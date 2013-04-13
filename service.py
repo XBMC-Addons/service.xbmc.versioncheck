@@ -28,11 +28,6 @@ import lib.common
 from lib.common import log, message_upgrade_success, message_restart
 from lib.common import upgrade_message as _upgrademessage
 
-if sys.version_info < (2, 7):
-    import simplejson
-else:
-    import json as simplejson
-
 __addon__        = lib.common.__addon__
 __addonversion__ = lib.common.__addonversion__
 __addonname__    = lib.common.__addonname__
@@ -64,33 +59,16 @@ def _versioncheck():
     # initial vars
     oldversion = False
     msg = ''
+    from lib.json import get_installedversion, get_versionfilelist
     # retrieve versionlists from supplied version file
-    version_file = os.path.join(__addonpath__, 'resources/versions.txt')
-    # Eden didn't have xbmcvfs.File()
-    if xbmcaddon.Addon('xbmc.addon').getAddonInfo('version') < "11.9.3":
-        file = open(version_file, 'r')
-    else:
-        file = xbmcvfs.File(version_file)
-    data = file.read()
-    file.close()
-    version_query = unicode(data, 'utf-8', errors='ignore')
-    version_query = simplejson.loads(version_query)
-    
+    version_query = get_versionfilelist()
     # Create seperate version lists
     versionlist_stable = version_query['releases']['stable']
     versionlist_rc = version_query['releases']['releasecandidate']
     versionlist_beta = version_query['releases']['beta']
     versionlist_alpha = version_query['releases']['alpha']
     versionlist_prealpha = version_query['releases']['prealpha']        
-
-    # retrieve current installed version
-    json_query = xbmc.executeJSONRPC('{ "jsonrpc": "2.0", "method": "Application.GetProperties", "params": {"properties": ["version", "name"]}, "id": 1 }')
-    json_query = unicode(json_query, 'utf-8', errors='ignore')
-    json_query = simplejson.loads(json_query)
-    version_installed = []
-    if json_query.has_key('result') and json_query['result'].has_key('version'):
-        version_installed  = json_query['result']['version']
-        log("Version installed %s" %version_installed)
+    version_installed = get_installedversion()
     # set oldversion flag to false
     oldversion = False
 
