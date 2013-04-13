@@ -67,8 +67,6 @@ def _versioncheck():
     versionlist_alpha = version_query['releases']['alpha']
     versionlist_prealpha = version_query['releases']['prealpha']        
     version_installed = get_installedversion()
-    # set oldversion flag to false
-    oldversion = False
 
     ### Check to upgrade to newest available stable version
     # check on smaller major version. Smaller version than available always notify
