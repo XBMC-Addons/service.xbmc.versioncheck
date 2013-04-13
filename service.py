@@ -109,7 +109,7 @@ def _versioncheck():
             oldversion = True
             log("Version available  %s" %versionlist_stable[0])
         # check if not installed a stable so always notify
-        elif version_installed['tag'] != "stable":
+        elif version_installed['minor'] == int(versionlist_stable[0]['minor']) and version_installed['tag'] != "stable":
             msg = __localize__(32008)
             oldversion = True
             log("Version available  %s" %versionlist_stable[0])
