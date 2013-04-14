@@ -21,7 +21,7 @@
 import platform
 import xbmc
 import lib.common
-from lib.common import log, message_upgrade_success, message_restart
+from lib.common import log
 from lib.common import upgrade_message as _upgrademessage
 
 __addon__        = lib.common.__addon__
@@ -86,6 +86,7 @@ def _versionchecklinux(packages):
         if handler.check_upgrade_available(packages[0]):
             if _upgrademessage(32012, True):
                 if handler.upgrade_package(packages[0]): 
+                    from lib.common import message_upgrade_success, message_restart
                     message_upgrade_success()
                     message_restart()
     else:
