@@ -63,7 +63,7 @@ def upgrade_message(msg, upgrade):
     firstrun = __addon__.getSetting("versioncheck_firstrun") != 'false'
     if firstrun and not xbmc.abortRequested:
         xbmcgui.Dialog().ok(__addonname__,
-                            msg,
+                            __localize__(msg),
                             __localize__(32001),
                             __localize__(32002))
         # sets check to false which is checked on startup
@@ -77,7 +77,7 @@ def upgrade_message(msg, upgrade):
     elif not xbmc.abortRequested:
         log(__localize__(32001) + '' + __localize__(32002))
         if upgrade:
-            return xbmcgui.Dialog().yesno(__addonname__, msg)
+            return xbmcgui.Dialog().yesno(__addonname__, __localize__(msg))
         else:
             xbmc.executebuiltin("XBMC.Notification(%s, %s, %d, %s)" %(__addonname__,
                                                                   __localize__(32001) + '' + __localize__(32002),

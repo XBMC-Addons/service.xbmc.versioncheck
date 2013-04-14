@@ -47,9 +47,9 @@ class Main:
                     packages = ['xbmc']
                     _versionchecklinux(packages)
                 else:
-                    oldversion, message = _versioncheck()
+                    oldversion, msg = _versioncheck()
                     if oldversion:
-                        _upgrademessage(message, False)
+                        _upgrademessage(msg, False)
             else:
                 pass
                 
@@ -63,7 +63,6 @@ def _versioncheck():
     version_installed = get_installedversion()
     # copmpare installed and available
     oldversion, msg = compare_version(version_installed, versionlist)
-    msg = __localize__(msg)
     return oldversion, msg
 
 
@@ -76,7 +75,7 @@ def _versionchecklinux(packages):
         except:
             # fallback to shell
             # since we need the user password, ask to check for new version first
-            if _upgrademessage(__localize__(32015), True):
+            if _upgrademessage(32015, True):
                 from lib.shellhandlerapt import ShellHandlerApt
                 sudo = True
                 handler = ShellHandlerApt(sudo)
@@ -87,7 +86,7 @@ def _versionchecklinux(packages):
 
     if handler:
         if handler.check_upgrade_available(packages[0]):
-            if _upgrademessage(__localize__(32012), True):
+            if _upgrademessage(32012, True):
                 if handler.upgrade_package(packages[0]): 
                     message_upgrade_success()
                     message_restart()
