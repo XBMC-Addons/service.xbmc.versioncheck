@@ -20,8 +20,6 @@
 
 import platform
 import xbmc
-import xbmcgui
-import xbmcvfs
 import lib.common
 from lib.common import log, message_upgrade_success, message_restart
 from lib.common import upgrade_message as _upgrademessage
