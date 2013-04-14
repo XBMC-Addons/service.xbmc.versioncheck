@@ -23,7 +23,7 @@ import xbmcaddon
 import xbmcvfs
 import lib.common
 from lib.common import log
-__addon__        = lib.common.__addon__
+
 __addonpath__    = lib.common.__addonpath__
 
 if sys.version_info < (2, 7):
