@@ -66,6 +66,7 @@ def _versioncheck():
 
 def _versionchecklinux(packages):
     if (platform.dist()[0] == "Ubuntu" or platform.dist()[0] == "Debian"):
+        handler = False
         try:
             # try aptdeamon first
             from lib.aptdeamonhandler import AptdeamonHandler
@@ -77,20 +78,20 @@ def _versionchecklinux(packages):
                 from lib.shellhandlerapt import ShellHandlerApt
                 sudo = True
                 handler = ShellHandlerApt(sudo)
-
+        if handler:
+            if handler.check_upgrade_available(packages[0]):
+                if _upgrademessage(32012, True):
+                    if handler.upgrade_package(packages[0]): 
+                        from lib.common import message_upgrade_success, message_restart
+                        message_upgrade_success()
+                        message_restart()
+        else:
+            log("Error: no handler found")
     else:
         log("Unsupported platform %s" %platform.dist()[0])
         sys.exit(0)
 
-    if handler:
-        if handler.check_upgrade_available(packages[0]):
-            if _upgrademessage(32012, True):
-                if handler.upgrade_package(packages[0]): 
-                    from lib.common import message_upgrade_success, message_restart
-                    message_upgrade_success()
-                    message_restart()
-    else:
-        log("Error: no handler found")
+
 
 if (__name__ == "__main__"):
     log('Version %s started' % __addonversion__)
