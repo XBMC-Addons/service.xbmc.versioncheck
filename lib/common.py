@@ -51,6 +51,11 @@ def message_restart():
     if xbmcgui.Dialog().yesno(__addonname__, __localize__(32014)):
         xbmc.executebuiltin("RestartApp")
 
+def dialog_yesno(line1 = 0, line2 = 0):
+    return xbmcgui.Dialog().yesno(__addonname__,
+                                  __localize__(line1),
+                                  __localize__(line2))
+
 def upgrade_message(msg, upgrade):
     # Don't show while watching a video
     while(xbmc.Player().isPlayingVideo() and not xbmc.abortRequested):
@@ -67,9 +72,7 @@ def upgrade_message(msg, upgrade):
                             __localize__(32001),
                             __localize__(32002))
         # sets check to false which is checked on startup
-        if xbmcgui.Dialog().yesno(__addonname__,
-                                  __localize__(32009),
-                                  __localize__(32010)):
+        if dialog_yesno(32009, 32010):
             __addon__.setSetting("versioncheck_enable", 'false')
         # set first run to false to only show a popup next startup / every two days
         __addon__.setSetting("versioncheck_firstrun", 'false')
@@ -77,7 +80,7 @@ def upgrade_message(msg, upgrade):
     elif not xbmc.abortRequested:
         log(__localize__(32001) + '' + __localize__(32002))
         if upgrade:
-            return xbmcgui.Dialog().yesno(__addonname__, __localize__(msg))
+            return dialog_yesno(msg)
         else:
             xbmc.executebuiltin("XBMC.Notification(%s, %s, %d, %s)" %(__addonname__,
                                                                   __localize__(32001) + '' + __localize__(32002),

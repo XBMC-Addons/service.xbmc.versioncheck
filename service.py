@@ -21,7 +21,7 @@
 import platform
 import xbmc
 import lib.common
-from lib.common import log
+from lib.common import log, dialog_yesno
 from lib.common import upgrade_message as _upgrademessage
 
 __addon__        = lib.common.__addon__
@@ -73,7 +73,7 @@ def _versionchecklinux(packages):
         except:
             # fallback to shell
             # since we need the user password, ask to check for new version first
-            if _upgrademessage(32015, True):
+            if dialog_yesno(32015):
                 from lib.shellhandlerapt import ShellHandlerApt
                 sudo = True
                 handler = ShellHandlerApt(sudo)
@@ -91,8 +91,6 @@ def _versionchecklinux(packages):
                     message_restart()
     else:
         log("Error: no handler found")
-
-
 
 if (__name__ == "__main__"):
     log('Version %s started' % __addonversion__)
