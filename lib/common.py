@@ -48,7 +48,7 @@ def message_upgrade_success():
                                                               __icon__))
 
 def message_restart():
-    if xbmcgui.Dialog().yesno(__addonname__, __localize__(32014)):
+    if dialog_yesno(32014):
         xbmc.executebuiltin("RestartApp")
 
 def dialog_yesno(line1 = 0, line2 = 0):
