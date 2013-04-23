@@ -78,7 +78,6 @@ def upgrade_message(msg, upgrade):
         __addon__.setSetting("versioncheck_firstrun", 'false')
     # Show notification after firstrun
     elif not xbmc.abortRequested:
-        log(__localize__(32001) + '' + __localize__(32002))
         if upgrade:
             return dialog_yesno(msg)
         else:
