@@ -65,7 +65,7 @@ def _versioncheck():
 
 
 def _versionchecklinux(packages):
-    if (platform.dist()[0] == "Ubuntu" or platform.dist()[0] == "Debian"):
+    if platform.dist()[0].lower() in ['ubuntu', 'debian', 'linuxmint']:
         handler = False
         try:
             # try aptdeamon first
@@ -74,10 +74,16 @@ def _versionchecklinux(packages):
         except:
             # fallback to shell
             # since we need the user password, ask to check for new version first
+            from lib.shellhandlerapt import ShellHandlerApt
+            sudo = True
+            handler = ShellHandlerApt(sudo)
             if dialog_yesno(32015):
-                from lib.shellhandlerapt import ShellHandlerApt
-                sudo = True
-                handler = ShellHandlerApt(sudo)
+                pass
+            elif dialog_yesno(32009, 32010):
+                log("disabling addon by user request")
+                __addon__.setSetting("versioncheck_enable", 'false')
+                return
+
         if handler:
             if handler.check_upgrade_available(packages[0]):
                 if _upgrademessage(32012, True):
