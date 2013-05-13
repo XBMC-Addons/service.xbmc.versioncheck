@@ -108,10 +108,11 @@ class ShellHandlerApt:
     def upgrade_system(self):
         _cmd = "apt-get upgrade -y"
         try:
+            log("Upgrading system")
             if self.sudo:
-                x = check_output('echo \'%s\' | sudo -S %s' %(pwd, cmd), shell=True)
+                x = check_output('echo \'%s\' | sudo -S %s' %(self._getpassword(), _cmd), shell=True)
             else:
-                x = check_output(cmd.split())
+                x = check_output(_cmd.split())
         except Exception as error:
             log("Exception while executing shell command %s: %s" %(_cmd, error))
             return False
