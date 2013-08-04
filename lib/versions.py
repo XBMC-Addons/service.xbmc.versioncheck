@@ -79,7 +79,6 @@ def compare_version(version_installed, versionlist):
             # exclude if installed RC, beta or alpha on checking for newer prealpha
             if not oldversion and versionlist_prealpha and version_installed['tag'] not in ["releasecandidate", "beta", "alpha"]:
                 if version_installed['major'] <= int(versionlist_prealpha[0]['major']):
-                    print version_installed
                     if  version_installed['revision'] < versionlist_prealpha[0]['revision']:
                         msg = 32007
                         oldversion = True
