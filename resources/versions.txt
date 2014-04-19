@@ -94,6 +94,13 @@
                 "major": "13",
                 "minor": "0",
                 "tag": "beta",
+                "revision": "20140418-482ccd3",
+                "extrainfo": "beta4"
+            },
+            {
+                "major": "13",
+                "minor": "0",
+                "tag": "beta",
                 "revision": "20140328-2dcc855",
                 "extrainfo": "beta3"
             },
