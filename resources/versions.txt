@@ -54,6 +54,13 @@
         ],
         "releasecandidate": [
             {
+                "major": "13",
+                "minor": "0",
+                "tag": "releasecandidate",
+                "revision": "20140427-2372235",
+                "extrainfo": "RC1"
+            },
+            {
                 "major": "12",
                 "minor": "0",
                 "tag": "releasecandidate",
