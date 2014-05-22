@@ -3,6 +3,13 @@
     "releases": {
         "stable": [
             {
+                "major": "13",
+                "minor": "0",
+                "tag": "stable",
+                "revision": "20140505-f42f5b5",
+                "extrainfo": "final"
+            },
+            {
                 "major": "12",
                 "minor": "3",
                 "tag": "stable",
@@ -97,6 +104,20 @@
             }
         ],
         "beta": [
+            {
+                "major": "13",
+                "minor": "1",
+                "tag": "beta",
+                "revision": "20140518-a6a2713",
+                "extrainfo": "beta2"
+            },
+            {
+                "major": "13",
+                "minor": "1",
+                "tag": "beta",
+                "revision": "20140511-692cfba",
+                "extrainfo": "beta1"
+            },
             {
                 "major": "13",
                 "minor": "0",

@@ -1,3 +1,8 @@
+v0.1.22
+- Update with 13.1 Gotham beta2
+- Update with 13.1 Gotham beta1
+- Update with 13.0 Gotham
+
 v0.1.21
 - Update with 13.0 Gotham rc1
 - Update with 13.0 Gotham beta4
