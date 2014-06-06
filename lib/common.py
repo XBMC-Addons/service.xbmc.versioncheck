@@ -76,4 +76,4 @@ def upgrade_message(msg, oldversion, upgrade):
                     localise(32002))
         __addon__.setSetting("lastnotified_version", __addonversion__)
     else:
-        log("Already notified one time for upgrading. User will receive notification when a newer version is available.")
+        log("Already notified one time for upgrading.")
