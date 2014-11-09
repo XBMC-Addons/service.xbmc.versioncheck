@@ -97,7 +97,7 @@ def upgrade_message2( version_installed, version_available, oldversion, upgrade,
                                        version_installed['minor'],
                                        version_installed['tag'],
                                        version_installed.get('tagversion',''))
-        msg_available = version_available['major'] + '.' + version_available['minor'] + ' "' + version_available['tag'] + version_available.get('tagversion','') + '"'
+        msg_available = version_available['major'] + '.' + version_available['minor'] + ' ' + version_available['tag'] + version_available.get('tagversion','')
         msg = localise(32034) %(msg_current, msg_available)
         
         # show different dialogs depending if there's a newer stable available.
