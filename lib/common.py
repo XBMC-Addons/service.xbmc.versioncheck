@@ -140,7 +140,7 @@ def upgrade_message2( version_installed, version_available, oldversion, upgrade,
         xbmcgui.Dialog().ok(__addonname__, msg)
         #__addon__.setSetting("lastnotified_version", __addonversion__)
         '''
-        #__addon__.setSetting("lastnotified_version", __addonversion__)
+        __addon__.setSetting("lastnotified_version", __addonversion__)
         
     else:
         log("Already notified one time for upgrading.")
