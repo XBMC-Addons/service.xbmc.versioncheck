@@ -6,6 +6,7 @@
                 "major": "13",
                 "minor": "2",
                 "tag": "stable",
+                "tagversion":"",
                 "revision": "20140817-0f3db05",
                 "extrainfo": "final",
                 "addon_support": "yes"
@@ -14,6 +15,7 @@
                 "major": "13",
                 "minor": "1",
                 "tag": "stable",
+                "tagversion":"",
                 "revision": "20140604-84725b0",
                 "extrainfo": "final",
                 "addon_support": "yes"
@@ -22,6 +24,7 @@
                 "major": "13",
                 "minor": "0",
                 "tag": "stable",
+                "tagversion":"",
                 "revision": "20140505-f42f5b5",
                 "extrainfo": "final",
                 "addon_support": "yes"
@@ -30,6 +33,7 @@
                 "major": "12",
                 "minor": "3",
                 "tag": "stable",
+                "tagversion":"",
                 "revision": "20131212-9ed3e58",
                 "extrainfo": "final",
                 "addon_support": "yes"
@@ -38,6 +42,7 @@
                 "major": "12",
                 "minor": "2",
                 "tag": "stable",
+                "tagversion":"",
                 "revision": "20130502-32b1a5e",
                 "extrainfo": "final",
                 "addon_support": "yes"
@@ -46,6 +51,7 @@
                 "major": "12",
                 "minor": "1",
                 "tag": "stable",
+                "tagversion":"",
                 "revision": "20130317-0d373cc",
                 "extrainfo": "final",
                 "addon_support": "yes"
@@ -54,6 +60,7 @@
                 "major": "12",
                 "minor": "0",
                 "tag": "stable",
+                "tagversion":"",
                 "revision": "20130127-fb595f2",
                 "extrainfo": "final",
                 "addon_support": "yes"
@@ -62,6 +69,7 @@
                 "major": "11",
                 "minor": "0",
                 "tag": "stable",
+                "tagversion":"",
                 "revision": "20120321-14feb09",
                 "extrainfo": "final",
                 "addon_support": "no"
@@ -70,6 +78,7 @@
                 "major": "10",
                 "minor": "1",
                 "tag": "stable",
+                "tagversion":"",
                 "revision": "",
                 "extrainfo": "final",
                 "addon_support": "no"
@@ -78,6 +87,7 @@
                 "major": "10",
                 "minor": "0",
                 "tag": "stable",
+                "tagversion":"",
                 "revision": "",
                 "extrainfo": "final",
                 "addon_support": "no"
