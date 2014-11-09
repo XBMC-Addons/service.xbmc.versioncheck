@@ -33,6 +33,7 @@ def compare_version(version_installed, versionlist):
     # check if installed major version is smaller than available major stable
     # here we don't care if running non stable
     if version_installed['major'] < int(versionlist_stable[0]['major']):
+        version_available = versionlist_stable[0]
         oldversion = 'stable'
         log('Version available  %s' %versionlist_stable[0])
         log('You are running an older version')
