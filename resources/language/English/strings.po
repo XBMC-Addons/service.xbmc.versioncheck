@@ -103,7 +103,7 @@ msgctxt "#32033"
 msgid "Visit http://kodi.tv for more information."
 msgstr ""
 
-#. For example: "You are using 13.1 "prealpha" while 13.2 "stable" is available"
+#. For example: "You are using 13.1 prealpha while 13.2 stable is available"
 msgctxt "#32034"
 msgid "Using %s while %s is available."
 msgstr ""

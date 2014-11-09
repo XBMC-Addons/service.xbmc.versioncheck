@@ -87,13 +87,13 @@ def upgrade_message2( version_installed, version_available, oldversion, upgrade,
         xbmc.sleep(1000)
         i += 1
     if __addon__.getSetting("lastnotified_version") < __addonversion__:
-        # convert json-rpc result to strings for usage
         # shorten releasecandidate to rc
         if version_installed['tag'] == 'releasecandidate':
             version_installed['tag'] = 'rc'
         if version_available['tag'] == 'releasecandidate':
             version_available['tag'] = 'rc'
-        msg_current = '%i.%i "%s%s"' %(version_installed['major'],
+        # convert json-rpc result to strings for usage
+        msg_current = '%i.%i %s%s' %(version_installed['major'],
                                        version_installed['minor'],
                                        version_installed['tag'],
                                        version_installed.get('tagversion',''))
