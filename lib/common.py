@@ -100,7 +100,12 @@ def upgrade_message2( version_installed, version_available, version_stable, oldv
     while(i < 10 and not xbmc.abortRequested):
         xbmc.sleep(1000)
         i += 1
-        
+
+    # hack: convert current version number to stable string
+    # so users don't get notified again. remove in future
+    if __addon__.getSetting("lastnotified_version") == '0.1.24':
+        __addon__.setSetting("lastnotified_stable", msg_stable)
+
     # Show different dialogs depending if there's a newer stable available.
     # Also split them between xbmc and kodi notifications to reduce possible confusion.
     # People will find out once they visit the website.
