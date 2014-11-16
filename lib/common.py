@@ -124,7 +124,7 @@ def upgrade_message2( version_installed, version_available, version_stable, oldv
                                 localise(32033))
         __addon__.setSetting("lastnotified_stable", msg_stable)
     
-    elif oldversion != 'stable' and __addon__.getSetting("lastnotified_version") < __addonversion__:
+    elif oldversion != 'stable' and __addon__.getSetting("lastnotified_version") != msg_available:
         if xbmcaddon.Addon('xbmc.addon').getAddonInfo('version') < "13.9.0":
             # point them to xbmc.org
             xbmcgui.Dialog().ok(__addonname__,
@@ -150,7 +150,7 @@ def upgrade_message2( version_installed, version_available, version_stable, oldv
         xbmcgui.Dialog().ok(__addonname__, msg)
         #__addon__.setSetting("lastnotified_version", __addonversion__)
         '''
-        __addon__.setSetting("lastnotified_version", __addonversion__)
+        __addon__.setSetting("lastnotified_version", msg_available)
         
     else:
         log("Already notified one time for upgrading.")
