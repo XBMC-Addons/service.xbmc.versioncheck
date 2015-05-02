@@ -37,7 +37,7 @@ class Main:
         packages = []
         xbmc.sleep(5000)
         if xbmc.getCondVisibility('System.Platform.Linux') and __addon__.getSetting("upgrade_apt") == 'true':
-            packages = ['xbmc']
+            packages = ['kodi']
             _versionchecklinux(packages)
         else:
             oldversion, version_installed, version_available, version_stable = _versioncheck()
