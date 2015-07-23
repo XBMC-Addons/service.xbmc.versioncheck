@@ -3,6 +3,15 @@
     "releases": {
         "stable": [
             {
+                "major": "15",
+                "minor": "0",
+                "tag": "stable",
+                "tagversion":"",
+                "revision": "20150721-2f34a0c",
+                "extrainfo": "final",
+                "addon_support": "yes"
+            },
+            {
                 "major": "14",
                 "minor": "2",
                 "tag": "stable",
