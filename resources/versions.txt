@@ -4,6 +4,15 @@
         "stable": [
             {
                 "major": "15",
+                "minor": "1",
+                "tag": "stable",
+                "tagversion":"",
+                "revision": "20150816-f4dda26",
+                "extrainfo": "final",
+                "addon_support": "yes"
+            },
+            {
+                "major": "15",
                 "minor": "0",
                 "tag": "stable",
                 "tagversion":"",
@@ -130,6 +139,15 @@
             }
         ],
         "releasecandidate": [
+            {
+                "major": "15",
+                "minor": "1",
+                "tag": "releasecandidate",
+                "tagversion":"1",
+                "revision": "20150810-31c22e4",
+                "extrainfo": "RC1",
+                "addon_support": "yes"
+            },
             {
                 "major": "15",
                 "minor": "0",
