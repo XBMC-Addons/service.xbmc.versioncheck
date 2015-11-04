@@ -4,3 +4,4 @@
 pysrc
 *.pyc
 .settings
+.idea
