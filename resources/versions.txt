@@ -152,6 +152,24 @@
                 "major": "16",
                 "minor": "0",
                 "tag": "releasecandidate",
+                "tagversion":"3",
+                "revision": "20160204-b587e98",
+                "extrainfo": "RC3",
+                "addon_support": "yes"
+            },
+            {
+                "major": "16",
+                "minor": "0",
+                "tag": "releasecandidate",
+                "tagversion":"2",
+                "revision": "20160128-46175d6",
+                "extrainfo": "RC2",
+                "addon_support": "yes"
+            },
+            {
+                "major": "16",
+                "minor": "0",
+                "tag": "releasecandidate",
                 "tagversion":"1",
                 "revision": "20160120-981b7dd",
                 "extrainfo": "RC1",
