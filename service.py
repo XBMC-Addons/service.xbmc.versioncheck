@@ -105,5 +105,8 @@ def _versionchecklinux(packages):
 
 
 if (__name__ == "__main__"):
-    log('Version %s started' % ADDONVERSION)
-    Main()
+    if ADDON.getSetting("versioncheck_enable") == "false":
+        log("Disabled")
+    else:
+        log('Version %s started' % ADDONVERSION)
+        Main()
