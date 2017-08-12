@@ -31,11 +31,16 @@ ADDONPATH    = lib.common.ADDONPATH
 ICON         = lib.common.ICON
 oldversion = False
 
+monitor = xbmc.Monitor()
+
 class Main:
     def __init__(self):
         linux = False
         packages = []
-        xbmc.sleep(5000)
+
+	if monitor.waitForAbort(5):
+            sys.exit(0)
+
         if xbmc.getCondVisibility('System.Platform.Linux') and ADDON.getSetting("upgrade_apt") == 'true':
             packages = ['kodi']
             _versionchecklinux(packages)
@@ -100,5 +105,8 @@ def _versionchecklinux(packages):
 
 
 if (__name__ == "__main__"):
-    log('Version %s started' % ADDONVERSION)
-    Main()
+    if ADDON.getSetting("versioncheck_enable") == "false":
+        log("Disabled")
+    else:
+        log('Version %s started' % ADDONVERSION)
+        Main()
