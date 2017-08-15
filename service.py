@@ -38,7 +38,7 @@ class Main:
         linux = False
         packages = []
 
-	if monitor.waitForAbort(5):
+        if monitor.waitForAbort(5):
             sys.exit(0)
 
         if xbmc.getCondVisibility('System.Platform.Linux') and ADDON.getSetting("upgrade_apt") == 'true':
