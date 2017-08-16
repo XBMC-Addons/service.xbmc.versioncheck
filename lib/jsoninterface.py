@@ -37,10 +37,10 @@ def get_installedversion():
         json_query = unicode(json_query, 'utf-8', errors='ignore')
     json_query = jsoninterface.loads(json_query)
     version_installed = []
-    if json_query.has_key('result') and json_query['result'].has_key('version'):
+    if 'result' in json_query and 'version' in json_query['result']:
         version_installed  = json_query['result']['version']
     return version_installed
-    
+
 def get_versionfilelist():
     # retrieve versionlists from supplied version file
     version_file = os.path.join(ADDONPATH, 'resources/versions.txt')
