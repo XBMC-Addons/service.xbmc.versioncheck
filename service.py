@@ -57,7 +57,7 @@ def _versioncheck():
     versionlist = get_versionfilelist()
     # retrieve version installed
     version_installed = get_installedversion()
-    # copmpare installed and available
+    # compare installed and available
     oldversion, version_installed, version_available, version_stable = compare_version(version_installed, versionlist)
     return oldversion, version_installed, version_available, version_stable
 
@@ -67,9 +67,9 @@ def _versionchecklinux(packages):
         handler = False
         result = False
         try:
-            # try aptdeamon first
-            from lib.aptdeamonhandler import AptdeamonHandler
-            handler = AptdeamonHandler()
+            # try aptdaemon first
+            from lib.aptdaemonhandler import AptdaemonHandler
+            handler = AptdaemonHandler()
         except:
             # fallback to shell
             # since we need the user password, ask to check for new version first
