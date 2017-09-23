@@ -121,6 +121,7 @@ def dialog_yesno(line1 = 0, line2 = 0):
                                   localise(line2))
 
 def upgrade_message(msg, oldversion, upgrade, msg_current, msg_available):
+    wait_for_end_of_video()
     if ADDON.getSetting("lastnotified_version") < ADDONVERSION:
         xbmcgui.Dialog().ok(ADDONNAME,
                     localise(msg),
@@ -144,6 +145,8 @@ def upgrade_message2( version_installed, version_available, version_stable, oldv
     msg_available = version_available['major'] + '.' + version_available['minor'] + ' ' + version_available['tag'] + version_available.get('tagversion','')
     msg_stable = version_stable['major'] + '.' + version_stable['minor'] + ' ' + version_stable['tag'] + version_stable.get('tagversion','')
     msg = localise(32034) %(msg_current, msg_available)
+    
+    wait_for_end_of_video()
 
     # hack: convert current version number to stable string
     # so users don't get notified again. remove in future
