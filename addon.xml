@@ -7,6 +7,7 @@
         <import addon="xbmc.python" version="2.1.0"/>
     </requires>
     <extension point="xbmc.service" library="service.py" start="login"/>
+    <extension point="xbmc.python.script" library="default.py"/>
     <extension point="xbmc.addon.metadata">
         <summary lang="be">Kodi Version Check checks if you are running latest released version.</summary>
         <summary lang="bg">Проверява дали ползвате най-новата версия на Kodi.</summary>

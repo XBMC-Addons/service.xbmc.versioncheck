@@ -24,12 +24,7 @@ from lib.common import upgrade_message as _upgrademessage
 from lib.common import upgrade_message2 as _upgrademessage2
 
 ADDON        = lib.common.ADDON
-ADDONVERSION = lib.common.ADDONVERSION
-ADDONNAME    = lib.common.ADDONNAME
-ADDONPATH    = lib.common.ADDONPATH
-ICON         = lib.common.ICON
 oldversion = False
-monitor = xbmc.Monitor()
 
 class Main:
     def __init__(self):
@@ -110,16 +105,12 @@ class Main:
             log("Unsupported platform %s" %platform.dist()[0],xbmc.LOGERROR)
             sys.exit(0)
 
-if len(sys.argv) > 1:
-	log(sys.argv[1])
-	eval(sys.argv[1])
-	sys.exit(0)
-
 if (__name__ == "__main__"):
-
+    log('Service started')
+    message_info(32026)
+    monitor = xbmc.Monitor()
     while not monitor.abortRequested():
-        log('Version %s started' % ADDONVERSION)
-        message_info(32026)
         Main()
         if monitor.waitForAbort(86400):
+            log('Bye bye')
             break

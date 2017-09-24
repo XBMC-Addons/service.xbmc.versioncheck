@@ -145,5 +145,5 @@ msgid "Set SUDO password"
 msgstr ""
 
 msgctxt "#32037"
-msgid "Run checking"
+msgid "Do you want checking updates?"
 msgstr ""

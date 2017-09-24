@@ -137,5 +137,5 @@ msgid "Set SUDO password"
 msgstr "Saisir le mot de passe SUDO"
 
 msgctxt "#32037"
-msgid "Run checking"
-msgstr "Lancer une verification"
+msgid "Do you want checking updates?"
+msgstr "Voulez vous lancer une vérification des mise à jours ?"

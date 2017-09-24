@@ -18,6 +18,7 @@
 import sys
 import os
 from subprocess import check_output
+from contextlib import contextmanager
 
 import xbmc
 import xbmcaddon
@@ -61,11 +62,11 @@ def localise(id):
 
 def log(txt,level_log=xbmc.LOGDEBUG):
     if sys.version_info.major >= 3:
-        message = '%s: %s' % ("Version Check", txt.encode('utf-8'))
+        message = '{} v{}: {}'.format(ADDONNAME,ADDONVERSION, txt).encode("utf-8")
     else:
         if isinstance (txt,str):
             txt = txt.decode("utf-8") 
-        message = (u'%s: %s' % ("Version Check", txt)).encode("utf-8")
+        message =(u'{} v{}: {}'.format(ADDONNAME,ADDONVERSION, txt)).encode("utf-8")
     xbmc.log(msg=message, level=level_log)
 
 def get_password_from_user():
@@ -222,3 +223,12 @@ def text_random():
     digits = "".join( [random.choice(string.digits) for i in xrange(8)] )
     chars = "".join( [random.choice(string.letters) for i in xrange(15)] )
     return digits + chars
+
+@contextmanager
+def busy():
+    dialog = xbmcgui.DialogBusy()
+    dialog.create()
+    try:
+        yield
+    finally:
+        dialog.close()

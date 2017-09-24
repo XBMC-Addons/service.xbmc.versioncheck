@@ -75,7 +75,6 @@ class ShellHandlerApt:
         except Exception as error:
             log("Exception while executing shell command %s: %s" %(_cmd, error),xbmc.LOGERROR)
             return False
-        log(x)
         return True
 
     def check_upgrade_available(self, package):
@@ -105,7 +104,6 @@ class ShellHandlerApt:
         except Exception as error:
             log("Exception while executing shell command %s: %s" %(_cmd, error),xbmc.LOGERROR)
             return False
-
         return True
 
     def check_upgrade_system_available(self):
@@ -131,16 +129,13 @@ class ShellHandlerApt:
         try:
             if not dialog_yesno(32018):
                 return False
-            dialog = xbmcgui.DialogBusy()
-            dialog.create()
-            if self.sudo:
-                x = check_output('echo \'%s\' | sudo -S %s' %(get_password(), _cmd), shell=True)
-            else:
-                x = check_output(_cmd.split())
-            dialog.close()
+            with busy():
+                if self.sudo:
+                    x = check_output('echo \'%s\' | sudo -S %s' %(get_password(), _cmd), shell=True)
+                else:
+                    x = check_output(_cmd.split())
             log("Upgrade System successful")
         except Exception as error:
             log("Exception while executing shell command %s: %s" %(_cmd, error),xbmc.LOGERROR)
             return False
-
         return True
