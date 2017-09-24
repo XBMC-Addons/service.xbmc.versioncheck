@@ -16,8 +16,10 @@
 #    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 import sys
-
 import os
+from subprocess import check_output
+from contextlib import contextmanager
+
 import xbmc
 import xbmcaddon
 import xbmcgui
@@ -58,14 +60,14 @@ def localise(id):
     string = normalize_string(ADDON.getLocalizedString(id))
     return string
 
-def log(txt):
+def log(txt,level_log=xbmc.LOGDEBUG):
     if sys.version_info.major >= 3:
-        message = '%s: %s' % ("Version Check", txt.encode('utf-8'))
+        message = '{} v{}: {}'.format(ADDONNAME,ADDONVERSION, txt).encode("utf-8")
     else:
         if isinstance (txt,str):
             txt = txt.decode("utf-8") 
-        message = (u'%s: %s' % ("Version Check", txt)).encode("utf-8")
-    xbmc.log(msg=message, level=xbmc.LOGDEBUG)
+        message =(u'{} v{}: {}'.format(ADDONNAME,ADDONVERSION, txt)).encode("utf-8")
+    xbmc.log(msg=message, level=level_log)
 
 def get_password_from_user():
     keyboard = xbmc.Keyboard("", ADDONNAME + "," +localise(32022), True)
@@ -74,15 +76,45 @@ def get_password_from_user():
         pwd = keyboard.getText()
     return pwd
 
+def get_password():
+    salt = ADDON.getSetting("salt")
+    hash = ADDON.getSetting("hash")
+    if not hash and not xbmcgui.Window(10000).getProperty(salt):
+        set_password()
+    else:
+        try:
+            mypwd = check_output('echo "%s" | openssl aes-256-cbc -d -pass %s -base64' %(hash,salt),shell=True)
+        except:
+            mypwd= xbmcgui.Window(10000).getProperty(salt)
+    return mypwd.strip()
+
+def set_password():
+    mypwd = get_password_from_user()
+    salt ="pass:"+text_random()
+    ADDON.setSetting("salt",salt)
+    xbmcgui.Window(10000).setProperty(salt, mypwd) # Set password in global random variable in memory
+    hash = check_output('echo "%s" | openssl aes-256-cbc -e -pass %s -base64' %(mypwd,salt),shell=True)
+    ADDON.setSetting("hash",hash)
+
+def message_info(id,builticon = 'INFO',timer = 5000):
+    built_icon = xbmcgui.NOTIFICATION_ERROR
+    if builticon =='INFO':
+        built_icon = xbmcgui.NOTIFICATION_INFO
+    xbmcgui.Dialog().notification(ADDONNAME, localise(id).encode('utf-8'), built_icon, timer, False)
+
 def message_upgrade_success():
     xbmc.executebuiltin("XBMC.Notification(%s, %s, %d, %s)" %(ADDONNAME,
-                                                              localise(32013),
+                                                              localise(32013).encode('utf-8'),
                                                               15000,
                                                               ICON))
 
-def message_restart():
+def message_restart_app():
     if dialog_yesno(32014):
         xbmc.executebuiltin("RestartApp")
+
+def message_restart_system():
+    if dialog_yesno(32017):
+        xbmc.executebuiltin("Reboot")
 
 def dialog_yesno(line1 = 0, line2 = 0):
     return xbmcgui.Dialog().yesno(ADDONNAME,
@@ -91,7 +123,6 @@ def dialog_yesno(line1 = 0, line2 = 0):
 
 def upgrade_message(msg, oldversion, upgrade, msg_current, msg_available):
     wait_for_end_of_video()
-
     if ADDON.getSetting("lastnotified_version") < ADDONVERSION:
         xbmcgui.Dialog().ok(ADDONNAME,
                     localise(msg),
@@ -115,7 +146,7 @@ def upgrade_message2( version_installed, version_available, version_stable, oldv
     msg_available = version_available['major'] + '.' + version_available['minor'] + ' ' + version_available['tag'] + version_available.get('tagversion','')
     msg_stable = version_stable['major'] + '.' + version_stable['minor'] + ' ' + version_stable['tag'] + version_stable.get('tagversion','')
     msg = localise(32034) %(msg_current, msg_available)
-
+    
     wait_for_end_of_video()
 
     # hack: convert current version number to stable string
@@ -185,3 +216,19 @@ def wait_for_end_of_video():
             # Abort was requested while waiting. We should exit
             break
         i += 1
+
+def text_random():
+    import random
+    import string
+    digits = "".join( [random.choice(string.digits) for i in xrange(8)] )
+    chars = "".join( [random.choice(string.letters) for i in xrange(15)] )
+    return digits + chars
+
+@contextmanager
+def busy():
+    dialog = xbmcgui.DialogBusy()
+    dialog.create()
+    try:
+        yield
+    finally:
+        dialog.close()
