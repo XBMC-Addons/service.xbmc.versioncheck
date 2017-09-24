@@ -16,20 +16,21 @@
 #    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 import xbmc
-from .common import *
+import xbmcgui
+from common import *
 
 try:
     from subprocess import check_output
     from subprocess import call
-except:
-    log('subprocess import error')
-
+except Exception as error:
+    log('subprocess import error :%s' %error,xbmc.LOGERROR)
 
 class ShellHandlerApt:
 
     _pwd = ""
 
     def __init__(self, usesudo=False):
+        log("Handler is Shell")
         self.sudo = usesudo
         installed, candidate = self._check_versions("xbmc", False)
         if not installed:
@@ -47,7 +48,7 @@ class ShellHandlerApt:
         try:
             result = check_output([_cmd], shell=True).split("\n")
         except Exception as error:
-            log("ShellHandlerApt: exception while executing shell command %s: %s" %(_cmd, error))
+            log("ShellHandlerApt: exception while executing shell command %s: %s" %(_cmd, error),xbmc.LOGERROR)
             return False, False
 
         if result[0].replace(":", "") == package:
@@ -66,13 +67,14 @@ class ShellHandlerApt:
         _cmd = 'apt-get update'
         try:
             if self.sudo:
-                x = check_output('echo \'%s\' | sudo -S %s' %(self._getpassword(), _cmd), shell=True)
+                log("Update cache [SUDO]")
+                x = check_output('echo \'%s\' | sudo -S %s' %(get_password(), _cmd), shell=True)
             else:
+                log("Update cache")
                 x = check_output(_cmd.split())
         except Exception as error:
-            log("Exception while executing shell command %s: %s" %(_cmd, error))
+            log("Exception while executing shell command %s: %s" %(_cmd, error),xbmc.LOGERROR)
             return False
-
         return True
 
     def check_upgrade_available(self, package):
@@ -84,9 +86,9 @@ class ShellHandlerApt:
                 log("Version available  %s" %candidate)
                 return True
             else:
-                log("Already on newest version")
+                log("Already on newest version for %s" %package)
         elif not installed:
-                log("No installed package found")
+                log("No installed package found for %s" %package)
                 return False
         else:
             return False
@@ -95,31 +97,45 @@ class ShellHandlerApt:
         _cmd = "apt-get install -y " + package
         try:
             if self.sudo:
-                x = check_output('echo \'%s\' | sudo -S %s' %(self._getpassword(), _cmd), shell=True)
+                x = check_output('echo \'%s\' | sudo -S %s' %(get_password(), _cmd), shell=True)
             else:
                 x = check_output(_cmd.split())
-            log("Upgrade successful")
+            log("Install package %s successful" %package,True)
         except Exception as error:
-            log("Exception while executing shell command %s: %s" %(_cmd, error))
+            log("Exception while executing shell command %s: %s" %(_cmd, error),xbmc.LOGERROR)
             return False
-
         return True
+
+    def check_upgrade_system_available(self):
+        _cmd = "apt list --upgradable"
+        try:
+            if self._update_cache():
+                if self.sudo:
+                    x = check_output('echo \'%s\' | sudo -S %s' %(get_password(), _cmd), shell=True)
+                else:
+                    x = check_output(_cmd.split())
+                n = len(x.splitlines())
+                if (n > 1):
+                    log("Upgrade system available")
+                    return True
+            log("No system update available")
+            return False
+        except Exception as error:
+            log("Exception while executing shell command %s: %s" %(_cmd, error),xbmc.LOGERROR)
+            return False
 
     def upgrade_system(self):
-        _cmd = "apt-get upgrade -y"
+        _cmd = "apt-get dist-upgrade -y"
         try:
-            log("Upgrading system")
-            if self.sudo:
-                x = check_output('echo \'%s\' | sudo -S %s' %(self._getpassword(), _cmd), shell=True)
-            else:
-                x = check_output(_cmd.split())
+            if not dialog_yesno(32018):
+                return False
+            with busy():
+                if self.sudo:
+                    x = check_output('echo \'%s\' | sudo -S %s' %(get_password(), _cmd), shell=True)
+                else:
+                    x = check_output(_cmd.split())
+            log("Upgrade System successful")
         except Exception as error:
-            log("Exception while executing shell command %s: %s" %(_cmd, error))
+            log("Exception while executing shell command %s: %s" %(_cmd, error),xbmc.LOGERROR)
             return False
-
         return True
-
-    def _getpassword(self):
-        if len(self._pwd) == 0:
-            self._pwd = get_password_from_user()
-        return self._pwd
