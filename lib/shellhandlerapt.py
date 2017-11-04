@@ -77,6 +77,19 @@ class ShellHandlerApt:
             return False
         return True
 
+    def  _autoremove_package(self):
+        _cmd = "apt-get autoremove -y "
+        try:
+            if self.sudo:
+                x = check_output('echo \'%s\' | sudo -S %s' %(get_password(), _cmd), shell=True)
+            else:
+                x = check_output(_cmd.split())
+            log("Automatically remove old package successful",True)
+        except Exception as error:
+            log("Exception while executing shell command %s: %s" %(_cmd, error),xbmc.LOGERROR)
+            return False
+        return True
+
     def check_upgrade_available(self, package):
         '''returns True if newer package is available in the repositories'''
         installed, candidate = self._check_versions(package)
@@ -109,6 +122,7 @@ class ShellHandlerApt:
     def check_upgrade_system_available(self):
         _cmd = "apt list --upgradable"
         try:
+            self._autoremove_package()
             if self._update_cache():
                 if self.sudo:
                     x = check_output('echo \'%s\' | sudo -S %s' %(get_password(), _cmd), shell=True)
