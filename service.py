@@ -16,10 +16,11 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
+import time
 import xbmc
 import xbmcgui
 import lib.common
-from lib.common import log, dialog_yesno, message_info, set_password
+from lib.common import log, dialog_yesno, message_info, set_password,localise
 from lib.common import upgrade_message as _upgrademessage
 from lib.common import upgrade_message2 as _upgrademessage2
 
@@ -39,7 +40,11 @@ class Main:
                 if oldversion:
                     self._upgrademessage2( version_installed, version_available, version_stable, oldversion, False)
                 else:
-                    message_info(32027)
+                    dialogbg = xbmcgui.DialogProgressBG()
+                    dialogbg.create('Version Check')
+                    dialogbg.update(100,'Version Check',localise(32027))
+                    time.sleep(1)
+                    dialogbg.close()
 
     def _versioncheck(self):
         # initial vars
@@ -70,44 +75,55 @@ class Main:
                 if ADDON.getSetting("upgrade_sudo") == "true":
                     sudo = True
                 handler = ShellHandlerApt(sudo)
+            dialogbg = xbmcgui.DialogProgressBG()
+            dialogbg.create('Version Check')
+            if (ADDON.getSetting("versioncheck_enable") == "true" and ADDON.getSetting("upgrade_system") == "true"):
+                count = 50
+            else:
+                count = 0
             if handler:
                 if ADDON.getSetting("versioncheck_enable") == "true":
+                    dialogbg.update(10,'Version Check','Check kodi upgrade')
                     if handler.check_upgrade_available(packages[0]):
-                        message_info(32016)
+                        dialogbg.update(30,'Version Check',localise(32016))
                         result = handler.upgrade_package(packages[0])
                         if result:
                             from lib.common import message_upgrade_success, message_restart_app
+                            dialogbg.update(100-count,'Version Check',localise(32013))
                             message_upgrade_success()
                             message_restart_app()
                         else:
                             log("Abort during upgrade %s" %packages[0],xbmc.LOGERROR)
-                            message_info(32029)
+                            dialogbg.update(100-count,'Version Check',localise(32029))
                     else:
-                        message_info(32027)
-
+                        dialogbg.update(100-count,'Version Check',localise(32027))
+                time.sleep(1)
                 if ADDON.getSetting("upgrade_system") == "true":
+                    dialogbg.update(10+count,'Version Check','Check system upgrade')
                     if handler.check_upgrade_system_available():
-                        message_info(32019)
+                        dialogbg.update(30+count,'Version Check',localise(32019))
                         result = handler.upgrade_system()
                         if result:
                             from lib.common import message_upgrade_success, message_restart_system
+                            dialogbg.update(100,'Version Check',localise(32013))
                             message_upgrade_success()
                             message_restart_system()
                         else:
                             log("Abort during upgrade system",xbmc.LOGERROR)
-                            message_info(32029)
+                            dialogbg.update(100,'Version Check',localise(32029))
                     else:
-                        message_info(32028)
+                        dialogbg.update(100,'Version Check',localise(32028))
             else:
                 log("Error: no handler found",xbmc.LOGERROR)
-                message_info(32029)
+                dialogbg.update(100,'Version Check',localise(32029))
+            time.sleep(1)
+            dialogbg.close()
         else:
             log("Unsupported platform %s" %platform.dist()[0],xbmc.LOGERROR)
             sys.exit(0)
 
 if (__name__ == "__main__"):
     log('Service started')
-    message_info(32026)
     monitor = xbmc.Monitor()
     while not monitor.abortRequested():
         Main()

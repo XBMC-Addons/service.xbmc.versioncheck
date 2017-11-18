@@ -24,6 +24,14 @@ msgctxt "#32002"
 msgid "Visit Kodi.tv for more information."
 msgstr "Consulter kodi.tv pour plus d'informations."
 
+msgctxt "#32007"
+msgid "Check kodi upgrade available."
+msgstr "Vérification de la mise à jour de Kodi"
+
+msgctxt "#32008"
+msgid "Check system upgrade available."
+msgstr "Vérification de la mise à jour système"
+
 msgctxt "#32009"
 msgid "Would you like to remove this reminder?"
 msgstr "Faut-il retirer ce rappel ?"

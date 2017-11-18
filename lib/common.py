@@ -74,7 +74,7 @@ def get_password_from_user():
     keyboard.doModal()
     if (keyboard.isConfirmed()):
         pwd = keyboard.getText()
-    return pwd
+        return pwd
 
 def get_password():
     salt = ADDON.getSetting("salt")
@@ -90,11 +90,12 @@ def get_password():
 
 def set_password():
     mypwd = get_password_from_user()
-    salt ="pass:"+text_random()
-    ADDON.setSetting("salt",salt)
-    xbmcgui.Window(10000).setProperty(salt, mypwd) # Set password in global random variable in memory
-    hash = check_output('echo "%s" | openssl aes-256-cbc -e -pass %s -base64' %(mypwd,salt),shell=True)
-    ADDON.setSetting("hash",hash)
+    if mypwd:
+        salt ="pass:"+text_random()
+        ADDON.setSetting("salt",salt)
+        xbmcgui.Window(10000).setProperty(salt, mypwd) # Set password in global random variable in memory
+        hash = check_output('echo "%s" | openssl aes-256-cbc -e -pass %s -base64' %(mypwd,salt),shell=True)
+        ADDON.setSetting("hash",hash)
 
 def message_info(id,builticon = 'INFO',timer = 5000):
     built_icon = xbmcgui.NOTIFICATION_ERROR
@@ -225,7 +226,7 @@ def text_random():
     return digits + chars
 
 @contextmanager
-def busy():
+def busy(text='',head = 'Version Check'):
     dialog = xbmcgui.DialogBusy()
     dialog.create()
     try:

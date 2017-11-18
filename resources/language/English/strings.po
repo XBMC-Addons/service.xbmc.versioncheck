@@ -24,7 +24,15 @@ msgctxt "#32002"
 msgid "Visit Kodi.tv for more information."
 msgstr ""
 
-#empty strings from id 32003 to 32008
+#empty strings from id 32003 to 32006
+
+msgctxt "#32007"
+msgid "Check kodi upgrade available."
+msgstr ""
+
+msgctxt "#32008"
+msgid "Check system upgrade available."
+msgstr ""
 
 msgctxt "#32009"
 msgid "Would you like to remove this reminder?"
