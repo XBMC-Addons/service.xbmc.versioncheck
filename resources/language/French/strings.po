@@ -136,11 +136,7 @@ msgctxt "#32035"
 msgid "It is recommended that you to upgrade to a newer version."
 msgstr "Il est recommandé de mettre à niveau vers une nouvelle version."
 
-msgctxt "#32037"
-msgid "Do you want checking updates?"
-msgstr "Voulez vous lancer une vérification des mise à jours ?"
-
-msgctxt "#32038"
+msgctxt "#32036"
 msgid "Autoremove old packages"
 msgstr "Nettoyer automatiquement les paquets obsolètes"
 
