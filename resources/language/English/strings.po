@@ -144,10 +144,6 @@ msgctxt "#32035"
 msgid "It is recommended that you to upgrade to a newer version."
 msgstr ""
 
-msgctxt "#32037"
-msgid "Do you want checking updates?"
-msgstr ""
-
-msgctxt "#32038"
+msgctxt "#32036"
 msgid "Autoremove old packages"
 msgstr ""
