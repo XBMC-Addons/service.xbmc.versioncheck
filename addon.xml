@@ -6,10 +6,11 @@
     <requires>
         <import addon="xbmc.python" version="2.14.0"/>
     </requires>
-    <extension point="xbmc.service" library="service.py" start="login"/>
+    <extension point="xbmc.service" library="resources/lib/runner.py" start="login"/>
     <extension point="xbmc.addon.metadata">
         <news>
 - Update to use SPDX license identifiers
+- Refactor add-on structure
         </news>
         <summary lang="be">Kodi Version Check checks if you are running latest released version.</summary>
         <summary lang="bg">Проверява дали ползвате най-новата версия на Kodi.</summary>
