@@ -42,7 +42,7 @@ class Viewer:
 
     def __init__(self, *args, **kwargs):
         # activate the text viewer window
-        xbmc.executebuiltin("ActivateWindow(%d)" % (self.WINDOW,))
+        xbmc.executebuiltin('ActivateWindow(%d)' % (self.WINDOW,))
         # get window
         self.window = xbmcgui.Window(self.WINDOW)
         # give window time to initialize
@@ -54,25 +54,25 @@ class Viewer:
         # get header, text
         heading, text = self.getText()
         # set heading
-        self.window.getControl(self.CONTROL_LABEL).setLabel("%s : %s" % (ADDONNAME, heading,))
+        self.window.getControl(self.CONTROL_LABEL).setLabel('%s : %s' % (ADDONNAME, heading,))
         # set text
         self.window.getControl(self.CONTROL_TEXTBOX).setText(text)
         xbmc.sleep(2000)
 
     def getText(self):
         try:
-            if sys.argv[1] == "gotham-alpha_notice":
-                return "Call to Gotham alpha users", self.readFile(os.path.join(ADDONPATH, "resources/gotham-alpha_notice.txt"))
+            if sys.argv[1] == 'gotham-alpha_notice':
+                return 'Call to Gotham alpha users', self.readFile(os.path.join(ADDONPATH, 'resources/gotham-alpha_notice.txt'))
         except Exception as e:
             xbmc.log(ADDONNAME + ': ' + str(e), xbmc.LOGERROR)
-        return "", ""
+        return '', ''
 
     def readFile(self, filename):
         return open(filename).read()
 
 
 class WebBrowser:
-    """ Display url using the default browser. """
+    ''' Display url using the default browser. '''
 
     def __init__(self, *args, **kwargs):
         try:
@@ -92,7 +92,7 @@ class WebBrowser:
 
 def Main():
     try:
-        if sys.argv[1] == "webbrowser":
+        if sys.argv[1] == 'webbrowser':
             WebBrowser()
         else:
             Viewer()
@@ -100,5 +100,5 @@ def Main():
         xbmc.log(ADDONNAME + ': ' + str(e), xbmc.LOGERROR)
 
 
-if (__name__ == "__main__"):
+if (__name__ == '__main__'):
     Main()

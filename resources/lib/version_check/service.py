@@ -44,7 +44,7 @@ class Main:
         if waitForAbort(5):
             sys.exit(0)
 
-        if xbmc.getCondVisibility('System.Platform.Linux') and ADDON.getSetting("upgrade_apt") == 'true':
+        if xbmc.getCondVisibility('System.Platform.Linux') and ADDON.getSetting('upgrade_apt') == 'true':
             packages = ['kodi']
             _versionchecklinux(packages)
         else:
@@ -83,14 +83,14 @@ def _versionchecklinux(packages):
             if dialog_yesno(32015):
                 pass
             elif dialog_yesno(32009, 32010):
-                log("disabling addon by user request")
-                ADDON.setSetting("versioncheck_enable", 'false')
+                log('disabling addon by user request')
+                ADDON.setSetting('versioncheck_enable', 'false')
                 return
 
         if handler:
             if handler.check_upgrade_available(packages[0]):
                 if upgrade_message(32012, oldversion, True):
-                    if ADDON.getSetting("upgrade_system") == "false":
+                    if ADDON.getSetting('upgrade_system') == 'false':
                         result = handler.upgrade_package(packages[0])
                     else:
                         result = handler.upgrade_system()
@@ -98,11 +98,11 @@ def _versionchecklinux(packages):
                         message_upgrade_success()
                         message_restart()
                     else:
-                        log("Error during upgrade")
+                        log('Error during upgrade')
         else:
-            log("Error: no handler found")
+            log('Error: no handler found')
     else:
-        log("Unsupported platform %s" % platform.dist()[0])
+        log('Unsupported platform %s' % platform.dist()[0])
         sys.exit(0)
 
 
@@ -128,8 +128,8 @@ def _checkcryptography():
 
 def run():
     _checkcryptography()
-    if ADDON.getSetting("versioncheck_enable") == "false":
-        log("Disabled")
+    if ADDON.getSetting('versioncheck_enable') == 'false':
+        log('Disabled')
     else:
         log('Version %s started' % ADDONVERSION)
         Main()

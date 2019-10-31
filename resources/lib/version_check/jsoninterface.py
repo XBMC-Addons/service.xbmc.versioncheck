@@ -41,7 +41,7 @@ def get_versionfilelist():
     # retrieve versionlists from supplied version file
     version_file = os.path.join(ADDONPATH, 'resources/versions.txt')
     # Eden didn't have xbmcvfs.File()
-    if xbmcaddon.Addon('xbmc.addon').getAddonInfo('version') < "11.9.3":
+    if xbmcaddon.Addon('xbmc.addon').getAddonInfo('version') < '11.9.3':
         file = open(version_file, 'r')
     else:
         file = xbmcvfs.File(version_file)
