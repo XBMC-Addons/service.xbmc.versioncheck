@@ -16,12 +16,13 @@ import xbmc
 from .common import *
 
 try:
-    #import apt
+    # import apt
     import apt
     from aptdaemon import client
     from aptdaemon import errors
 except:
     log('python apt import error')
+
 
 class AptdaemonHandler:
 
@@ -33,20 +34,20 @@ class AptdaemonHandler:
             return False, False
         try:
             trans = self.aptclient.upgrade_packages([package])
-            #trans = self.aptclient.upgrade_packages("bla")
+            # trans = self.aptclient.upgrade_packages("bla")
             trans.simulate(reply_handler=self._apttransstarted, error_handler=self._apterrorhandler)
             pkg = trans.packages[4][0]
             if pkg == package:
-               cache=apt.Cache()
-               cache.open(None)
-               cache.upgrade()
-               if cache[pkg].installed:
-                   return cache[pkg].installed.version, cache[pkg].candidate.version
+                cache = apt.Cache()
+                cache.open(None)
+                cache.upgrade()
+                if cache[pkg].installed:
+                    return cache[pkg].installed.version, cache[pkg].candidate.version
 
             return False, False
 
         except Exception as error:
-            log("Exception while checking versions: %s" %error)
+            log("Exception while checking versions: %s" % error)
             return False, False
 
     def _update_cache(self):
@@ -64,14 +65,14 @@ class AptdaemonHandler:
         installed, candidate = self._check_versions(package)
         if installed and candidate:
             if installed != candidate:
-                log("Version installed  %s" %installed)
-                log("Version available  %s" %candidate)
+                log("Version installed  %s" % installed)
+                log("Version available  %s" % candidate)
                 return True
             else:
                 log("Already on newest version")
         elif not installed:
-                log("No installed package found")
-                return False
+            log("No installed package found")
+            return False
         else:
             return False
 
@@ -82,7 +83,7 @@ class AptdaemonHandler:
                 log("Upgrade successful")
                 return True
         except Exception as error:
-            log("Exception during upgrade: %s" %error)
+            log("Exception during upgrade: %s" % error)
         return False
 
     def upgrade_system(self):
@@ -91,7 +92,7 @@ class AptdaemonHandler:
             if self.aptclient.upgrade_system(wait=True) == "exit-success":
                 return True
         except Exception as error:
-            log("Exception during system upgrade: %s" %error)
+            log("Exception during system upgrade: %s" % error)
         return False
 
     def _getpassword(self):
@@ -101,6 +102,6 @@ class AptdaemonHandler:
 
     def _apttransstarted(self):
         pass
-    
+
     def _apterrorhandler(self, error):
-        log("Apt Error %s" %error)
+        log("Apt Error %s" % error)

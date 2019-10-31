@@ -14,7 +14,7 @@
 
 """
 
-#import modules
+# import modules
 import os
 import sys
 import xbmc
@@ -22,16 +22,17 @@ import xbmcgui
 import xbmcaddon
 
 ### get addon info
-ADDON        = xbmcaddon.Addon('service.xbmc.versioncheck')
+ADDON = xbmcaddon.Addon('service.xbmc.versioncheck')
 ADDONVERSION = ADDON.getAddonInfo('version')
-ADDONNAME    = ADDON.getAddonInfo('name')
+ADDONNAME = ADDON.getAddonInfo('name')
 if sys.version_info[0] >= 3:
-    ADDONPATH    = ADDON.getAddonInfo('path')
-    ADDONPROFILE = xbmc.translatePath( ADDON.getAddonInfo('profile') )
+    ADDONPATH = ADDON.getAddonInfo('path')
+    ADDONPROFILE = xbmc.translatePath(ADDON.getAddonInfo('profile'))
 else:
-    ADDONPATH    = ADDON.getAddonInfo('path').decode('utf-8')
-    ADDONPROFILE = xbmc.translatePath( ADDON.getAddonInfo('profile') ).decode('utf-8')
-ICON         = ADDON.getAddonInfo('icon')
+    ADDONPATH = ADDON.getAddonInfo('path').decode('utf-8')
+    ADDONPROFILE = xbmc.translatePath(ADDON.getAddonInfo('profile')).decode('utf-8')
+ICON = ADDON.getAddonInfo('icon')
+
 
 class Viewer:
     # constants
@@ -50,24 +51,25 @@ class Viewer:
         self.setControls()
 
     def setControls(self):
-        #get header, text
+        # get header, text
         heading, text = self.getText()
         # set heading
-        self.window.getControl(self.CONTROL_LABEL).setLabel("%s : %s" % (ADDONNAME, heading, ))
+        self.window.getControl(self.CONTROL_LABEL).setLabel("%s : %s" % (ADDONNAME, heading,))
         # set text
         self.window.getControl(self.CONTROL_TEXTBOX).setText(text)
         xbmc.sleep(2000)
 
     def getText(self):
         try:
-            if sys.argv[ 1 ] == "gotham-alpha_notice":
-                return "Call to Gotham alpha users", self.readFile(os.path.join(ADDONPATH , "resources/gotham-alpha_notice.txt"))
+            if sys.argv[1] == "gotham-alpha_notice":
+                return "Call to Gotham alpha users", self.readFile(os.path.join(ADDONPATH, "resources/gotham-alpha_notice.txt"))
         except Exception as e:
             xbmc.log(ADDONNAME + ': ' + str(e), xbmc.LOGERROR)
         return "", ""
 
     def readFile(self, filename):
         return open(filename).read()
+
 
 class WebBrowser:
     """ Display url using the default browser. """
@@ -87,14 +89,16 @@ class WebBrowser:
         import webbrowser
         webbrowser.open(url)
 
+
 def Main():
     try:
-        if sys.argv[ 1 ] == "webbrowser":
+        if sys.argv[1] == "webbrowser":
             WebBrowser()
         else:
             Viewer()
     except Exception as e:
         xbmc.log(ADDONNAME + ': ' + str(e), xbmc.LOGERROR)
+
 
 if (__name__ == "__main__"):
     Main()

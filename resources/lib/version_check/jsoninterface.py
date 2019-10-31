@@ -20,9 +20,10 @@ import xbmcvfs
 from . import common
 from .common import log
 
-ADDONPATH    = common.ADDONPATH
+ADDONPATH = common.ADDONPATH
 
 import json as jsoninterface
+
 
 def get_installedversion():
     # retrieve current installed version
@@ -34,8 +35,9 @@ def get_installedversion():
     json_query = jsoninterface.loads(json_query)
     version_installed = []
     if 'result' in json_query and 'version' in json_query['result']:
-        version_installed  = json_query['result']['version']
+        version_installed = json_query['result']['version']
     return version_installed
+
 
 def get_versionfilelist():
     # retrieve versionlists from supplied version file

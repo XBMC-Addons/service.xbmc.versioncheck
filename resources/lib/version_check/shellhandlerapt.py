@@ -23,7 +23,6 @@ except:
 
 
 class ShellHandlerApt:
-
     _pwd = ""
 
     def __init__(self, usesudo=False):
@@ -44,7 +43,7 @@ class ShellHandlerApt:
         try:
             result = check_output([_cmd], shell=True).split("\n")
         except Exception as error:
-            log("ShellHandlerApt: exception while executing shell command %s: %s" %(_cmd, error))
+            log("ShellHandlerApt: exception while executing shell command %s: %s" % (_cmd, error))
             return False, False
 
         if result[0].replace(":", "") == package:
@@ -63,11 +62,11 @@ class ShellHandlerApt:
         _cmd = 'apt-get update'
         try:
             if self.sudo:
-                x = check_output('echo \'%s\' | sudo -S %s' %(self._getpassword(), _cmd), shell=True)
+                x = check_output('echo \'%s\' | sudo -S %s' % (self._getpassword(), _cmd), shell=True)
             else:
                 x = check_output(_cmd.split())
         except Exception as error:
-            log("Exception while executing shell command %s: %s" %(_cmd, error))
+            log("Exception while executing shell command %s: %s" % (_cmd, error))
             return False
 
         return True
@@ -77,14 +76,14 @@ class ShellHandlerApt:
         installed, candidate = self._check_versions(package)
         if installed and candidate:
             if installed != candidate:
-                log("Version installed  %s" %installed)
-                log("Version available  %s" %candidate)
+                log("Version installed  %s" % installed)
+                log("Version available  %s" % candidate)
                 return True
             else:
                 log("Already on newest version")
         elif not installed:
-                log("No installed package found")
-                return False
+            log("No installed package found")
+            return False
         else:
             return False
 
@@ -92,12 +91,12 @@ class ShellHandlerApt:
         _cmd = "apt-get install -y " + package
         try:
             if self.sudo:
-                x = check_output('echo \'%s\' | sudo -S %s' %(self._getpassword(), _cmd), shell=True)
+                x = check_output('echo \'%s\' | sudo -S %s' % (self._getpassword(), _cmd), shell=True)
             else:
                 x = check_output(_cmd.split())
             log("Upgrade successful")
         except Exception as error:
-            log("Exception while executing shell command %s: %s" %(_cmd, error))
+            log("Exception while executing shell command %s: %s" % (_cmd, error))
             return False
 
         return True
@@ -107,11 +106,11 @@ class ShellHandlerApt:
         try:
             log("Upgrading system")
             if self.sudo:
-                x = check_output('echo \'%s\' | sudo -S %s' %(self._getpassword(), _cmd), shell=True)
+                x = check_output('echo \'%s\' | sudo -S %s' % (self._getpassword(), _cmd), shell=True)
             else:
                 x = check_output(_cmd.split())
         except Exception as error:
-            log("Exception while executing shell command %s: %s" %(_cmd, error))
+            log("Exception while executing shell command %s: %s" % (_cmd, error))
             return False
 
         return True

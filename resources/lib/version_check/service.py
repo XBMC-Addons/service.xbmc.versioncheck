@@ -21,14 +21,15 @@ from .common import log, dialog_yesno, localise, waitForAbort
 from .common import upgrade_message as _upgrademessage
 from .common import upgrade_message2 as _upgrademessage2
 
-ADDON        = common.ADDON
+ADDON = common.ADDON
 ADDONVERSION = common.ADDONVERSION
-ADDONNAME    = common.ADDONNAME
-ADDONPATH    = common.ADDONPATH
-ICON         = common.ICON
+ADDONNAME = common.ADDONNAME
+ADDONPATH = common.ADDONPATH
+ICON = common.ICON
 oldversion = False
 
 monitor = xbmc.Monitor()
+
 
 class Main:
     def __init__(self):
@@ -44,8 +45,9 @@ class Main:
         else:
             oldversion, version_installed, version_available, version_stable = _versioncheck()
             if oldversion:
-                _upgrademessage2( version_installed, version_available, version_stable, oldversion, False)
-                
+                _upgrademessage2(version_installed, version_available, version_stable, oldversion, False)
+
+
 def _versioncheck():
     # initial vars
     from .jsoninterface import get_installedversion, get_versionfilelist
@@ -96,8 +98,9 @@ def _versionchecklinux(packages):
         else:
             log("Error: no handler found")
     else:
-        log("Unsupported platform %s" %platform.dist()[0])
+        log("Unsupported platform %s" % platform.dist()[0])
         sys.exit(0)
+
 
 # Python cryptography < 1.7 (still shipped with Ubuntu 16.04) has issues with
 # pyOpenSSL integration, leading to all sorts of weird bugs - check here to save
@@ -112,11 +115,12 @@ def _checkcryptography():
     except:
         # If the module is not found - no problem
         return
-        
+
     ver_parts = list(map(int, ver.split('.')))
     if len(ver_parts) < 2 or ver_parts[0] < 1 or (ver_parts[0] == 1 and ver_parts[1] < 7):
         log('Python cryptography module version %s is too old, at least version 1.7 needed' % ver)
         xbmcgui.Dialog().ok(ADDONNAME, localise(32040) % ver, localise(32041), localise(32042))
+
 
 def run():
     _checkcryptography()
