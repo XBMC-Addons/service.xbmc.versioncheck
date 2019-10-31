@@ -14,9 +14,9 @@
 
 """
 
-# import modules
 import os
 import sys
+
 import xbmc
 import xbmcgui
 import xbmcaddon

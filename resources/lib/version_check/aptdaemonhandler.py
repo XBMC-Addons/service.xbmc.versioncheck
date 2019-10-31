@@ -12,11 +12,10 @@
 
 """
 
-import xbmc
-from .common import *
+from .common import get_password_from_user
+from .common import log
 
 try:
-    # import apt
     import apt
     from aptdaemon import client
     from aptdaemon import errors

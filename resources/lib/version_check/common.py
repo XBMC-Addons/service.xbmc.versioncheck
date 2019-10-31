@@ -14,11 +14,9 @@
 
 import sys
 
-import os
 import xbmc
 import xbmcaddon
 import xbmcgui
-import xbmcvfs
 
 ADDON = xbmcaddon.Addon()
 ADDONVERSION = ADDON.getAddonInfo('version')

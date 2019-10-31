@@ -12,8 +12,10 @@
 
 """
 
-import xbmc
-from .common import *
+import sys
+
+from .common import get_password_from_user
+from .common import log
 
 try:
     from subprocess import check_output
@@ -31,7 +33,6 @@ class ShellHandlerApt:
         if not installed:
             # there is no package installed via repo, so we exit here
             log("No installed package found, exiting")
-            import sys
             sys.exit(0)
 
     def _check_versions(self, package, update=True):

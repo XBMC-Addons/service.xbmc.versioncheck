@@ -12,17 +12,15 @@
 
 """
 
+import json as jsoninterface
 import os
 import sys
+
 import xbmc
 import xbmcaddon
 import xbmcvfs
-from . import common
-from .common import log
 
-ADDONPATH = common.ADDONPATH
-
-import json as jsoninterface
+from .common import ADDONPATH
 
 
 def get_installedversion():

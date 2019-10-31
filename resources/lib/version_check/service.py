@@ -14,18 +14,23 @@
 """
 
 import platform
+import sys
+
 import xbmc
 import xbmcgui
-from . import common
-from .common import log, dialog_yesno, localise, waitForAbort
-from .common import upgrade_message as _upgrademessage
-from .common import upgrade_message2 as _upgrademessage2
 
-ADDON = common.ADDON
-ADDONVERSION = common.ADDONVERSION
-ADDONNAME = common.ADDONNAME
-ADDONPATH = common.ADDONPATH
-ICON = common.ICON
+from .common import ADDON
+from .common import ADDONNAME
+from .common import ADDONVERSION
+from .common import dialog_yesno
+from .common import localise
+from .common import log
+from .common import waitForAbort
+from .common import message_restart
+from .common import message_upgrade_success
+from .common import upgrade_message
+from .common import upgrade_message2
+
 oldversion = False
 
 monitor = xbmc.Monitor()
@@ -45,7 +50,7 @@ class Main:
         else:
             oldversion, version_installed, version_available, version_stable = _versioncheck()
             if oldversion:
-                _upgrademessage2(version_installed, version_available, version_stable, oldversion, False)
+                upgrade_message2(version_installed, version_available, version_stable, oldversion, False)
 
 
 def _versioncheck():
@@ -84,13 +89,12 @@ def _versionchecklinux(packages):
 
         if handler:
             if handler.check_upgrade_available(packages[0]):
-                if _upgrademessage(32012, oldversion, True):
+                if upgrade_message(32012, oldversion, True):
                     if ADDON.getSetting("upgrade_system") == "false":
                         result = handler.upgrade_package(packages[0])
                     else:
                         result = handler.upgrade_system()
                     if result:
-                        from .common import message_upgrade_success, message_restart
                         message_upgrade_success()
                         message_restart()
                     else:
