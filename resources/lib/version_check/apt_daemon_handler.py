@@ -23,18 +23,19 @@ except:
     log('python apt import error')
 
 
-class AptdaemonHandler:
+class AptDaemonHandler:
 
     def __init__(self):
-        self.aptclient = client.AptClient()
+        self.apt_client = client.AptClient()
 
     def _check_versions(self, package):
         if not self._update_cache():
             return False, False
         try:
-            trans = self.aptclient.upgrade_packages([package])
-            # trans = self.aptclient.upgrade_packages('bla')
-            trans.simulate(reply_handler=self._apttransstarted, error_handler=self._apterrorhandler)
+            trans = self.apt_client.upgrade_packages([package])
+            # trans = self.apt_client.upgrade_packages('bla')
+            trans.simulate(reply_handler=self._apt_trans_started,
+                           error_handler=self._apt_error_handler)
             pkg = trans.packages[4][0]
             if pkg == package:
                 cache = apt.Cache()
@@ -51,7 +52,7 @@ class AptdaemonHandler:
 
     def _update_cache(self):
         try:
-            if self.aptclient.update_cache(wait=True) == 'exit-success':
+            if self.apt_client.update_cache(wait=True) == 'exit-success':
                 return True
             else:
                 return False
@@ -60,7 +61,9 @@ class AptdaemonHandler:
             return False
 
     def check_upgrade_available(self, package):
-        '''returns True if newer package is available in the repositories'''
+        """
+            returns True if newer package is available in the repositories
+        """
         installed, candidate = self._check_versions(package)
         if installed and candidate:
             if installed != candidate:
@@ -78,7 +81,7 @@ class AptdaemonHandler:
     def upgrade_package(self, package):
         try:
             log('Installing new version')
-            if self.aptclient.upgrade_packages([package], wait=True) == 'exit-success':
+            if self.apt_client.upgrade_packages([package], wait=True) == 'exit-success':
                 log('Upgrade successful')
                 return True
         except Exception as error:
@@ -88,19 +91,20 @@ class AptdaemonHandler:
     def upgrade_system(self):
         try:
             log('Upgrading system')
-            if self.aptclient.upgrade_system(wait=True) == 'exit-success':
+            if self.apt_client.upgrade_system(wait=True) == 'exit-success':
                 return True
         except Exception as error:
             log('Exception during system upgrade: %s' % error)
         return False
 
-    def _getpassword(self):
+    def _get_password(self):
         if len(self._pwd) == 0:
             self._pwd = get_password_from_user()
         return self._pwd
 
-    def _apttransstarted(self):
+    def _apt_trans_started(self):
         pass
 
-    def _apterrorhandler(self, error):
+    @staticmethod
+    def _apt_error_handler(error):
         log('Apt Error %s' % error)

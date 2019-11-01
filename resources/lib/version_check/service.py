@@ -20,76 +20,72 @@ import xbmc
 import xbmcgui
 
 from .common import ADDON
-from .common import ADDONNAME
-from .common import ADDONVERSION
-from .common import dialog_yesno
+from .common import ADDON_NAME
+from .common import ADDON_VERSION
+from .common import dialog_yes_no
 from .common import localise
 from .common import log
-from .common import waitForAbort
+from .common import wait_for_abort
 from .common import message_restart
 from .common import message_upgrade_success
 from .common import upgrade_message
 from .common import upgrade_message2
-
-oldversion = False
-
-monitor = xbmc.Monitor()
+from .json_interface import get_version_file_list
+from .json_interface import get_installed_version
+from .versions import compare_version
 
 
 class Main:
     def __init__(self):
-        linux = False
-        packages = []
-
-        if waitForAbort(5):
+        if wait_for_abort(5):
             sys.exit(0)
 
-        if xbmc.getCondVisibility('System.Platform.Linux') and ADDON.getSetting('upgrade_apt') == 'true':
+        if (xbmc.getCondVisibility('System.Platform.Linux') and
+                ADDON.getSetting('upgrade_apt') == 'true'):
             packages = ['kodi']
-            _versionchecklinux(packages)
+            _version_check_linux(packages)
         else:
-            oldversion, version_installed, version_available, version_stable = _versioncheck()
-            if oldversion:
-                upgrade_message2(version_installed, version_available, version_stable, oldversion, False)
+            old_version, version_installed, version_available, version_stable = _version_check()
+            if old_version:
+                upgrade_message2(version_installed, version_available, version_stable, old_version)
 
 
-def _versioncheck():
+def _version_check():
     # initial vars
-    from .jsoninterface import get_installedversion, get_versionfilelist
-    from .versions import compare_version
-    # retrieve versionlists from supplied version file
-    versionlist = get_versionfilelist()
+
+    # retrieve version_lists from supplied version file
+    version_list = get_version_file_list()
     # retrieve version installed
-    version_installed = get_installedversion()
+    version_installed = get_installed_version()
     # compare installed and available
-    oldversion, version_installed, version_available, version_stable = compare_version(version_installed, versionlist)
-    return oldversion, version_installed, version_available, version_stable
+    old_version, version_installed, version_available, version_stable = \
+        compare_version(version_installed, version_list)
+    return old_version, version_installed, version_available, version_stable
 
 
-def _versionchecklinux(packages):
-    if platform.dist()[0].lower() in ['ubuntu', 'debian', 'linuxmint']:
-        handler = False
-        result = False
+def _version_check_linux(packages):
+    if platform.linux_distribution(full_distribution_name=0)[0].lower() in \
+            ['ubuntu', 'debian', 'linuxmint']:
         try:
             # try aptdaemon first
-            from .aptdaemonhandler import AptdaemonHandler
-            handler = AptdaemonHandler()
+            from .apt_daemon_handler import AptDaemonHandler
+            handler = AptDaemonHandler()
         except:
             # fallback to shell
             # since we need the user password, ask to check for new version first
-            from .shellhandlerapt import ShellHandlerApt
+            from .shell_handler_apt import ShellHandlerApt
             sudo = True
             handler = ShellHandlerApt(sudo)
-            if dialog_yesno(32015):
+            if dialog_yes_no(32015):
                 pass
-            elif dialog_yesno(32009, 32010):
+            elif dialog_yes_no(32009, 32010):
                 log('disabling addon by user request')
                 ADDON.setSetting('versioncheck_enable', 'false')
                 return
 
         if handler:
             if handler.check_upgrade_available(packages[0]):
-                if upgrade_message(32012, oldversion, True):
+                if upgrade_message(32012):
                     if ADDON.getSetting('upgrade_system') == 'false':
                         result = handler.upgrade_package(packages[0])
                     else:
@@ -102,7 +98,7 @@ def _versionchecklinux(packages):
         else:
             log('Error: no handler found')
     else:
-        log('Unsupported platform %s' % platform.dist()[0])
+        log('Unsupported platform %s' % platform.linux_distribution(full_distribution_name=0)[0])
         sys.exit(0)
 
 
@@ -111,8 +107,7 @@ def _versionchecklinux(packages):
 # on some troubleshooting. This check may be removed in the future (when switching
 # to Python3?)
 # See https://github.com/pyca/pyopenssl/issues/542
-def _checkcryptography():
-    ver = None
+def _check_cryptography():
     try:
         import cryptography
         ver = cryptography.__version__
@@ -123,13 +118,13 @@ def _checkcryptography():
     ver_parts = list(map(int, ver.split('.')))
     if len(ver_parts) < 2 or ver_parts[0] < 1 or (ver_parts[0] == 1 and ver_parts[1] < 7):
         log('Python cryptography module version %s is too old, at least version 1.7 needed' % ver)
-        xbmcgui.Dialog().ok(ADDONNAME, localise(32040) % ver, localise(32041), localise(32042))
+        xbmcgui.Dialog().ok(ADDON_NAME, localise(32040) % ver, localise(32041), localise(32042))
 
 
 def run():
-    _checkcryptography()
+    _check_cryptography()
     if ADDON.getSetting('versioncheck_enable') == 'false':
         log('Disabled')
     else:
-        log('Version %s started' % ADDONVERSION)
+        log('Version %s started' % ADDON_VERSION)
         Main()

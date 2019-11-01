@@ -27,8 +27,8 @@ except:
 class ShellHandlerApt:
     _pwd = ''
 
-    def __init__(self, usesudo=False):
-        self.sudo = usesudo
+    def __init__(self, use_sudo=False):
+        self.sudo = use_sudo
         installed, candidate = self._check_versions('xbmc', False)
         if not installed:
             # there is no package installed via repo, so we exit here
@@ -63,9 +63,10 @@ class ShellHandlerApt:
         _cmd = 'apt-get update'
         try:
             if self.sudo:
-                x = check_output('echo \'%s\' | sudo -S %s' % (self._getpassword(), _cmd), shell=True)
+                _ = check_output('echo \'%s\' | sudo -S %s' %
+                                 (self._get_password(), _cmd), shell=True)
             else:
-                x = check_output(_cmd.split())
+                _ = check_output(_cmd.split())
         except Exception as error:
             log('Exception while executing shell command %s: %s' % (_cmd, error))
             return False
@@ -73,7 +74,10 @@ class ShellHandlerApt:
         return True
 
     def check_upgrade_available(self, package):
-        '''returns True if newer package is available in the repositories'''
+        """
+            returns True if newer package is available in the repositories
+        """
+
         installed, candidate = self._check_versions(package)
         if installed and candidate:
             if installed != candidate:
@@ -92,9 +96,10 @@ class ShellHandlerApt:
         _cmd = 'apt-get install -y ' + package
         try:
             if self.sudo:
-                x = check_output('echo \'%s\' | sudo -S %s' % (self._getpassword(), _cmd), shell=True)
+                _ = check_output('echo \'%s\' | sudo -S %s' %
+                                 (self._get_password(), _cmd), shell=True)
             else:
-                x = check_output(_cmd.split())
+                _ = check_output(_cmd.split())
             log('Upgrade successful')
         except Exception as error:
             log('Exception while executing shell command %s: %s' % (_cmd, error))
@@ -107,16 +112,17 @@ class ShellHandlerApt:
         try:
             log('Upgrading system')
             if self.sudo:
-                x = check_output('echo \'%s\' | sudo -S %s' % (self._getpassword(), _cmd), shell=True)
+                _ = check_output('echo \'%s\' | sudo -S %s' %
+                                 (self._get_password(), _cmd), shell=True)
             else:
-                x = check_output(_cmd.split())
+                _ = check_output(_cmd.split())
         except Exception as error:
             log('Exception while executing shell command %s: %s' % (_cmd, error))
             return False
 
         return True
 
-    def _getpassword(self):
+    def _get_password(self):
         if len(self._pwd) == 0:
             self._pwd = get_password_from_user()
         return self._pwd

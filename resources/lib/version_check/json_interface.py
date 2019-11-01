@@ -12,44 +12,47 @@
 
 """
 
-import json as jsoninterface
+import json as json_interface
 import os
 import sys
 
 import xbmc
-import xbmcaddon
 import xbmcvfs
 
-from .common import ADDONPATH
+from .common import ADDON_PATH
 
 
-def get_installedversion():
+def get_installed_version():
     # retrieve current installed version
-    json_query = xbmc.executeJSONRPC('{ "jsonrpc": "2.0", "method": "Application.GetProperties", "params": {"properties": ["version", "name"]}, "id": 1 }')
+    query = {
+        "jsonrpc": "2.0",
+        "method": "Application.GetProperties",
+        "params": {
+            "properties": ["version", "name"]
+        },
+        "id": 1
+    }
+    json_query = xbmc.executeJSONRPC(json_interface.dumps(query))
     if sys.version_info[0] >= 3:
         json_query = str(json_query)
     else:
         json_query = unicode(json_query, 'utf-8', errors='ignore')
-    json_query = jsoninterface.loads(json_query)
+    json_query = json_interface.loads(json_query)
     version_installed = []
     if 'result' in json_query and 'version' in json_query['result']:
         version_installed = json_query['result']['version']
     return version_installed
 
 
-def get_versionfilelist():
-    # retrieve versionlists from supplied version file
-    version_file = os.path.join(ADDONPATH, 'resources/versions.txt')
-    # Eden didn't have xbmcvfs.File()
-    if xbmcaddon.Addon('xbmc.addon').getAddonInfo('version') < '11.9.3':
-        file = open(version_file, 'r')
-    else:
-        file = xbmcvfs.File(version_file)
+def get_version_file_list():
+    # retrieve version lists from supplied version file
+    version_file = os.path.join(ADDON_PATH, 'resources/versions.txt')
+    file = xbmcvfs.File(version_file)
     data = file.read()
     file.close()
     if sys.version_info[0] >= 3:
         version_query = str(data)
     else:
         version_query = unicode(data, 'utf-8', errors='ignore')
-    version_query = jsoninterface.loads(version_query)
+    version_query = json_interface.loads(version_query)
     return version_query
