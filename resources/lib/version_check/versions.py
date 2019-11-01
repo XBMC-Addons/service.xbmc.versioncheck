@@ -18,6 +18,15 @@ from .common import log
 # pylint: disable=too-many-branches
 # pylint: disable=too-many-statements
 def compare_version(version_installed, version_list):
+    """ Compare the installed version against the provided version list
+
+    :param version_installed: currently installed version
+    :type version_installed: dict
+    :param version_list: provided versions to compare against
+    :type version_list: dict
+    :return: old, current, available, and stable versions
+    :rtype: bool, dict, dict, dict
+    """
     # Create separate version lists
     version_list_stable = version_list['releases']['stable']
     version_list_rc = version_list['releases']['releasecandidate']
@@ -57,7 +66,7 @@ def compare_version(version_installed, version_list):
             log('There is no newer stable available')
 
     # Already skipped a possible newer stable build. Let's continue with non stable builds.
-    # Check also 'old_version' hasn't been set to 'stable' or true by previous checks because
+    # Check also 'old version' hasn't been set to 'stable' or true by previous checks because
     # if so, those part need to be skipped
 
     # check for RC builds

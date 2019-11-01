@@ -45,8 +45,11 @@ else:
 
 
 def _version_check():
-    # initial vars
+    """ Check versions (non-linux)
 
+    :return: old, current, available, and stable versions
+    :rtype: bool, dict, dict, dict
+    """
     # retrieve version_lists from supplied version file
     version_list = get_version_file_list()
     # retrieve version installed
@@ -58,6 +61,11 @@ def _version_check():
 
 
 def _version_check_linux(packages):
+    """ Check package version on linux
+
+    :param packages: list of packages to check
+    :type packages: list of str
+    """
     if DISTRIBUTION in ['ubuntu', 'debian', 'linuxmint']:
         try:
             # try aptdaemon first
@@ -100,12 +108,15 @@ def _version_check_linux(packages):
     sys.exit(0)
 
 
-# Python cryptography < 1.7 (still shipped with Ubuntu 16.04) has issues with
-# pyOpenSSL integration, leading to all sorts of weird bugs - check here to save
-# on some troubleshooting. This check may be removed in the future (when switching
-# to Python3?)
-# See https://github.com/pyca/pyopenssl/issues/542
 def _check_cryptography():
+    """ Check for cryptography package, and version
+
+    Python cryptography < 1.7 (still shipped with Ubuntu 16.04) has issues with
+    pyOpenSSL integration, leading to all sorts of weird bugs - check here to save
+    on some troubleshooting. This check may be removed in the future (when switching
+    to Python3?)
+    See https://github.com/pyca/pyopenssl/issues/542
+    """
     try:
         import cryptography
         ver = cryptography.__version__
@@ -120,6 +131,8 @@ def _check_cryptography():
 
 
 def run():
+    """ Service entry-point
+    """
     _check_cryptography()
 
     if ADDON.getSetting('versioncheck_enable') == 'false':
@@ -132,8 +145,7 @@ def run():
 
         if (xbmc.getCondVisibility('System.Platform.Linux') and
                 ADDON.getSetting('upgrade_apt') == 'true'):
-            packages = ['kodi']
-            _version_check_linux(packages)
+            _version_check_linux(['kodi'])
         else:
             old_version, version_installed, version_available, version_stable = _version_check()
             if old_version:

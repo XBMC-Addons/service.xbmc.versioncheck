@@ -35,6 +35,15 @@ MONITOR = xbmc.Monitor()
 
 # Fixes unicode problems
 def string_unicode(text, encoding='utf-8'):
+    """ Python 2/3 -> unicode/str
+
+    :param text: text to convert
+    :type text: unicode (py2) / str (py3) / bytes (py3)
+    :param encoding: text encoding
+    :type encoding: str
+    :return: converted text
+    :rtype: unicode (py2) / str (py3)
+    """
     try:
         if sys.version_info[0] >= 3:
             text = str(text)
@@ -46,6 +55,13 @@ def string_unicode(text, encoding='utf-8'):
 
 
 def normalize_string(text):
+    """ Normalize string
+
+    :param text: text to normalize
+    :type text: unicode (py2) / str (py3) / bytes (py3)
+    :return: normalized text
+    :rtype: unicode (py2) / str (py3)
+    """
     try:
         text = unicodedata.normalize('NFKD', string_unicode(text)).encode('ascii', 'ignore')
     except:
@@ -54,11 +70,23 @@ def normalize_string(text):
 
 
 def localise(string_id):
+    """ Localise string id
+
+    :param string_id: id of the string to localise
+    :type string_id: int
+    :return: localised string
+    :rtype: unicode (py2) / str (py3)
+    """
     string = normalize_string(ADDON.getLocalizedString(string_id))
     return string
 
 
 def log(txt):
+    """ Log text at xbmc.LOGDEBUG level
+
+    :param txt: text to log
+    :type txt: str / unicode / bytes (py3)
+    """
     if sys.version_info[0] >= 3:
         message = '%s: %s' % ('Version Check', txt.encode('utf-8'))
     else:
@@ -69,12 +97,30 @@ def log(txt):
 
 
 def notification(heading, message, icon=None, time=15000, sound=True):
+    """ Create a notification
+
+    :param heading: notification heading
+    :type heading: str
+    :param message: notification message
+    :type message: str
+    :param icon: path and filename for the notification icon
+    :type icon: str
+    :param time: time to display notification
+    :type time: int
+    :param sound: is notification audible
+    :type sound: bool
+    """
     if not icon:
         icon = ICON
     xbmcgui.Dialog().notification(heading, message, icon, time, sound)
 
 
 def get_password_from_user():
+    """ Prompt user to input password
+
+    :return: password
+    :rtype: str
+    """
     pwd = ''
     keyboard = xbmc.Keyboard('', ADDON_NAME + ',' + localise(32022), True)
     keyboard.doModal()
@@ -84,19 +130,37 @@ def get_password_from_user():
 
 
 def message_upgrade_success():
+    """ Upgrade success notification
+    """
     notification(ADDON_NAME, localise(32013))
 
 
 def message_restart():
+    """ Prompt user to restart Kodi
+    """
     if dialog_yes_no(32014):
         xbmc.executebuiltin('RestartApp')
 
 
 def dialog_yes_no(line1=0, line2=0):
+    """ Prompt user with yes/no dialog
+
+    :param line1: string id for the first line of the dialog
+    :type line1: int
+    :param line2: string id for the second line of the dialog
+    :type line2: int
+    :return: users selection (yes / no)
+    :rtype: bool
+    """
     return xbmcgui.Dialog().yesno(ADDON_NAME, localise(line1), localise(line2))
 
 
 def upgrade_message(msg):
+    """ Prompt user with upgrade suggestion message
+
+    :param msg: string id for prompt message
+    :type msg: int
+    """
     wait_for_end_of_video()
 
     if ADDON.getSetting('lastnotified_version') < ADDON_VERSION:
@@ -106,6 +170,17 @@ def upgrade_message(msg):
 
 
 def upgrade_message2(version_installed, version_available, version_stable, old_version):
+    """ Prompt user with upgrade suggestion message
+
+    :param version_installed: currently installed version
+    :type version_installed: dict
+    :param version_available: available version
+    :type version_available: dict
+    :param version_stable: latest stable version
+    :type version_stable: dict
+    :param old_version: whether using an old version
+    :type old_version: bool
+    """
     # shorten releasecandidate to rc
     if version_installed['tag'] == 'releasecandidate':
         version_installed['tag'] = 'rc'
@@ -156,6 +231,11 @@ def upgrade_message2(version_installed, version_available, version_stable, old_v
 
 
 def abort_requested():
+    """ Kodi 13+ compatible xbmc.Monitor().abortRequested()
+
+    :return: whether abort requested
+    :rtype: bool
+    """
     if KODI_VERSION_MAJOR > 13:
         return MONITOR.abortRequested()
 
@@ -163,6 +243,13 @@ def abort_requested():
 
 
 def wait_for_abort(seconds):
+    """ Kodi 13+ compatible xbmc.Monitor().waitForAbort()
+
+    :param seconds: seconds to wait for abort
+    :type seconds: int / float
+    :return: whether abort was requested
+    :rtype: bool
+    """
     if KODI_VERSION_MAJOR > 13:
         return MONITOR.waitForAbort(seconds)
 
@@ -175,6 +262,8 @@ def wait_for_abort(seconds):
 
 
 def wait_for_end_of_video():
+    """ Wait for video playback to end
+    """
     # Don't show notify while watching a video
     while xbmc.Player().isPlayingVideo() and not abort_requested():
         if wait_for_abort(1):

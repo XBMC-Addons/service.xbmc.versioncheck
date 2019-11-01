@@ -16,26 +16,41 @@ from .common import log
 
 
 class Handler:
+    """ Base handler class for apt_daemon_handler, and shell_handler_apt
+    """
 
     def __init__(self):
         self._pwd = ''
 
     @property
     def pwd(self):
+        """ password property
+
+        :return: password
+        :rtype: str
+        """
         return self._pwd
 
     @pwd.setter
     def pwd(self, value):
+        """ password setter
+
+        :param value: password
+        :type value: str
+        """
         self._pwd = value
 
     def _check_versions(self, package, update=True):
         raise NotImplementedError
 
     def check_upgrade_available(self, package):
-        """
-            returns True if newer package is available in the repositories
-        """
+        """ Check if package upgrade is available
 
+        :param package: package to check for upgrade availability
+        :type package: str
+        :return: whether an upgrade exists for the provided package
+        :rtype: bool
+        """
         installed, candidate = self._check_versions(package)
         if installed and candidate:
             if installed != candidate:
@@ -51,6 +66,11 @@ class Handler:
         return False
 
     def _get_password(self):
+        """ Get password, ask user for password if not known
+
+        :return: password
+        :rtype: str
+        """
         if not self.pwd:
             self.pwd = get_password_from_user()
         return self.pwd

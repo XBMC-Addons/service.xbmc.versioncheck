@@ -31,6 +31,8 @@ _ICON = _ADDON.getAddonInfo('icon')
 
 
 class Viewer:
+    """ Viewer class
+    """
     # constants
     WINDOW = 10147
     CONTROL_LABEL = 1
@@ -49,6 +51,8 @@ class Viewer:
         self.set_controls()
 
     def set_controls(self):
+        """ Set the window controls
+        """
         # get header, text
         heading, text = self.get_text()
         # set heading
@@ -58,6 +62,11 @@ class Viewer:
         xbmc.sleep(2000)
 
     def get_text(self):
+        """ Get heading and text
+
+        :return: gotham-alpha_notice or empty strings
+        :rtype: str, str
+        """
         try:
             if sys.argv[1] == 'gotham-alpha_notice':
                 return 'Call to Gotham alpha users', \
@@ -69,14 +78,20 @@ class Viewer:
 
     @staticmethod
     def read_file(filename):
+        """ Read the contents of the provided file
+
+        :param filename: path and name of file to read
+        :type filename: str
+        :return: contents of the provided file
+        :rtype: str
+        """
         with open(filename) as open_file:
             contents = open_file.read()
         return contents
 
 
 class WebBrowser:
-    """
-        Display url using the default browser.
+    """ Display url using the default browser
     """
 
     def __init__(self, *args, **kwargs):
@@ -113,10 +128,20 @@ class WebBrowser:
 
     @staticmethod
     def get_url():
+        """ Get the url
+
+        :return: url - sys.argv[2]
+        :rtype: str
+        """
         return sys.argv[2]
 
     @staticmethod
     def launch_url(url):
+        """ Open url in a web browser
+
+        :param url: url to open
+        :type url: str
+        """
         import webbrowser
         webbrowser.open(url)
 

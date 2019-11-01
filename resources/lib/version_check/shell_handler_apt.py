@@ -24,6 +24,8 @@ except:
 
 
 class ShellHandlerApt(Handler):
+    """ Apt shell handler
+    """
 
     def __init__(self, use_sudo=False):
         super(ShellHandlerApt, self).__init__()
@@ -35,6 +37,15 @@ class ShellHandlerApt(Handler):
             sys.exit(0)
 
     def _check_versions(self, package, update=True):
+        """ Check apt package versions
+
+        :param package: package to check
+        :type package: str
+        :param update: whether to require apt cache update
+        :type update: bool
+        :return: installed version, candidate version
+        :rtype: str, str / False, False
+        """
         _cmd = 'apt-cache policy ' + package
 
         if update and not self._update_cache():
@@ -59,6 +70,11 @@ class ShellHandlerApt(Handler):
         return False, False
 
     def _update_cache(self):
+        """ Update apt cache
+
+        :return: success of updating apt cache
+        :rtype: bool
+        """
         _cmd = 'apt-get update'
         try:
             if self.sudo:
@@ -73,6 +89,13 @@ class ShellHandlerApt(Handler):
         return True
 
     def upgrade_package(self, package):
+        """ Upgrade apt package
+
+        :param package: package to upgrade
+        :type package: str
+        :return: success of apt package upgrade
+        :rtype: bool
+        """
         _cmd = 'apt-get install -y ' + package
         try:
             if self.sudo:
@@ -88,6 +111,11 @@ class ShellHandlerApt(Handler):
         return True
 
     def upgrade_system(self):
+        """ Upgrade system
+
+        :return: success of system upgrade
+        :rtype: bool
+        """
         _cmd = 'apt-get upgrade -y'
         try:
             log('Upgrading system')

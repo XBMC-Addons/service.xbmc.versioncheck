@@ -23,7 +23,11 @@ from .common import ADDON_PATH
 
 
 def get_installed_version():
-    # retrieve current installed version
+    """ Retrieve the currently installed version
+
+    :return: currently installed version
+    :rtype: dict
+    """
     query = {
         "jsonrpc": "2.0",
         "method": "Application.GetProperties",
@@ -46,7 +50,11 @@ def get_installed_version():
 
 
 def get_version_file_list():
-    # retrieve version lists from supplied version file
+    """ Retrieve version lists from supplied version file (resources/versions.txt)
+
+    :return: all provided versions
+    :rtype: dict
+    """
     version_file = os.path.join(ADDON_PATH, 'resources/versions.txt')
     file = xbmcvfs.File(version_file)
     data = file.read()

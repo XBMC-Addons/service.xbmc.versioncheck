@@ -24,12 +24,23 @@ except:
 
 
 class AptDaemonHandler(Handler):
+    """ Apt daemon handler
+    """
 
     def __init__(self):
         super(AptDaemonHandler, self).__init__()
         self.apt_client = client.AptClient()
 
     def _check_versions(self, package, update=None):
+        """ Check apt package versions
+
+        :param package: package to check
+        :type package: str
+        :param update: unused, match Handler signature
+        :type update: None
+        :return: installed version, candidate version
+        :rtype: str, str / False, False
+        """
         if not self._update_cache():
             return False, False
         try:
@@ -52,6 +63,11 @@ class AptDaemonHandler(Handler):
             return False, False
 
     def _update_cache(self):
+        """ Update apt client cache
+
+        :return: success of updating apt cache
+        :rtype: bool
+        """
         try:
             return self.apt_client.update_cache(wait=True) == 'exit-success'
         except errors.NotAuthorizedError:
@@ -59,6 +75,13 @@ class AptDaemonHandler(Handler):
             return False
 
     def upgrade_package(self, package):
+        """ Upgrade apt package
+
+        :param package: package to upgrade
+        :type package: str
+        :return: success of apt package upgrade
+        :rtype: bool
+        """
         try:
             log('Installing new version')
             if self.apt_client.upgrade_packages([package], wait=True) == 'exit-success':
@@ -69,6 +92,11 @@ class AptDaemonHandler(Handler):
         return False
 
     def upgrade_system(self):
+        """ Upgrade system
+
+        :return: success of system upgrade
+        :rtype: bool
+        """
         try:
             log('Upgrading system')
             if self.apt_client.upgrade_system(wait=True) == 'exit-success':
@@ -78,8 +106,14 @@ class AptDaemonHandler(Handler):
         return False
 
     def _apt_trans_started(self):
-        pass
+        """ Apt transfer reply handler
+        """
 
     @staticmethod
     def _apt_error_handler(error):
+        """ Apt transfer error handler
+
+        :param error: apt error message
+        :type error: str
+        """
         log('Apt Error %s' % error)
