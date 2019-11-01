@@ -46,18 +46,18 @@ class Viewer:
         # give window time to initialize
         xbmc.sleep(100)
         # set controls
-        self.setControls()
+        self.set_controls()
 
-    def setControls(self):
+    def set_controls(self):
         # get header, text
-        heading, text = self.getText()
+        heading, text = self.get_text()
         # set heading
         self.window.getControl(self.CONTROL_LABEL).setLabel('%s : %s' % (_ADDON_NAME, heading,))
         # set text
         self.window.getControl(self.CONTROL_TEXTBOX).setText(text)
         xbmc.sleep(2000)
 
-    def getText(self):
+    def get_text(self):
         try:
             if sys.argv[1] == 'gotham-alpha_notice':
                 return 'Call to Gotham alpha users', \
