@@ -171,6 +171,8 @@ def wait_for_abort(seconds):
             return True
         xbmc.sleep(200)
 
+    return False
+
 
 def wait_for_end_of_video():
     # Don't show notify while watching a video
