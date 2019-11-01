@@ -83,7 +83,7 @@ class WebBrowser:
         _ = args
         _ = kwargs
         try:
-            url = sys.argv[2]
+            url = self.get_url()
             # notify user
             self.notification(_ADDON_NAME, url)
             xbmc.sleep(100)
@@ -110,6 +110,10 @@ class WebBrowser:
         if not icon:
             icon = _ICON
         xbmcgui.Dialog().notification(heading, message, icon, time, sound)
+
+    @staticmethod
+    def get_url():
+        return sys.argv[2]
 
     @staticmethod
     def launch_url(url):

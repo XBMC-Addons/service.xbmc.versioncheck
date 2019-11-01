@@ -35,21 +35,6 @@ from .json_interface import get_installed_version
 from .versions import compare_version
 
 
-class Main:
-    def __init__(self):
-        if wait_for_abort(5):
-            sys.exit(0)
-
-        if (xbmc.getCondVisibility('System.Platform.Linux') and
-                ADDON.getSetting('upgrade_apt') == 'true'):
-            packages = ['kodi']
-            _version_check_linux(packages)
-        else:
-            old_version, version_installed, version_available, version_stable = _version_check()
-            if old_version:
-                upgrade_message2(version_installed, version_available, version_stable, old_version)
-
-
 def _version_check():
     # initial vars
 
@@ -123,8 +108,20 @@ def _check_cryptography():
 
 def run():
     _check_cryptography()
+
     if ADDON.getSetting('versioncheck_enable') == 'false':
         log('Disabled')
     else:
         log('Version %s started' % ADDON_VERSION)
-        Main()
+
+        if wait_for_abort(5):
+            sys.exit(0)
+
+        if (xbmc.getCondVisibility('System.Platform.Linux') and
+                ADDON.getSetting('upgrade_apt') == 'true'):
+            packages = ['kodi']
+            _version_check_linux(packages)
+        else:
+            old_version, version_installed, version_available, version_stable = _version_check()
+            if old_version:
+                upgrade_message2(version_installed, version_available, version_stable, old_version)
