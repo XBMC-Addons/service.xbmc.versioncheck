@@ -14,9 +14,9 @@
 
 import sys
 
-import xbmc
-import xbmcaddon
-import xbmcgui
+import xbmc  # pylint: disable=import-error
+import xbmcaddon  # pylint: disable=import-error
+import xbmcgui  # pylint: disable=import-error
 
 ADDON = xbmcaddon.Addon('service.xbmc.versioncheck')
 ADDON_VERSION = ADDON.getAddonInfo('version')

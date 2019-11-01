@@ -16,8 +16,8 @@
 import platform
 import sys
 
-import xbmc
-import xbmcgui
+import xbmc  # pylint: disable=import-error
+import xbmcgui  # pylint: disable=import-error
 
 from .common import ADDON
 from .common import ADDON_NAME

@@ -11,6 +11,6 @@
 
 """
 
-from version_check import service
+from version_check import service  # pylint: disable=import-error
 
 service.run()

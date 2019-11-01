@@ -16,9 +16,9 @@ from .common import get_password_from_user
 from .common import log
 
 try:
-    import apt
-    from aptdaemon import client
-    from aptdaemon import errors
+    import apt  # pylint: disable=import-error
+    from aptdaemon import client  # pylint: disable=import-error
+    from aptdaemon import errors  # pylint: disable=import-error
 except:
     log('python apt import error')
 

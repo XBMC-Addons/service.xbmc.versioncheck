@@ -16,8 +16,8 @@ import json as json_interface
 import os
 import sys
 
-import xbmc
-import xbmcvfs
+import xbmc  # pylint: disable=import-error
+import xbmcvfs  # pylint: disable=import-error
 
 from .common import ADDON_PATH
 
