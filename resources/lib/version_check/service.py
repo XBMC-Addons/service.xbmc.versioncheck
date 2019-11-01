@@ -80,11 +80,16 @@ def _version_check_linux(packages):
                         message_restart()
                     else:
                         log('Error during upgrade')
-        else:
-            log('Error: no handler found')
-    else:
-        log('Unsupported platform %s' % platform.linux_distribution(full_distribution_name=0)[0])
-        sys.exit(0)
+                    return
+
+            log('No upgrade available')
+            return
+
+        log('Error: no handler found')
+        return
+
+    log('Unsupported platform %s' % platform.linux_distribution(full_distribution_name=0)[0])
+    sys.exit(0)
 
 
 # Python cryptography < 1.7 (still shipped with Ubuntu 16.04) has issues with

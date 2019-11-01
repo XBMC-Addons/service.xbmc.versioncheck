@@ -15,6 +15,8 @@
 from .common import log
 
 
+# pylint: disable=too-many-branches
+# pylint: disable=too-many-statements
 def compare_version(version_installed, version_list):
     # Create separate version lists
     version_list_stable = version_list['releases']['stable']
