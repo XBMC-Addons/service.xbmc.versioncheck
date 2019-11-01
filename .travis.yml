@@ -3,10 +3,13 @@ python:
   - "3.6"
 
 install:
+  - pip install distro
   - pip install kodi-addon-checker
+  - pip install pylint
 
 before_script:
   - cd $HOME
 
 script:
   - kodi-addon-checker $TRAVIS_BUILD_DIR --branch=gotham
+  - pylint $TRAVIS_BUILD_DIR/resources/lib/
