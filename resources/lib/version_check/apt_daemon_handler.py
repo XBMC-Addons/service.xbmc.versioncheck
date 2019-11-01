@@ -52,10 +52,7 @@ class AptDaemonHandler:
 
     def _update_cache(self):
         try:
-            if self.apt_client.update_cache(wait=True) == 'exit-success':
-                return True
-            else:
-                return False
+            return self.apt_client.update_cache(wait=True) == 'exit-success'
         except errors.NotAuthorizedError:
             log('You are not allowed to update the cache')
             return False
