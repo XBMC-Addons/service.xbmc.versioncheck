@@ -14,8 +14,8 @@
 
 import sys
 
-from .common import get_password_from_user
 from .common import log
+from .handler import Handler
 
 try:
     from subprocess import check_output
@@ -23,10 +23,10 @@ except:
     log('subprocess import error')
 
 
-class ShellHandlerApt:
-    _pwd = ''
+class ShellHandlerApt(Handler):
 
     def __init__(self, use_sudo=False):
+        super(ShellHandlerApt, self).__init__()
         self.sudo = use_sudo
         installed, _ = self._check_versions('xbmc', False)
         if not installed:
@@ -72,25 +72,6 @@ class ShellHandlerApt:
 
         return True
 
-    def check_upgrade_available(self, package):
-        """
-            returns True if newer package is available in the repositories
-        """
-
-        installed, candidate = self._check_versions(package)
-        if installed and candidate:
-            if installed != candidate:
-                log('Version installed  %s' % installed)
-                log('Version available  %s' % candidate)
-                return True
-            log('Already on newest version')
-            return False
-
-        if not installed:
-            log('No installed package found')
-
-        return False
-
     def upgrade_package(self, package):
         _cmd = 'apt-get install -y ' + package
         try:
@@ -120,8 +101,3 @@ class ShellHandlerApt:
             return False
 
         return True
-
-    def _get_password(self):
-        if not self._pwd:
-            self._pwd = get_password_from_user()
-        return self._pwd

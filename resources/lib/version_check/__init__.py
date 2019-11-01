@@ -12,5 +12,5 @@
 
 """
 
-__all__ = ['apt_daemon_handler', 'common', 'json_interface', 'service',
+__all__ = ['apt_daemon_handler', 'common', 'handler', 'json_interface', 'service',
            'shell_handler_apt', 'versions', 'viewer']

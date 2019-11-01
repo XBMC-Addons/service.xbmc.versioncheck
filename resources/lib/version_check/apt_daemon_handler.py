@@ -12,8 +12,8 @@
 
 """
 
-from .common import get_password_from_user
 from .common import log
+from .handler import Handler
 
 try:
     import apt  # pylint: disable=import-error
@@ -23,13 +23,13 @@ except:
     log('python apt import error')
 
 
-class AptDaemonHandler:
+class AptDaemonHandler(Handler):
 
     def __init__(self):
-        self._pwd = ''
+        super(AptDaemonHandler, self).__init__()
         self.apt_client = client.AptClient()
 
-    def _check_versions(self, package):
+    def _check_versions(self, package, update=None):
         if not self._update_cache():
             return False, False
         try:
@@ -58,24 +58,6 @@ class AptDaemonHandler:
             log('You are not allowed to update the cache')
             return False
 
-    def check_upgrade_available(self, package):
-        """
-            returns True if newer package is available in the repositories
-        """
-        installed, candidate = self._check_versions(package)
-        if installed and candidate:
-            if installed != candidate:
-                log('Version installed  %s' % installed)
-                log('Version available  %s' % candidate)
-                return True
-            log('Already on newest version')
-            return False
-
-        if not installed:
-            log('No installed package found')
-
-        return False
-
     def upgrade_package(self, package):
         try:
             log('Installing new version')
@@ -94,11 +76,6 @@ class AptDaemonHandler:
         except Exception as error:
             log('Exception during system upgrade: %s' % error)
         return False
-
-    def _get_password(self):
-        if not self._pwd:
-            self._pwd = get_password_from_user()
-        return self._pwd
 
     def _apt_trans_started(self):
         pass
