@@ -19,7 +19,6 @@ from .common import log
 
 try:
     from subprocess import check_output
-    from subprocess import call
 except:
     log('subprocess import error')
 
