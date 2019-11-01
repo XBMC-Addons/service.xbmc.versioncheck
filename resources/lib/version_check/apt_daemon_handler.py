@@ -26,6 +26,7 @@ except:
 class AptDaemonHandler:
 
     def __init__(self):
+        self._pwd = ''
         self.apt_client = client.AptClient()
 
     def _check_versions(self, package):
