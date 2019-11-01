@@ -71,7 +71,7 @@ def _version_check_linux(packages):
             # try aptdaemon first
             from .apt_daemon_handler import AptDaemonHandler
             handler = AptDaemonHandler()
-        except:
+        except:  # pylint: disable=bare-except
             # fallback to shell
             # since we need the user password, ask to check for new version first
             from .shell_handler_apt import ShellHandlerApt
@@ -120,7 +120,7 @@ def _check_cryptography():
     try:
         import cryptography
         ver = cryptography.__version__
-    except:
+    except ImportError:
         # If the module is not found - no problem
         return
 

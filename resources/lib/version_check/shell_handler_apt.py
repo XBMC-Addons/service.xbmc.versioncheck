@@ -19,8 +19,9 @@ from .handler import Handler
 
 try:
     from subprocess import check_output
-except:
-    log('subprocess import error')
+except ImportError:
+    check_output = None
+    log('ImportError: subprocess')
 
 
 class ShellHandlerApt(Handler):
@@ -53,7 +54,7 @@ class ShellHandlerApt(Handler):
 
         try:
             result = check_output([_cmd], shell=True).split('\n')
-        except Exception as error:
+        except Exception as error:  # pylint: disable=broad-except
             log('ShellHandlerApt: exception while executing shell command %s: %s' % (_cmd, error))
             return False, False
 
@@ -82,7 +83,7 @@ class ShellHandlerApt(Handler):
                                  (self._get_password(), _cmd), shell=True)
             else:
                 _ = check_output(_cmd.split())
-        except Exception as error:
+        except Exception as error:  # pylint: disable=broad-except
             log('Exception while executing shell command %s: %s' % (_cmd, error))
             return False
 
@@ -104,7 +105,7 @@ class ShellHandlerApt(Handler):
             else:
                 _ = check_output(_cmd.split())
             log('Upgrade successful')
-        except Exception as error:
+        except Exception as error:  # pylint: disable=broad-except
             log('Exception while executing shell command %s: %s' % (_cmd, error))
             return False
 
@@ -124,7 +125,7 @@ class ShellHandlerApt(Handler):
                                  (self._get_password(), _cmd), shell=True)
             else:
                 _ = check_output(_cmd.split())
-        except Exception as error:
+        except Exception as error:  # pylint: disable=broad-except
             log('Exception while executing shell command %s: %s' % (_cmd, error))
             return False
 

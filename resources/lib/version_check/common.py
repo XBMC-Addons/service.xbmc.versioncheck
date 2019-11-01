@@ -49,7 +49,7 @@ def string_unicode(text, encoding='utf-8'):
             text = str(text)
         else:
             text = unicode(text, encoding)
-    except:
+    except:  # pylint: disable=bare-except
         pass
     return text
 
@@ -64,7 +64,7 @@ def normalize_string(text):
     """
     try:
         text = unicodedata.normalize('NFKD', string_unicode(text)).encode('ascii', 'ignore')
-    except:
+    except:  # pylint: disable=bare-except
         pass
     return text
 

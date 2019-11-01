@@ -19,8 +19,11 @@ try:
     import apt  # pylint: disable=import-error
     from aptdaemon import client  # pylint: disable=import-error
     from aptdaemon import errors  # pylint: disable=import-error
-except:
-    log('python apt import error')
+except ImportError:
+    apt = None
+    client = None
+    errors = None
+    log('ImportError: apt, aptdaemon')
 
 
 class AptDaemonHandler(Handler):
@@ -58,7 +61,7 @@ class AptDaemonHandler(Handler):
 
             return False, False
 
-        except Exception as error:
+        except Exception as error:  # pylint: disable=broad-except
             log('Exception while checking versions: %s' % error)
             return False, False
 
@@ -87,7 +90,7 @@ class AptDaemonHandler(Handler):
             if self.apt_client.upgrade_packages([package], wait=True) == 'exit-success':
                 log('Upgrade successful')
                 return True
-        except Exception as error:
+        except Exception as error:  # pylint: disable=broad-except
             log('Exception during upgrade: %s' % error)
         return False
 
@@ -101,7 +104,7 @@ class AptDaemonHandler(Handler):
             log('Upgrading system')
             if self.apt_client.upgrade_system(wait=True) == 'exit-success':
                 return True
-        except Exception as error:
+        except Exception as error:  # pylint: disable=broad-except
             log('Exception during system upgrade: %s' % error)
         return False
 
