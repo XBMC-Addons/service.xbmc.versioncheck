@@ -13,7 +13,6 @@
 
 """
 
-import platform
 import sys
 
 import xbmc  # pylint: disable=import-error
@@ -34,6 +33,16 @@ from .json_interface import get_version_file_list
 from .json_interface import get_installed_version
 from .versions import compare_version
 
+if sys.version_info[0] >= 3 and sys.version_info[1] >= 8:
+    import distro
+
+    DISTRIBUTION = distro.linux_distribution(full_distribution_name=False)[0].lower()
+else:
+    import platform
+
+    # pylint: disable=deprecated-method
+    DISTRIBUTION = platform.linux_distribution(full_distribution_name=0)[0].lower()
+
 
 def _version_check():
     # initial vars
@@ -49,8 +58,7 @@ def _version_check():
 
 
 def _version_check_linux(packages):
-    if platform.linux_distribution(full_distribution_name=0)[0].lower() in \
-            ['ubuntu', 'debian', 'linuxmint']:
+    if DISTRIBUTION in ['ubuntu', 'debian', 'linuxmint']:
         try:
             # try aptdaemon first
             from .apt_daemon_handler import AptDaemonHandler
@@ -88,7 +96,7 @@ def _version_check_linux(packages):
         log('Error: no handler found')
         return
 
-    log('Unsupported platform %s' % platform.linux_distribution(full_distribution_name=0)[0])
+    log('Unsupported platform %s' % DISTRIBUTION)
     sys.exit(0)
 
 
