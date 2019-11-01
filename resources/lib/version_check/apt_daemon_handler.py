@@ -95,7 +95,7 @@ class AptDaemonHandler:
         return False
 
     def _get_password(self):
-        if len(self._pwd) == 0:
+        if not self._pwd:
             self._pwd = get_password_from_user()
         return self._pwd
 
