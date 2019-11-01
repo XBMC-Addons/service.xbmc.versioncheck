@@ -68,13 +68,13 @@ class AptDaemonHandler:
                 log('Version installed  %s' % installed)
                 log('Version available  %s' % candidate)
                 return True
-            else:
-                log('Already on newest version')
-        elif not installed:
+            log('Already on newest version')
+            return False
+
+        if not installed:
             log('No installed package found')
-            return False
-        else:
-            return False
+
+        return False
 
     def upgrade_package(self, package):
         try:

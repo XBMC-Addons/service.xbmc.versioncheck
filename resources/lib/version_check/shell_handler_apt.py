@@ -54,9 +54,9 @@ class ShellHandlerApt:
             if candidate == '(none)':
                 candidate = False
             return installed, candidate
-        else:
-            log('ShellHandlerApt: error during version check')
-            return False, False
+
+        log('ShellHandlerApt: error during version check')
+        return False, False
 
     def _update_cache(self):
         _cmd = 'apt-get update'
@@ -83,13 +83,13 @@ class ShellHandlerApt:
                 log('Version installed  %s' % installed)
                 log('Version available  %s' % candidate)
                 return True
-            else:
-                log('Already on newest version')
-        elif not installed:
+            log('Already on newest version')
+            return False
+
+        if not installed:
             log('No installed package found')
-            return False
-        else:
-            return False
+
+        return False
 
     def upgrade_package(self, package):
         _cmd = 'apt-get install -y ' + package
