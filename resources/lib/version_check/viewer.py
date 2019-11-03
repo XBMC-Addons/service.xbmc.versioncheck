@@ -142,7 +142,7 @@ class WebBrowser:
         :param url: url to open
         :type url: str
         """
-        import webbrowser
+        import webbrowser  # pylint: disable=import-outside-toplevel
         webbrowser.open(url)
 
 

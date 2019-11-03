@@ -69,11 +69,13 @@ def _version_check_linux(packages):
     if DISTRIBUTION in ['ubuntu', 'debian', 'linuxmint']:
         try:
             # try aptdaemon first
+            # pylint: disable=import-outside-toplevel
             from .apt_daemon_handler import AptDaemonHandler
             handler = AptDaemonHandler()
         except:  # pylint: disable=bare-except
             # fallback to shell
             # since we need the user password, ask to check for new version first
+            # pylint: disable=import-outside-toplevel
             from .shell_handler_apt import ShellHandlerApt
             sudo = True
             handler = ShellHandlerApt(sudo)
@@ -118,7 +120,7 @@ def _check_cryptography():
     See https://github.com/pyca/pyopenssl/issues/542
     """
     try:
-        import cryptography
+        import cryptography  # pylint: disable=import-outside-toplevel
         ver = cryptography.__version__
     except ImportError:
         # If the module is not found - no problem
