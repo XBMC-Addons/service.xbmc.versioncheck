@@ -12,17 +12,16 @@
 
 """
 
+import json as jsoninterface
 import os
 import sys
+
 import xbmc
 import xbmcaddon
 import xbmcvfs
-from . import common
-from .common import log
 
-ADDONPATH    = common.ADDONPATH
+from .common import ADDONPATH
 
-import json as jsoninterface
 
 def get_installedversion():
     # retrieve current installed version
@@ -34,14 +33,15 @@ def get_installedversion():
     json_query = jsoninterface.loads(json_query)
     version_installed = []
     if 'result' in json_query and 'version' in json_query['result']:
-        version_installed  = json_query['result']['version']
+        version_installed = json_query['result']['version']
     return version_installed
+
 
 def get_versionfilelist():
     # retrieve versionlists from supplied version file
     version_file = os.path.join(ADDONPATH, 'resources/versions.txt')
     # Eden didn't have xbmcvfs.File()
-    if xbmcaddon.Addon('xbmc.addon').getAddonInfo('version') < "11.9.3":
+    if xbmcaddon.Addon('xbmc.addon').getAddonInfo('version') < '11.9.3':
         file = open(version_file, 'r')
     else:
         file = xbmcvfs.File(version_file)
