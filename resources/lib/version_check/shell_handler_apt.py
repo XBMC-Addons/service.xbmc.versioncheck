@@ -14,28 +14,39 @@
 
 import sys
 
-from .common import get_password_from_user
 from .common import log
+from .handler import Handler
 
 try:
     from subprocess import check_output
-    from subprocess import call
-except:
-    log('subprocess import error')
+except ImportError:
+    check_output = None
+    log('ImportError: subprocess')
 
 
-class ShellHandlerApt:
-    _pwd = ''
+class ShellHandlerApt(Handler):
+    """ Apt shell handler
+    """
 
-    def __init__(self, usesudo=False):
-        self.sudo = usesudo
-        installed, candidate = self._check_versions('xbmc', False)
+    def __init__(self, use_sudo=False):
+        super(ShellHandlerApt, self).__init__()
+        self.sudo = use_sudo
+        installed, _ = self._check_versions('xbmc', False)
         if not installed:
             # there is no package installed via repo, so we exit here
             log('No installed package found, exiting')
             sys.exit(0)
 
     def _check_versions(self, package, update=True):
+        """ Check apt package versions
+
+        :param package: package to check
+        :type package: str
+        :param update: whether to require apt cache update
+        :type update: bool
+        :return: installed version, candidate version
+        :rtype: str, str / False, False
+        """
         _cmd = 'apt-cache policy ' + package
 
         if update and not self._update_cache():
@@ -43,7 +54,7 @@ class ShellHandlerApt:
 
         try:
             result = check_output([_cmd], shell=True).split('\n')
-        except Exception as error:
+        except Exception as error:  # pylint: disable=broad-except
             log('ShellHandlerApt: exception while executing shell command %s: %s' % (_cmd, error))
             return False, False
 
@@ -55,68 +66,67 @@ class ShellHandlerApt:
             if candidate == '(none)':
                 candidate = False
             return installed, candidate
-        else:
-            log('ShellHandlerApt: error during version check')
-            return False, False
+
+        log('ShellHandlerApt: error during version check')
+        return False, False
 
     def _update_cache(self):
+        """ Update apt cache
+
+        :return: success of updating apt cache
+        :rtype: bool
+        """
         _cmd = 'apt-get update'
         try:
             if self.sudo:
-                x = check_output('echo \'%s\' | sudo -S %s' % (self._getpassword(), _cmd), shell=True)
+                _ = check_output('echo \'%s\' | sudo -S %s' %
+                                 (self._get_password(), _cmd), shell=True)
             else:
-                x = check_output(_cmd.split())
-        except Exception as error:
+                _ = check_output(_cmd.split())
+        except Exception as error:  # pylint: disable=broad-except
             log('Exception while executing shell command %s: %s' % (_cmd, error))
             return False
 
         return True
 
-    def check_upgrade_available(self, package):
-        '''returns True if newer package is available in the repositories'''
-        installed, candidate = self._check_versions(package)
-        if installed and candidate:
-            if installed != candidate:
-                log('Version installed  %s' % installed)
-                log('Version available  %s' % candidate)
-                return True
-            else:
-                log('Already on newest version')
-        elif not installed:
-            log('No installed package found')
-            return False
-        else:
-            return False
-
     def upgrade_package(self, package):
+        """ Upgrade apt package
+
+        :param package: package to upgrade
+        :type package: str
+        :return: success of apt package upgrade
+        :rtype: bool
+        """
         _cmd = 'apt-get install -y ' + package
         try:
             if self.sudo:
-                x = check_output('echo \'%s\' | sudo -S %s' % (self._getpassword(), _cmd), shell=True)
+                _ = check_output('echo \'%s\' | sudo -S %s' %
+                                 (self._get_password(), _cmd), shell=True)
             else:
-                x = check_output(_cmd.split())
+                _ = check_output(_cmd.split())
             log('Upgrade successful')
-        except Exception as error:
+        except Exception as error:  # pylint: disable=broad-except
             log('Exception while executing shell command %s: %s' % (_cmd, error))
             return False
 
         return True
 
     def upgrade_system(self):
+        """ Upgrade system
+
+        :return: success of system upgrade
+        :rtype: bool
+        """
         _cmd = 'apt-get upgrade -y'
         try:
             log('Upgrading system')
             if self.sudo:
-                x = check_output('echo \'%s\' | sudo -S %s' % (self._getpassword(), _cmd), shell=True)
+                _ = check_output('echo \'%s\' | sudo -S %s' %
+                                 (self._get_password(), _cmd), shell=True)
             else:
-                x = check_output(_cmd.split())
-        except Exception as error:
+                _ = check_output(_cmd.split())
+        except Exception as error:  # pylint: disable=broad-except
             log('Exception while executing shell command %s: %s' % (_cmd, error))
             return False
 
         return True
-
-    def _getpassword(self):
-        if len(self._pwd) == 0:
-            self._pwd = get_password_from_user()
-        return self._pwd

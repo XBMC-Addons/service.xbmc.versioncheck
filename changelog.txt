@@ -1,6 +1,8 @@
 v0.5.0
 - Update to use SPDX license identifiers
-- Refactor add-on structure
+- Refactor
+- PEP8 and cosmetics
+- pylint 10.00/10
 
 v0.4.6 to v0.4.7
 - Update version list
