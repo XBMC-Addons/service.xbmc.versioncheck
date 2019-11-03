@@ -181,7 +181,7 @@ def upgrade_message2(version_installed, version_available, version_stable, old_v
     :param version_stable: latest stable version
     :type version_stable: dict
     :param old_version: whether using an old version
-    :type old_version: bool
+    :type old_version: bool / 'stable'
     """
     # shorten releasecandidate to rc
     if version_installed['tag'] == 'releasecandidate':

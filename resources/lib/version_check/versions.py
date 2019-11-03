@@ -25,7 +25,7 @@ def compare_version(version_installed, version_list):
     :param version_list: provided versions to compare against
     :type version_list: dict
     :return: old, current, available, and stable versions
-    :rtype: bool, dict, dict, dict
+    :rtype: bool / 'stable', dict, dict, dict
     """
     # Create separate version lists
     version_list_stable = version_list['releases']['stable']
