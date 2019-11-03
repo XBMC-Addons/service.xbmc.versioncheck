@@ -48,7 +48,7 @@ def _version_check():
     """ Check versions (non-linux)
 
     :return: old, current, available, and stable versions
-    :rtype: bool, dict, dict, dict
+    :rtype: bool / 'stable', dict, dict, dict
     """
     # retrieve version_lists from supplied version file
     version_list = get_version_file_list()
