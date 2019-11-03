@@ -12,6 +12,7 @@
 
 """
 
+from contextlib import closing
 import json as json_interface
 import os
 import sys
@@ -56,9 +57,9 @@ def get_version_file_list():
     :rtype: dict
     """
     version_file = os.path.join(ADDON_PATH, 'resources/versions.txt')
-    file = xbmcvfs.File(version_file)
-    data = file.read()
-    file.close()
+    with closing(xbmcvfs.File(version_file)) as open_file:
+        data = open_file.read()
+
     if sys.version_info[0] >= 3:
         version_query = str(data)
     else:
