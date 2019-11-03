@@ -88,11 +88,11 @@ def log(txt):
     :type txt: str / unicode / bytes (py3)
     """
     if sys.version_info[0] >= 3:
-        message = '%s: %s' % ('Version Check', txt.encode('utf-8'))
+        message = '%s: %s' % (ADDON_NAME, txt.encode('utf-8'))
     else:
         if isinstance(txt, str):
             txt = txt.decode('utf-8')
-        message = (u'%s: %s' % ('Version Check', txt)).encode('utf-8')
+        message = (u'%s: %s' % (ADDON_NAME, txt)).encode('utf-8')
     xbmc.log(msg=message, level=xbmc.LOGDEBUG)
 
 
