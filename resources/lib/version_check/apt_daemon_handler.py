@@ -31,7 +31,7 @@ class AptDaemonHandler(Handler):
     """
 
     def __init__(self):
-        super(AptDaemonHandler, self).__init__()
+        Handler.__init__(self)
         self.apt_client = client.AptClient()
 
     def _check_versions(self, package, update=None):
