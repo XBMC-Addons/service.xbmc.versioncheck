@@ -29,7 +29,7 @@ class ShellHandlerApt(Handler):
     """
 
     def __init__(self, use_sudo=False):
-        super(ShellHandlerApt, self).__init__()
+        Handler.__init__(self)
         self.sudo = use_sudo
         installed, _ = self._check_versions('xbmc', False)
         if not installed:
