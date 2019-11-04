@@ -14,12 +14,14 @@
 
 """
 
+from contextlib import closing
 import os
 import sys
 
 import xbmc  # pylint: disable=import-error
 import xbmcaddon  # pylint: disable=import-error
 import xbmcgui  # pylint: disable=import-error
+import xbmcvfs  # pylint: disable=import-error
 
 _ADDON = xbmcaddon.Addon('service.xbmc.versioncheck')
 _ADDON_NAME = _ADDON.getAddonInfo('name')
@@ -31,16 +33,25 @@ _ICON = _ADDON.getAddonInfo('icon')
 
 
 class Viewer:
-    """ Viewer class
+    """ Show user a text viewer (WINDOW_DIALOG_TEXT_VIEWER)
+    Include the text file for the viewers body in the resources/ directory
+
+    usage:
+        script_path = os.path.join(_ADDON_PATH, 'resources', 'lib', 'version_check', 'viewer.py')
+        xbmc.executebuiltin('RunScript(%s,%s,%s)' % (script_path, 'Heading', 'notice.txt'))
+
+    :param heading: text viewer heading
+    :type heading: str
+    :param filename: filename to use for text viewers body
+    :type filename: str
     """
-    # constants
     WINDOW = 10147
     CONTROL_LABEL = 1
     CONTROL_TEXTBOX = 5
 
-    def __init__(self, *args, **kwargs):
-        _ = args
-        _ = kwargs
+    def __init__(self, heading, filename):
+        self.heading = heading
+        self.filename = filename
         # activate the text viewer window
         xbmc.executebuiltin('ActivateWindow(%d)' % (self.WINDOW,))
         # get window
@@ -53,57 +64,62 @@ class Viewer:
     def set_controls(self):
         """ Set the window controls
         """
-        # get header, text
-        heading, text = self.get_text()
+        # get text viewer body text
+        text = self.get_text()
         # set heading
-        self.window.getControl(self.CONTROL_LABEL).setLabel('%s : %s' % (_ADDON_NAME, heading,))
+        self.window.getControl(self.CONTROL_LABEL).setLabel('%s : %s' % (_ADDON_NAME,
+                                                                         self.heading,))
         # set text
         self.window.getControl(self.CONTROL_TEXTBOX).setText(text)
         xbmc.sleep(2000)
 
     def get_text(self):
-        """ Get heading and text
+        """ Get the text viewers body text from self.filename
 
-        :return: gotham-alpha_notice or empty strings
-        :rtype: str, str
+        :return: contents of self.filename
+        :rtype: str
         """
         try:
-            if sys.argv[1] == 'gotham-alpha_notice':
-                return 'Call to Gotham alpha users', \
-                       self.read_file(os.path.join(_ADDON_PATH,
-                                                   'resources/gotham-alpha_notice.txt'))
+            return self.read_file(self.filename)
         except Exception as error:  # pylint: disable=broad-except
             xbmc.log(_ADDON_NAME + ': ' + str(error), xbmc.LOGERROR)
-        return '', ''
+        return ''
 
     @staticmethod
     def read_file(filename):
-        """ Read the contents of the provided file
+        """ Read the contents of the provided file, from
+        os.path.join(_ADDON_PATH, 'resources', filename)
 
-        :param filename: path and name of file to read
+        :param filename: name of file to read
         :type filename: str
         :return: contents of the provided file
         :rtype: str
         """
-        with open(filename) as open_file:
+        filename = os.path.join(_ADDON_PATH, 'resources', filename)
+        with closing(xbmcvfs.File(filename)) as open_file:
             contents = open_file.read()
         return contents
 
 
 class WebBrowser:
     """ Display url using the default browser
+
+    usage:
+        script_path = os.path.join(_ADDON_PATH, 'resources', 'lib', 'version_check', 'viewer.py')
+        xbmc.executebuiltin('RunScript(%s,%s,%s)' % (script_path, 'webbrowser', 'https://kodi.tv/'))
+
+    :param url: url to open
+    :type url: str
     """
 
-    def __init__(self, *args, **kwargs):
-        _ = args
-        _ = kwargs
+    def __init__(self, url):
+        self.url = url
         try:
-            url = self.get_url()
             # notify user
-            self.notification(_ADDON_NAME, url)
+            self.notification(_ADDON_NAME, self.url)
             xbmc.sleep(100)
             # launch url
-            self.launch_url(url)
+            self.launch_url()
         except Exception as error:  # pylint: disable=broad-except
             xbmc.log(_ADDON_NAME + ': ' + str(error), xbmc.LOGERROR)
 
@@ -126,31 +142,18 @@ class WebBrowser:
             icon = _ICON
         xbmcgui.Dialog().notification(heading, message, icon, time, sound)
 
-    @staticmethod
-    def get_url():
-        """ Get the url
-
-        :return: url - sys.argv[2]
-        :rtype: str
-        """
-        return sys.argv[2]
-
-    @staticmethod
-    def launch_url(url):
-        """ Open url in a web browser
-
-        :param url: url to open
-        :type url: str
+    def launch_url(self):
+        """ Open self.url in the default web browser
         """
         import webbrowser  # pylint: disable=import-outside-toplevel
-        webbrowser.open(url)
+        webbrowser.open(self.url)
 
 
 if __name__ == '__main__':
     try:
         if sys.argv[1] == 'webbrowser':
-            WebBrowser()
+            WebBrowser(sys.argv[2])
         else:
-            Viewer()
+            Viewer(sys.argv[1], sys.argv[2])
     except Exception as err:  # pylint: disable=broad-except
         xbmc.log(_ADDON_NAME + ': ' + str(err), xbmc.LOGERROR)
