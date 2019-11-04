@@ -124,7 +124,7 @@ def get_password_from_user():
     :rtype: str
     """
     pwd = ''
-    keyboard = xbmc.Keyboard('', ADDON_NAME + ',' + localise(32022), True)
+    keyboard = xbmc.Keyboard('', ADDON_NAME + ': ' + localise(32022), True)
     keyboard.doModal()
     if keyboard.isConfirmed():
         pwd = keyboard.getText()
