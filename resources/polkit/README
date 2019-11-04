@@ -3,7 +3,7 @@ If you run Kodi/XBMC standalone and/or do want to have password less upgrades, c
 
 Make sure to adjust the username if it is different from "kodi"
 
-For this to work, you must have python-apt and  python-aptdaemon installed:
+For this to work, you must have python-apt and python-aptdaemon installed:
 sudo apt-get install python-apt python-aptdaemon
 
 
