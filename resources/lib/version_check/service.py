@@ -13,6 +13,7 @@
 
 """
 
+import os
 import sys
 
 import xbmc  # pylint: disable=import-error
@@ -20,6 +21,7 @@ import xbmcgui  # pylint: disable=import-error
 
 from .common import ADDON
 from .common import ADDON_NAME
+from .common import ADDON_PATH
 from .common import ADDON_VERSION
 from .common import dialog_yes_no
 from .common import localise
@@ -152,3 +154,15 @@ def run():
             old_version, version_installed, version_available, version_stable = _version_check()
             if old_version:
                 upgrade_message2(version_installed, version_available, version_stable, old_version)
+
+            # give early adopters a one time notice of the change to Python 3,
+            # if using Kodi 19 non-stable w/ python 3
+            if (version_installed['major'] == 19 and
+                    version_installed['tag'] in ['alpha', 'beta', 'releasecandidate'] and
+                    sys.version_info[0] >= 3 and
+                    ADDON.getSetting('python_3_notice') != 'true'):
+                script_path = os.path.join(ADDON_PATH, 'resources', 'lib',
+                                           'version_check', 'viewer.py')
+                xbmc.executebuiltin('RunScript(%s,%s,%s)' %
+                                    (script_path, 'Kodi Goes Python 3', 'k19_py3_notice.txt'))
+                ADDON.setSetting('python_3_notice', 'true')

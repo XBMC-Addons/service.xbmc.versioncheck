@@ -4,5 +4,6 @@
         <setting label="32021" type="bool" id="versioncheck_enable" default="true"/>
         <setting label="32023" type="bool" id="upgrade_system" default="false"/>
         <setting label="32024" type="bool" id="upgrade_apt" default="false"/>
+        <setting type="bool" id="python_3_notice" default="false" visible="false"/>
     </category>
 </settings>
