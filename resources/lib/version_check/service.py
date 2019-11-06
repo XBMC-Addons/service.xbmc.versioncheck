@@ -77,8 +77,7 @@ def _version_check_linux(packages):
             # since we need the user password, ask to check for new version first
             # pylint: disable=import-outside-toplevel
             from .shell_handler_apt import ShellHandlerApt
-            sudo = True
-            handler = ShellHandlerApt(sudo)
+            handler = ShellHandlerApt(use_sudo=True)
             if dialog_yes_no(32015):
                 pass
             elif dialog_yes_no(32009, 32010):
