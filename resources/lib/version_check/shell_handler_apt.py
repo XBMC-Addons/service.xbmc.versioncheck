@@ -31,7 +31,7 @@ class ShellHandlerApt(Handler):
     def __init__(self, use_sudo=False):
         Handler.__init__(self)
         self.sudo = use_sudo
-        installed, _ = self._check_versions('xbmc', False)
+        installed, _ = self._check_versions('kodi', False)
         if not installed:
             # there is no package installed via repo, so we exit here
             log('No installed package found, exiting')
