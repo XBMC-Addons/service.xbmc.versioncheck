@@ -21,6 +21,7 @@ class Handler:
 
     def __init__(self):
         self._pwd = ''
+        self._update = True
 
     @property
     def pwd(self):
@@ -40,7 +41,25 @@ class Handler:
         """
         self._pwd = value
 
-    def _check_versions(self, package, update=True):
+    @property
+    def update(self):
+        """ update apt-cache property
+
+        :return: whether to update apt-cache or not when checking for upgrades
+        :rtype: bool
+        """
+        return self._update
+
+    @update.setter
+    def update(self, value):
+        """ update apt-cache setter
+
+        :param value: whether to update apt-cache or not when checking for upgrades
+        :type value: bool
+        """
+        self._update = value
+
+    def _check_versions(self, package):
         raise NotImplementedError
 
     def check_upgrade_available(self, package):

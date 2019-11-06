@@ -34,17 +34,15 @@ class AptDaemonHandler(Handler):
         Handler.__init__(self)
         self.apt_client = client.AptClient()
 
-    def _check_versions(self, package, update=None):
+    def _check_versions(self, package):
         """ Check apt package versions
 
         :param package: package to check
         :type package: str
-        :param update: unused, match Handler signature
-        :type update: None
         :return: installed version, candidate version
         :rtype: str, str / False, False
         """
-        if not self._update_cache():
+        if self.update and not self._update_cache():
             return False, False
         try:
             trans = self.apt_client.upgrade_packages([package])
