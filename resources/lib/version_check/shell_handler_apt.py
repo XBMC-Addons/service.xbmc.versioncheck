@@ -31,25 +31,25 @@ class ShellHandlerApt(Handler):
     def __init__(self, use_sudo=False):
         Handler.__init__(self)
         self.sudo = use_sudo
-        installed, _ = self._check_versions('xbmc', False)
+        self._update = False
+        installed, _ = self._check_versions('kodi')
         if not installed:
             # there is no package installed via repo, so we exit here
             log('No installed package found, exiting')
             sys.exit(0)
+        self._update = True
 
-    def _check_versions(self, package, update=True):
+    def _check_versions(self, package):
         """ Check apt package versions
 
         :param package: package to check
         :type package: str
-        :param update: whether to require apt cache update
-        :type update: bool
         :return: installed version, candidate version
         :rtype: str, str / False, False
         """
         _cmd = 'apt-cache policy ' + package
 
-        if update and not self._update_cache():
+        if self.update and not self._update_cache():
             return False, False
 
         try:
