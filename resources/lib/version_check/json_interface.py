@@ -13,7 +13,7 @@
 """
 
 from contextlib import closing
-import json as json_interface
+import json
 import os
 import sys
 
@@ -37,13 +37,13 @@ def get_installed_version():
         },
         "id": 1
     }
-    json_query = xbmc.executeJSONRPC(json_interface.dumps(query))
+    json_query = xbmc.executeJSONRPC(json.dumps(query))
     if sys.version_info[0] >= 3:
         json_query = str(json_query)
     else:
         json_query = \
             unicode(json_query, 'utf-8', errors='ignore')  # pylint: disable=undefined-variable
-    json_query = json_interface.loads(json_query)
+    json_query = json.loads(json_query)
     version_installed = []
     if 'result' in json_query and 'version' in json_query['result']:
         version_installed = json_query['result']['version']
@@ -65,5 +65,5 @@ def get_version_file_list():
     else:
         version_query = \
             unicode(data, 'utf-8', errors='ignore')  # pylint: disable=undefined-variable
-    version_query = json_interface.loads(version_query)
+    version_query = json.loads(version_query)
     return version_query
