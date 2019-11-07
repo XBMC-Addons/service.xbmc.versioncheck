@@ -11,6 +11,9 @@
 - PEP8 and cosmetics
 - pylint 10.00/10
         </news>
+        <assets>
+            <icon>icon.png</icon>
+        </assets>
         <summary lang="be">Kodi Version Check checks if you are running latest released version.</summary>
         <summary lang="bg">Проверява дали ползвате най-новата версия на Kodi.</summary>
         <summary lang="ca">Kodi Version Check comprova si està utilitzant la última versió publicada.</summary>
@@ -116,7 +119,6 @@
         <license>GPL-2.0-or-later</license>
         <forum>https://forum.kodi.tv/showthread.php?tid=160228</forum>
         <website>https://kodi.tv</website>
-        <email></email>
         <source>https://github.com/XBMC-Addons/service.xbmc.versioncheck</source>
     </extension>
 </addon>
