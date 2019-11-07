@@ -119,7 +119,6 @@
         <license>GPL-2.0-or-later</license>
         <forum>https://forum.kodi.tv/showthread.php?tid=160228</forum>
         <website>https://kodi.tv</website>
-        <email></email>
         <source>https://github.com/XBMC-Addons/service.xbmc.versioncheck</source>
     </extension>
 </addon>
