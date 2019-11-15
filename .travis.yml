@@ -6,6 +6,7 @@ install:
   - pip install distro
   - pip install kodi-addon-checker
   - pip install pylint
+  - pip install jsonschema
 
 before_script:
   - cd $HOME
@@ -13,3 +14,4 @@ before_script:
 script:
   - kodi-addon-checker $TRAVIS_BUILD_DIR --branch=gotham
   - pylint $TRAVIS_BUILD_DIR/resources/lib/
+  - jsonschema -i $TRAVIS_BUILD_DIR/resources/versions.txt $TRAVIS_BUILD_DIR/resources/versions.schema.txt
