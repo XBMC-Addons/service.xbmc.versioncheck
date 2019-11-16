@@ -6,6 +6,7 @@
     <extension point="xbmc.service" library="resources/lib/runner.py" start="login"/>
     <extension point="xbmc.addon.metadata">
         <news>
+- add Kodi 18.5 stable release
 - add json schema file for versions.txt
 - fix logic for deciding when to use distro over platform
         </news>
