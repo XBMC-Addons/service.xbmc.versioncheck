@@ -6,11 +6,8 @@
     <extension point="xbmc.service" library="resources/lib/runner.py" start="login"/>
     <extension point="xbmc.addon.metadata">
         <news>
-- Python 3 / Kodi 19 ready
-- Update to use SPDX license identifiers
-- Refactor
-- PEP8 and cosmetics
-- pylint 10.00/10
+- add json schema file for versions.txt
+- fix logic for deciding when to use distro over platform
         </news>
         <assets>
             <icon>icon.png</icon>

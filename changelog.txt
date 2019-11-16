@@ -1,3 +1,7 @@
+v0.5.1
+- add json schema file for versions.txt
+- fix logic for deciding when to use distro over platform
+
 v0.5.0
 - Python 3 / Kodi 19 ready
 - Update to use SPDX license identifiers
