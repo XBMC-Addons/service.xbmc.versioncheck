@@ -33,30 +33,14 @@ from .json_interface import get_version_file_list
 from .json_interface import get_installed_version
 from .versions import compare_version
 
-DISTRIBUTION = None
 
 if sys.version_info[0] == 3 and sys.version_info[1] >= 8:
-    try:
-        import distro
-    except ImportError:
-        # if distro is included with v19 this can be removed
-        # don't want to add external requirements on a basic service
-        distro = None
-
-    if distro:
-        DISTRIBUTION = distro.linux_distribution(full_distribution_name=False)[0].lower()
-
+    from .distro import distro
+    DISTRIBUTION = distro.linux_distribution(full_distribution_name=False)[0].lower()
 else:
-    try:
-        import platform
-    except ImportError:
-        # if distro is included with v19 this can be removed
-        # don't want to add external requirements on a basic service
-        platform = None
-
-    if platform:
-        # pylint: disable=deprecated-method
-        DISTRIBUTION = platform.linux_distribution(full_distribution_name=0)[0].lower()
+    import platform
+    # pylint: disable=deprecated-method
+    DISTRIBUTION = platform.linux_distribution(full_distribution_name=0)[0].lower()
 
 
 def _version_check():
@@ -159,7 +143,7 @@ def run():
         if wait_for_abort(5):
             sys.exit(0)
 
-        if (DISTRIBUTION and xbmc.getCondVisibility('System.Platform.Linux') and
+        if (xbmc.getCondVisibility('System.Platform.Linux') and
                 ADDON.getSetting('upgrade_apt') == 'true'):
             _version_check_linux(['kodi'])
         else:
