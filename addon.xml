@@ -7,6 +7,7 @@
     <extension point="xbmc.addon.metadata">
         <news>
 - add Kodi 18.6 stable release
+- fix exception when distro/platform modules are unavailable
         </news>
         <assets>
             <icon>icon.png</icon>
