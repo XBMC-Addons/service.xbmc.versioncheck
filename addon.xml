@@ -114,7 +114,7 @@
         <disclaimer lang="tr">Bu betiği kullanmaktan çekinmeyin. Daha fazla bilgi için kodi.tv adresini ziyaret edin</disclaimer>
         <disclaimer lang="zh">可放心使用此脚本，更多信息访问 kodi.tv</disclaimer>
         <platform>all</platform>
-        <license>GPL-2.0-or-later</license>
+        <license>GPL-2.0-or-later, GPL-3.0-or-later, Apache-2.0</license>
         <forum>https://forum.kodi.tv/showthread.php?tid=160228</forum>
         <website>https://kodi.tv</website>
         <source>https://github.com/XBMC-Addons/service.xbmc.versioncheck</source>
