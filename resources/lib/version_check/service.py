@@ -13,6 +13,7 @@
 
 """
 
+import platform
 import sys
 
 import xbmc  # pylint: disable=import-error
@@ -35,12 +36,19 @@ from .versions import compare_version
 
 
 if sys.version_info[0] == 3 and sys.version_info[1] >= 8:
-    from .distro import distro
-    DISTRIBUTION = distro.linux_distribution(full_distribution_name=False)[0].lower()
+    try:
+        from .distro import distro
+        DISTRIBUTION = distro.linux_distribution(full_distribution_name=False)[0].lower()
+
+    except ImportError:
+        DISTRIBUTION = ''
+
 else:
-    import platform
     # pylint: disable=deprecated-method
     DISTRIBUTION = platform.linux_distribution(full_distribution_name=0)[0].lower()
+
+if not DISTRIBUTION:
+    DISTRIBUTION = platform.uname().system.lower()
 
 
 def _version_check():
