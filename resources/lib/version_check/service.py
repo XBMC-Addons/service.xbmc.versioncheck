@@ -34,13 +34,13 @@ from .json_interface import get_version_file_list
 from .json_interface import get_installed_version
 from .versions import compare_version
 
-
 if sys.version_info[0] == 3 and sys.version_info[1] >= 8:
     try:
         from .distro import distro
+
         DISTRIBUTION = distro.linux_distribution(full_distribution_name=False)[0].lower()
 
-    except ImportError:
+    except (AttributeError, ImportError):
         DISTRIBUTION = ''
 
 else:
