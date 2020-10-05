@@ -44,8 +44,7 @@ if sys.version_info[0] == 3 and sys.version_info[1] >= 8:
         DISTRIBUTION = ''
 
 else:
-    # pylint: disable=deprecated-method
-    DISTRIBUTION = platform.linux_distribution(full_distribution_name=0)[0].lower()
+    DISTRIBUTION = platform.linux_distribution(full_distribution_name=0)[0].lower()  # pylint: disable=deprecated-method
 
 if not DISTRIBUTION:
     DISTRIBUTION = platform.uname().system.lower()
