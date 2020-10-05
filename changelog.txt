@@ -1,3 +1,6 @@
+v0.5.7
+- use xbmcvfs for translatePath for matrix
+
 v0.5.6
 - add Kodi 18.8 stable release
 - add Kodi 19.0 alpha1 release

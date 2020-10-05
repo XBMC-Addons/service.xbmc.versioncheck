@@ -6,8 +6,7 @@
     <extension point="xbmc.service" library="resources/lib/runner.py" start="login"/>
     <extension point="xbmc.addon.metadata">
         <news>
-- add Kodi 18.8 stable release
-- add Kodi 19.0 alpha1 release
+- use xbmcvfs for translatePath for matrix
         </news>
         <assets>
             <icon>icon.png</icon>
