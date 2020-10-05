@@ -6,6 +6,7 @@
     <extension point="xbmc.service" library="resources/lib/runner.py" start="login"/>
     <extension point="xbmc.addon.metadata">
         <news>
+- add Kodi 19.0 alpha2 release
 - use xbmcvfs for translatePath for matrix
 - fix platforms where subprocess is not available
 - fix dialogs on Kodi 19
