@@ -135,7 +135,10 @@ def _check_cryptography():
     ver_parts = list(map(int, ver.split('.')))
     if len(ver_parts) < 2 or ver_parts[0] < 1 or (ver_parts[0] == 1 and ver_parts[1] < 7):
         log('Python cryptography module version %s is too old, at least version 1.7 needed' % ver)
-        xbmcgui.Dialog().ok(ADDON_NAME, localise(32040) % ver, localise(32041), localise(32042))
+        xbmcgui.Dialog().ok(
+            ADDON_NAME,
+            '[CR]'.join([localise(32040) % ver, localise(32041), localise(32042)])
+        )
 
 
 def run():
