@@ -1,6 +1,15 @@
+arch: arm64
+os: linux
+dist: focal
+
 language: python
-python:
-  - "3.6"
+
+env:
+  global:
+    - ADDON_PYTHON_PATH=$TRAVIS_BUILD_DIR/resources/lib/
+    - KODI_MIN_VERSION=gotham
+    - VERSION_TXT=$TRAVIS_BUILD_DIR/resources/versions.txt
+    - VERSION_SCHEMA=$TRAVIS_BUILD_DIR/resources/versions.schema.txt
 
 install:
   - pip install kodi-addon-checker
@@ -8,9 +17,10 @@ install:
   - pip install jsonschema
 
 before_script:
+  - mv .pylintrc $HOME
   - cd $HOME
 
 script:
-  - kodi-addon-checker $TRAVIS_BUILD_DIR --branch=gotham
-  - pylint --ignore=distro $TRAVIS_BUILD_DIR/resources/lib/
-  - jsonschema -i $TRAVIS_BUILD_DIR/resources/versions.txt $TRAVIS_BUILD_DIR/resources/versions.schema.txt
+  - kodi-addon-checker $TRAVIS_BUILD_DIR --branch=$KODI_MIN_VERSION
+  - pylint --ignore=distro $ADDON_PYTHON_PATH
+  - jsonschema -i $VERSION_TXT $VERSION_SCHEMA
