@@ -6,8 +6,7 @@
     <extension point="xbmc.service" library="resources/lib/runner.py" start="login"/>
     <extension point="xbmc.addon.metadata">
         <news>
-- add Kodi 18.9 release
-- fixup Kodi 19 pre alpha2 translatePath
+- add Kodi 19.0 alpha3 release
         </news>
         <assets>
             <icon>icon.png</icon>
