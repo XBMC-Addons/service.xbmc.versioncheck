@@ -1,3 +1,6 @@
+v0.5.15
+- Fix exec of linux specific code path on windows
+
 v0.5.14
 - add Kodi 19.0 release
 
