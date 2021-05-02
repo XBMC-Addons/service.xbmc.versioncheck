@@ -1,3 +1,6 @@
+v0.5.16
+- Bump minimum Kodi version from Gotham to Leia
+
 v0.5.15
 - Fix exec of linux specific code path on windows
 
