@@ -7,7 +7,7 @@ language: python
 env:
   global:
     - ADDON_PYTHON_PATH=$TRAVIS_BUILD_DIR/resources/lib/
-    - KODI_MIN_VERSION=leia
+    - KODI_MIN_VERSION=matrix
     - VERSION_TXT=$TRAVIS_BUILD_DIR/resources/versions.txt
     - VERSION_SCHEMA=$TRAVIS_BUILD_DIR/resources/versions.schema.txt
 
