@@ -46,8 +46,8 @@ if sys.platform.startswith('linux'):
     else:
         DISTRIBUTION = platform.linux_distribution(full_distribution_name=0)[0].lower()  # pylint: disable=deprecated-method
 
-if not DISTRIBUTION:
-    DISTRIBUTION = platform.uname()[0].lower()
+    if not DISTRIBUTION:
+        DISTRIBUTION = platform.uname()[0].lower()
 
 
 def _version_check():
