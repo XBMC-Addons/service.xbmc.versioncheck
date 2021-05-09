@@ -6,8 +6,7 @@
     <extension point="xbmc.service" library="resources/lib/runner.py"/>
     <extension point="xbmc.addon.metadata">
         <news>
-- Fix-up exception on non linux platforms due to missing variable definition
-- Update translations
+- add Kodi 19.1 release
         </news>
         <assets>
             <icon>icon.png</icon>
