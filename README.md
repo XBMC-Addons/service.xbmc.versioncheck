@@ -2,7 +2,7 @@
 
 # Version Check
 
-![Build Status](https://img.shields.io/travis/XBMC-Addons/service.xbmc.versioncheck/master.svg)
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FXBMC-Addons%2Fservice.xbmc.versioncheck%2Fbadge&logo=none)](https://actions-badge.atrox.dev/XBMC-Addons/service.xbmc.versioncheck/goto)
 ![License](https://img.shields.io/badge/license-GPL--2.0--or--later-success.svg)
 ![Kodi Version](https://img.shields.io/badge/kodi-gotham%2B-success.svg)
 ![Contributors](https://img.shields.io/github/contributors/XBMC-Addons/service.xbmc.versioncheck.svg)
