@@ -27,32 +27,40 @@ jobs:
         with:
           path: ${{ github.event.repository.name }}
 
-      - name: Checkout kodi-addon-checker
-        uses: actions/checkout@v2
-        with:
-          repository: xbmc/addon-check
-          path: addon-check
-
       - name: Install dependencies
         run: |
+          sudo apt-get install libxml2-utils xmlstarlet
           python -m pip install --upgrade pip
           python -m pip install jsonschema
           python -m pip install pylint
-          python -m pip install addon-check/
+          python -m pip install git+https://github.com/xbmc/addon-check.git
 
-      - name: Staging
-        run: |
-          cp -t ${HOME} .pylintrc
-        working-directory: ${{ github.event.repository.name }}
-
-      - name: Kodi Add-on Checker
-        id: kodi-addon-checker
+      - name: Kodi Add-on Checker (Leia)
+        id: kodi-addon-checker-leia
         run: |
           kodi-addon-checker ${{ github.event.repository.name }} --branch=leia
+
+      - name: Staging for Matrix
+        run: |
+          xmlstarlet ed -L -u '//import[@addon="xbmc.python"]/@version' -v "3.0.0" addon.xml
+        working-directory: ${{ github.event.repository.name }}
+
+      - name: Kodi Add-on Checker (Matrix)
+        id: kodi-addon-checker-matrix
+        run: |
+          kodi-addon-checker ${{ github.event.repository.name }} --branch=matrix
+
+      - name: Re-staging Repository
+        run: |
+          git reset
+          git checkout .
+          git clean -fdx
+        working-directory: ${{ github.event.repository.name }}
 
       - name: Pylint
         id: pylint
         run: |
+          cp -t ${HOME} .pylintrc
           pylint --ignore=distro resources/lib/
         working-directory: ${{ github.event.repository.name }}
 
