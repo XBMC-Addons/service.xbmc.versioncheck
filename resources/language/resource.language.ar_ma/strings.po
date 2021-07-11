@@ -7,127 +7,129 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-07-04 19:28+0000\n"
-"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
-"Language-Team: Hebrew (Israel) <https://kodi.weblate.cloud/projects/kodi-core/service-xbmc-versioncheck/he_il/>\n"
-"Language: he_il\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ar_ma\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 4.7.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi Version Check checks if you are running latest released version."
-msgstr "בודק גרסת Kodi מוודא אם אתה מריץ את הגרסה הרשמית האחרונה."
+msgstr ""
 
 msgctxt "Addon Description"
 msgid "Kodi Version Check only supports a number of platforms/distros as releases may differ between them. For more information visit the kodi.tv website."
-msgstr "בודק גרסת Kodi תומך רק במספר פלטפורמות/הפצות מאחר שסימון הגרסאות שונה בין אחת לשניה. למידע נוסף בקר באתר kodi.tv."
+msgstr ""
 
 msgctxt "Addon Disclaimer"
 msgid "Feel free to use this script. For information visit kodi.tv"
-msgstr "תרגיש חופשי להשתמש בסקריפט זה. למידע נוסף בקר ב-kodi.tv"
+msgstr ""
 
 msgctxt "#32001"
 msgid "We would like to recommend you to upgrade."
-msgstr "אנו ממליצים לך לשדרג."
+msgstr ""
 
 msgctxt "#32002"
 msgid "Visit Kodi.tv for more information."
-msgstr "בקר ב-Kodi.tv למידע נוסף."
+msgstr ""
 
+# empty strings from id 32003 to 32008
 msgctxt "#32009"
 msgid "Would you like to remove this reminder?"
-msgstr "התרצה להסיר תזכורת זאת?"
+msgstr ""
 
 msgctxt "#32010"
 msgid "You can enable/disable it through add-on settings."
-msgstr "אתה יכול להפעיל/לנטרל זאת בהגדרות ההרחבה."
+msgstr ""
 
 msgctxt "#32011"
 msgid "Use your package manager(apt) to upgrade."
-msgstr "השתמש במנהל החבילות (apt) לשידרוג."
+msgstr ""
 
 msgctxt "#32012"
 msgid "A new version is available, do you want to upgrade now?"
-msgstr "גרסה חדשה זמינה, התרצה לשדרג כעת?"
+msgstr ""
 
 msgctxt "#32013"
 msgid "Upgrade successful"
-msgstr "השדרוג הצליח"
+msgstr ""
 
 msgctxt "#32014"
 msgid "Do you want to restart Kodi to finish the upgrade?"
-msgstr "התרצה להפעיל מחדש את Kodi לשם סיום השדרוג?"
+msgstr ""
 
 msgctxt "#32015"
 msgid "Do you want to check the repository for a new version?"
-msgstr "התרצה לבדוק האם זמינה גרסה חדשה במאגר?"
+msgstr ""
 
 msgctxt "#32016"
 msgid "There is a newer stable Kodi version available."
-msgstr "גרסה יציבה חדשה של Kodi זמינה להורדה."
+msgstr ""
 
+# empty strings from id 32017 to 32019
 msgctxt "#32020"
 msgid "General"
-msgstr "כללי"
+msgstr ""
 
 msgctxt "#32021"
 msgid "Enable Kodi version check?"
-msgstr "להפעיל את בודק גרסת Kodi ?"
+msgstr ""
 
 msgctxt "#32022"
 msgid "Please enter your password"
-msgstr "אנא הזן סיסמתך"
+msgstr ""
 
 msgctxt "#32023"
 msgid "Linux: Upgrade complete system"
-msgstr "לינוקס: שדרוג מערכת מלא"
+msgstr ""
 
 msgctxt "#32024"
 msgid "Linux: Upgrade using apt"
-msgstr "לינוקס: שדרוג באמצעות apt"
+msgstr ""
 
+# empty strings from id 32025 to 32029
 #. Used in OK dialog
 msgctxt "#32030"
 msgid "A new stable version of Kodi is available."
-msgstr "גרסה יציבה חדשה של קודי זמינה."
+msgstr ""
 
 #. Direct people to the website. Used in OK dialog
 msgctxt "#32031"
 msgid "Visit http://kodi.tv for more information."
-msgstr "בקר ב-http://kodi.tv למידע נוסף."
+msgstr ""
 
 #. Used in OK dialog
 msgctxt "#32032"
 msgid "A new stable version of Kodi is available."
-msgstr "גרסה יציבה חדשה של קודי זמינה."
+msgstr ""
 
 #. Direct people to the website. Used in OK dialog
 msgctxt "#32033"
 msgid "Visit http://kodi.tv for more information."
-msgstr "בקר ב-http://kodi.tv למידע נוסף."
+msgstr ""
 
 #. For example: "You are using 13.1 prealpha while 13.2 stable is available"
 msgctxt "#32034"
 msgid "Using %s while %s is available."
-msgstr "שימוש ב%s בעוד %s זמין."
+msgstr ""
 
 #. Used in OK dialog
 msgctxt "#32035"
 msgid "It is recommended that you to upgrade to a newer version."
-msgstr "מומלץ לך לשדרג לגרסה חדשה יותר."
+msgstr ""
 
 # empty strings from id 32036 to 32039
 msgctxt "#32040"
 msgid "Your version %s of the Python cryptography module is too old. You need at least version 1.7."
-msgstr "הגרסה %s של מודול הקריפטוגרפיה של Python היא ישנה מדי. צריך את גרסה 1.7 לפחות."
+msgstr ""
 
 msgctxt "#32041"
 msgid "Please upgrade your operating system."
-msgstr "נא לשדרג את מערכת ההפעלה שלך."
+msgstr ""
 
 msgctxt "#32042"
 msgid "For more information, see https://kodi.wiki/view/Linux"
-msgstr "למידע נוסף, כדאי לגשת אל https://kodi.wiki/view/Linux"
+msgstr ""
