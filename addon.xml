@@ -6,7 +6,8 @@
     <extension point="xbmc.service" library="resources/lib/runner.py"/>
     <extension point="xbmc.addon.metadata">
         <news>
-- add Kodi 19.1 release
+- add Kodi 19.2 release
+- Update translations from Weblate
         </news>
         <assets>
             <icon>icon.png</icon>
