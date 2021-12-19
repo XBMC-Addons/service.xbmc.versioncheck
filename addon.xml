@@ -27,10 +27,10 @@
         <summary lang="en_NZ">Kodi Version Check checks if you are running latest released version.</summary>
         <summary lang="en_US">Kodi Version Check checks if you are running latest released version.</summary>
         <summary lang="es_ES">Kodi Version Check comprueba si está ejecutando la última versión de Kodi.</summary>
-        <summary lang="es_MX">Comprobador de Version de Kodi comprueba si se esta ejecutando ultima version publicada.</summary>
+        <summary lang="es_MX">Kodi Version Check comprueba si estás ejecutando la última versión de Kodi publicada.</summary>
         <summary lang="et_EE">Kontrollitakse, kas kasutuses on uusim Kodi väljalase.</summary>
         <summary lang="fa_IR">بررسی نگارش کودی، بررسی می‌کند که جدیدترین نگارش ارائه‌شده را اجرا کنید.</summary>
-        <summary lang="fi_FI">Kodi Version Check tarkistaa onko käyttämäsi uusin versio.</summary>
+        <summary lang="fi_FI">Kodi Version Check tarkistaa käytätkö sovelluksen viimeisintä versiota.</summary>
         <summary lang="fr_CA">Le contrôleur de version Kodi vérifie si vous utilisez la dernière version parue.</summary>
         <summary lang="fr_FR">Le contrôle de version de Kodi vérifie si la dernière version sortie est utilisée.</summary>
         <summary lang="gl_ES">Kodi Version Check verifica se está a executar a última versión.</summary>
@@ -70,7 +70,7 @@
         <description lang="es_MX">Kodi Version Check solo soporta un número de plataformas/distros dado que las versiones pueden diferir. Para más información visita el sitio web de kodi.tv.</description>
         <description lang="et_EE">Toetatud on ainult osad platvormid/distrod, kuna väljalasked võivad nende vahel erineda. Lisateavet leiab aadressilt kodi.tv.</description>
         <description lang="fa_IR">بررسی نگارش کودی تنها چند بن‌سازه/توزیع را که ممکن است ارائه‌ها رویشان تفاوت داشته باشند بررسی می‌کند. برای اطّلاعات بیش‌تر، پایگاه وب kodi.tv را ببینید.</description>
-        <description lang="fi_FI">Kodi Version Check tukee vain joitain alustoja/distroja koska julkaisut saattavat poiketa toisistaan. Saadaksesi lisätietoa, vieraile kodi.tv:ssä.</description>
+        <description lang="fi_FI">Kodi Version Check tukee vain joitakin alustoja/distroja, koska julkaisut saattavat poiketa toisistaan. Lue lisää kodi.tv-sivustolta.</description>
         <description lang="fr_CA">Le contrôleur de version Kodi ne prend en charge qu'un certain nombre de plate-formes/distributions car les versions peuvent varier entre elles. Pour plus d'informations, visitez le site Web kodi.tv.</description>
         <description lang="fr_FR">Le contrôle de version de Kodi ne prend en charge qu'un certain nombre de plate-formes/distributions car les versions peuvent varier entre elles. Pour plus d'informations, consulter le site Web kodi.tv.</description>
         <description lang="gl_ES">Kodi Version Check só soporta un número limitado de plataformas/distribucións, xa que os lanzamentos poden diferir entre eles. Para máis información visitar o sitio web de kodi.tv.</description>
@@ -103,10 +103,10 @@
         <disclaimer lang="en_NZ">Feel free to use this script. For information visit kodi.tv</disclaimer>
         <disclaimer lang="en_US">Feel free to use this script. For information visit kodi.tv</disclaimer>
         <disclaimer lang="es_ES">Puede usar libremente este programa. Para más información, visite kodi.tv</disclaimer>
-        <disclaimer lang="es_MX">Sientase libre de utilizar este script. Para mas información visita kodi.tv</disclaimer>
+        <disclaimer lang="es_MX">Siéntete libre de utilizar este script. Para mas información visita kodi.tv</disclaimer>
         <disclaimer lang="et_EE">Kasuta seda skripti julgelt. Lisateavet leiab aadressilt kodi.tv</disclaimer>
         <disclaimer lang="fa_IR">برای استفاده از این کدنوشته، احساس راحتی داشته باشید. برای اطّلاعات بیش‌تر kodi.tv را ببینید</disclaimer>
-        <disclaimer lang="fi_FI">Käytä vapaasti tätä scriptiä. Lisää tietoa sivulta kodi.tv</disclaimer>
+        <disclaimer lang="fi_FI">Käytä tätä komentosarjaa vapaasti. Lue lisää kodi.tv-sivustolta</disclaimer>
         <disclaimer lang="fr_CA">N'hésitez pas à utiliser ce script. Pour plus d'informations visitez kodi.tv</disclaimer>
         <disclaimer lang="fr_FR">Utiliser ce script si désiré. Pour plus d'informations, consulter le site kodi.tv</disclaimer>
         <disclaimer lang="gl_ES">Síntase libre de usar este script, para máis información visitar kodi.tv.</disclaimer>
