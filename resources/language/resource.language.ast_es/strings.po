@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Addons\n"
-"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-07-29 07:29+0000\n"
+"PO-Revision-Date: 2021-12-14 15:13+0000\n"
 "Last-Translator: Enol P. <enolp@softastur.org>\n"
 "Language-Team: Asturian (Spain) <https://kodi.weblate.cloud/projects/kodi-core/service-xbmc-versioncheck/ast_es/>\n"
 "Language: ast_es\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.7.2\n"
+"X-Generator: Weblate 4.9.1\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi Version Check checks if you are running latest released version."
@@ -35,7 +35,7 @@ msgstr "Aconseyámoste qu'anueves."
 
 msgctxt "#32002"
 msgid "Visit Kodi.tv for more information."
-msgstr ""
+msgstr "Visita Kodi.tv pa más información."
 
 # empty strings from id 32003 to 32008
 msgctxt "#32009"
@@ -89,7 +89,7 @@ msgstr ""
 
 msgctxt "#32024"
 msgid "Linux: Upgrade using apt"
-msgstr ""
+msgstr "Linux: Anueva con apt"
 
 # empty strings from id 32025 to 32029
 #. Used in OK dialog
