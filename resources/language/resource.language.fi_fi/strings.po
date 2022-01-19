@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-11-23 14:48+0000\n"
+"PO-Revision-Date: 2022-01-19 02:13+0000\n"
 "Last-Translator: Oskari Lavinto <olavinto@protonmail.com>\n"
 "Language-Team: Finnish <https://kodi.weblate.cloud/projects/kodi-core/service-xbmc-versioncheck/fi_fi/>\n"
 "Language: fi_fi\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9\n"
+"X-Generator: Weblate 4.10.1\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi Version Check checks if you are running latest released version."
@@ -27,15 +27,15 @@ msgstr "Kodi Version Check tukee vain joitakin alustoja/distroja, koska julkaisu
 
 msgctxt "Addon Disclaimer"
 msgid "Feel free to use this script. For information visit kodi.tv"
-msgstr "Käytä tätä komentosarjaa vapaasti. Lue lisää kodi.tv-sivustolta"
+msgstr "Käytä tätä komentosarjaa vapaasti. Lue lisää kodi.tv-sivustolta."
 
 msgctxt "#32001"
 msgid "We would like to recommend you to upgrade."
-msgstr "Suosittelemme päivittämistä."
+msgstr "Suosittelemme päivitystä."
 
 msgctxt "#32002"
 msgid "Visit Kodi.tv for more information."
-msgstr "Kodi.tv-sivustolta voit lukea lisätietoja."
+msgstr "Lue lisää kodi.tv-sivustolta."
 
 # empty strings from id 32003 to 32008
 msgctxt "#32009"
@@ -48,7 +48,7 @@ msgstr "Voit ottaa sen käyttöön/poistaa sen käytöstä lisäosan asetuksista
 
 msgctxt "#32011"
 msgid "Use your package manager(apt) to upgrade."
-msgstr "Käytä pakettienhallintaa (APT) päivittääksesi."
+msgstr "Käytä päivitykseenn järjestelmäsi APT-pakettienhallintaa."
 
 msgctxt "#32012"
 msgid "A new version is available, do you want to upgrade now?"
@@ -76,7 +76,7 @@ msgstr "Yleiset"
 
 msgctxt "#32021"
 msgid "Enable Kodi version check?"
-msgstr "Käytä Kodin versiotarkistusta"
+msgstr "Käytetäänkö Kodin versiotarkistusta?"
 
 msgctxt "#32022"
 msgid "Please enter your password"
@@ -84,11 +84,11 @@ msgstr "Syötä salasanasi"
 
 msgctxt "#32023"
 msgid "Linux: Upgrade complete system"
-msgstr "Linux: Tee järjestelmäpäivitys"
+msgstr "Linux: päivitä järjestelmä"
 
 msgctxt "#32024"
 msgid "Linux: Upgrade using apt"
-msgstr "Linux: Päivitä käyttäen pakettienhallintaa (APT)"
+msgstr "Linux: päivitä käyttäen APT-pakettienhallintaa"
 
 #. Used in OK dialog
 msgctxt "#32030"
