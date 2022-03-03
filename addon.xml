@@ -7,6 +7,7 @@
     <extension point="xbmc.addon.metadata">
         <news>
 - add Kodi 19.4 release
+- fix potential UnicodeDecodeError in distro |contrib: mvn23|
 - Update translations from Weblate
         </news>
         <assets>
