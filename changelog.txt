@@ -1,3 +1,7 @@
+v0.5.23
+- add Kodi 20 Alpha1 release
+- Update translations from Weblate
+
 v0.5.22
 - add Kodi 19.4 release
 - fix potential UnicodeDecodeError in distro |contrib: mvn23|
