@@ -53,7 +53,7 @@
         <summary lang="ro_RO">Verificare versiune Kodi verifică dacă folosiți ultima versiune lansată.</summary>
         <summary lang="ru_RU">Kodi Version Check проверяет наличие последней версии.</summary>
         <summary lang="sk_SK">Kodi Kontrola verzií overuje, či používate najnovšiu vydanú verziu.</summary>
-        <summary lang="sl_SI">Preverjanje različice Kodi preveri, če imate nameščeno nazadnje izdano različico.</summary>
+        <summary lang="sl_SI">Preverjalnik različic Kodi preveri, ali je nameščena zadnja objavljena različica.</summary>
         <summary lang="sv_SE">Kodi Version Check kontrollerar om du använder den senaste versionen.</summary>
         <summary lang="tr_TR">Kodi Sürüm Kontrol, yayınlanmış son sürümü kullanıp kullanmadığınızı kontrol eder.</summary>
         <summary lang="vi_VN">Kodi Version Check kiểm tra xem bạn có đang chạy phiên bản mới nhất được phát hành hay không.</summary>
@@ -93,7 +93,7 @@
         <description lang="pt_PT">O Kodi Version Check suporta apenas algumas plataformas/distribuições, porque os lançamentos podem não ser sempre idênticos. Para mais informação, visite o site kodi.tv.</description>
         <description lang="ru_RU">Kodi Version Check поддерживается только на ряде платформ/дистрибутивов и они могут различаться между собой. Для получения доп. информации посетите сайт kodi.tv.</description>
         <description lang="sk_SK">Kontrola verzie Kodi podporuje iba niekoľko platforiem/distribúcií keďže vydania sa môžu medzi nimi líšiť. Pre viac informácií navštívte webové stránky kodi.tv.</description>
-        <description lang="sl_SI">Preverjanje različice Kodi podpira le nekatere platforme/distribucije, saj se izdaje med njimi lahko zelo razlikujejo. Za več informacij obiščite spletišče kodi.tv</description>
+        <description lang="sl_SI">Preverjalnik različic Kodi podpira le nekatera okolja, saj se te lahko med njimi močno razlikujejo. Več podrobnosti o tem je na voljo na spletišču kodi.tv.</description>
         <description lang="sv_SE">Kodi Version Check stöder endeast ett antal plattformar/distributioner eftersom utgivningar kan skilja mellan dessa. För mer information besök kodi.tv webplatsen.</description>
         <description lang="tr_TR">Kodi Sürüm Kontrol, sürümler arasında değişiklik olduğu için sadece birkaç platform/dağıtım destekler. Daha fazla bilgi için kodi.tv web sitesini ziyaret edin.</description>
         <description lang="vi_VN">Kodi Version Check chỉ hỗ trợ một số nền tảng/phân phối vì các bản phát hành có thể khác nhau giữa chúng. Để biết thêm thông tin, hãy truy cập trang web kodi.tv.</description>
