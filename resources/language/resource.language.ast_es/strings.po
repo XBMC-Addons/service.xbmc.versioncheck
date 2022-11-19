@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-02-25 18:13+0000\n"
-"Last-Translator: Christian Gade <gade@kodi.tv>\n"
+"PO-Revision-Date: 2022-11-16 20:15+0000\n"
+"Last-Translator: Enol P. <enolp@softastur.org>\n"
 "Language-Team: Asturian (Spain) <https://kodi.weblate.cloud/projects/kodi-core/service-xbmc-versioncheck/ast_es/>\n"
 "Language: ast_es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.11\n"
+"X-Generator: Weblate 4.14.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi Version Check checks if you are running latest released version."
@@ -35,7 +35,7 @@ msgstr "Aconseyámoste qu'anueves."
 
 msgctxt "#32002"
 msgid "Visit Kodi.tv for more information."
-msgstr "Visita Kodi.tv pa más información."
+msgstr "Visita Kodi.tv pa consiguir más información."
 
 # empty strings from id 32003 to 32008
 msgctxt "#32009"
@@ -64,7 +64,7 @@ msgstr ""
 
 msgctxt "#32015"
 msgid "Do you want to check the repository for a new version?"
-msgstr ""
+msgstr "¿Quies revisar el depósitu pa saber si hai anovamientos?"
 
 msgctxt "#32016"
 msgid "There is a newer stable Kodi version available."
@@ -120,7 +120,7 @@ msgstr ""
 #. Used in OK dialog
 msgctxt "#32035"
 msgid "It is recommended that you upgrade to a newer version."
-msgstr ""
+msgstr "Aconséyase qu'anueves."
 
 # empty strings from id 32036 to 32039
 msgctxt "#32040"
@@ -129,7 +129,7 @@ msgstr ""
 
 msgctxt "#32041"
 msgid "Please upgrade your operating system."
-msgstr "Anueva'l sistema operativu, por favor."
+msgstr "Anueva'l sistema operativu."
 
 msgctxt "#32042"
 msgid "For more information, see https://kodi.wiki/view/Linux"
