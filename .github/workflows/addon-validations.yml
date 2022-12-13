@@ -17,18 +17,19 @@ jobs:
     name: Add-on Validations
 
     steps:
-      - name: Set up Python v3.6
-        uses: actions/setup-python@v2
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.6'
+          python-version: '3.x'
 
       - name: Checkout Add-on
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: ${{ github.event.repository.name }}
 
       - name: Install dependencies
         run: |
+          sudo apt-get update
           sudo apt-get install libxml2-utils xmlstarlet
           python -m pip install --upgrade pip
           python -m pip install jsonschema
