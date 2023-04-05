@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2023-03-24 10:16+0000\n"
+"PO-Revision-Date: 2023-04-05 16:16+0000\n"
 "Last-Translator: skypichat <skypichat@hotmail.fr>\n"
 "Language-Team: French (France) <https://kodi.weblate.cloud/projects/kodi-core/service-xbmc-versioncheck/fr_fr/>\n"
 "Language: fr_fr\n"
@@ -126,7 +126,7 @@ msgstr "Votre version %s du module Python de cryptographie est trop vieille. Vou
 
 msgctxt "#32041"
 msgid "Please upgrade your operating system."
-msgstr "Veuillez mettre à jour votre système d’exploitation."
+msgstr "Mettez a jour votre système d'exploitation."
 
 msgctxt "#32042"
 msgid "For more information, see https://kodi.wiki/view/Linux"
