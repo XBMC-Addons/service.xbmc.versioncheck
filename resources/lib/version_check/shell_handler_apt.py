@@ -79,8 +79,11 @@ class ShellHandlerApt(Handler):
         _cmd = 'apt-get update'
         try:
             if self.sudo:
-                _ = check_output('echo \'%s\' | sudo -S %s' %
-                                 (self._get_password(), _cmd), shell=True)
+                try:
+                    _ = check_output('sudo %s' % (_cmd), shell=True)
+                except Exception as error:  # pylint: disable=broad-except
+                    _ = check_output('echo \'%s\' | sudo -S %s' %
+                                     (self._get_password(), _cmd), shell=True)
             else:
                 _ = check_output(_cmd.split())
         except Exception as error:  # pylint: disable=broad-except
@@ -100,8 +103,11 @@ class ShellHandlerApt(Handler):
         _cmd = 'apt-get install -y ' + package
         try:
             if self.sudo:
-                _ = check_output('echo \'%s\' | sudo -S %s' %
-                                 (self._get_password(), _cmd), shell=True)
+                try:
+                    _ = check_output('sudo %s' % (_cmd), shell=True)
+                except Exception as error:  # pylint: disable=broad-except
+                    _ = check_output('echo \'%s\' | sudo -S %s' %
+                                     (self._get_password(), _cmd), shell=True)
             else:
                 _ = check_output(_cmd.split())
             log('Upgrade successful')
@@ -121,8 +127,11 @@ class ShellHandlerApt(Handler):
         try:
             log('Upgrading system')
             if self.sudo:
-                _ = check_output('echo \'%s\' | sudo -S %s' %
-                                 (self._get_password(), _cmd), shell=True)
+                try:
+                    _ = check_output('sudo %s' % (_cmd), shell=True)
+                except Exception as error:  # pylint: disable=broad-except
+                    _ = check_output('echo \'%s\' | sudo -S %s' %
+                                     (self._get_password(), _cmd), shell=True)
             else:
                 _ = check_output(_cmd.split())
         except Exception as error:  # pylint: disable=broad-except
