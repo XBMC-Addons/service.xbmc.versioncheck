@@ -53,7 +53,7 @@ class ShellHandlerApt(Handler):
             return False, False
 
         try:
-            result = check_output([_cmd], shell=True).split('\n')
+            result = check_output([_cmd], shell=True).decode('utf-8').split('\n')
         except Exception as error:  # pylint: disable=broad-except
             log('ShellHandlerApt: exception while executing shell command %s: %s' % (_cmd, error))
             return False, False
