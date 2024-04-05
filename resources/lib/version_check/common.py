@@ -218,25 +218,17 @@ def upgrade_message2(version_installed, version_available, version_stable, old_v
     if ADDON.getSetting('lastnotified_version') == '0.1.24':
         ADDON.setSetting('lastnotified_stable', msg_stable)
 
-    # Show different dialogs depending if there's a newer stable available.
+    # Show different dialogs depending on if there's a newer stable available.
     # Also split them between xbmc and kodi notifications to reduce possible confusion.
     # People will find out once they visit the website.
     # For stable only notify once and when there's a newer stable available.
     # Ignore any add-on updates as those only count for != stable
     if old_version == 'stable' and ADDON.getSetting('lastnotified_stable') != msg_stable:
-        if xbmcaddon.Addon('xbmc.addon').getAddonInfo('version') < '13.9.0':
-            xbmcgui.Dialog().ok(ADDON_NAME, '[CR]'.join([msg, localise(32030), localise(32031)]))
-        else:
-            xbmcgui.Dialog().ok(ADDON_NAME, '[CR]'.join([msg, localise(32032), localise(32033)]))
+        xbmcgui.Dialog().ok(ADDON_NAME, '[CR]'.join([msg, localise(32032), localise(32033)]))
         ADDON.setSetting('lastnotified_stable', msg_stable)
 
     elif old_version != 'stable' and ADDON.getSetting('lastnotified_version') != msg_available:
-        if xbmcaddon.Addon('xbmc.addon').getAddonInfo('version') < '13.9.0':
-            # point them to xbmc.org
-            xbmcgui.Dialog().ok(ADDON_NAME, '[CR]'.join([msg, localise(32035), localise(32031)]))
-        else:
-            # use kodi.tv
-            xbmcgui.Dialog().ok(ADDON_NAME, '[CR]'.join([msg, localise(32035), localise(32033)]))
+        xbmcgui.Dialog().ok(ADDON_NAME, '[CR]'.join([msg, localise(32035), localise(32033)]))
 
         ADDON.setSetting('lastnotified_version', msg_available)
 
