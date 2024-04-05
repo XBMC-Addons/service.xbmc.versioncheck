@@ -11,7 +11,7 @@
     See LICENSES/GPL-3.0-or-later.txt for more information.
 
 """
-
+import json
 import platform
 import sys
 
@@ -51,6 +51,15 @@ if sys.platform.startswith('linux'):
 
 if not DISTRIBUTION:
     DISTRIBUTION = platform.uname()[0].lower()
+
+# webOS
+try:
+    with open('/var/run/nyx/os_info.json', 'r') as os_info_file:
+        json_info = json.load(os_info_file)
+        if 'webos_name' in json_info.keys():
+            DISTRIBUTION = 'webos'
+except IOError:
+    pass
 
 
 def _version_check():
@@ -156,7 +165,7 @@ def run():
         if wait_for_abort(5):
             sys.exit(0)
 
-        if (xbmc.getCondVisibility('System.Platform.Linux') and
+        if (DISTRIBUTION != 'webos' and xbmc.getCondVisibility('System.Platform.Linux') and
                 ADDON.getSetting('upgrade_apt') == 'true'):
             _version_check_linux(['kodi'])
         else:
