@@ -127,20 +127,3 @@ msgstr ""
 msgctxt "#32042"
 msgid "For more information, see https://kodi.wiki/view/Linux"
 msgstr ""
-
-msgctxt "#32043"
-msgid "How can I help make Kodi better?"
-msgstr ""
-
-msgctxt "#32044"
-msgid "Kodi Foundation products are for the users and created by the users. There are no highly paid developers or poorly paid support personnel on the phones ready to take your call. There are only users who have seen a problem and done their best to fix it. This means the Kodi Foundation will always need the contributions of users like you. How can you get involved?"
-msgstr ""
-
-msgctxt "#32045"
-msgid "Donate"
-msgstr ""
-
-msgctxt "#32046"
-msgid "Contribute"
-msgstr ""
-
