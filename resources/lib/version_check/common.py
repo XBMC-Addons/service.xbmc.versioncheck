@@ -172,12 +172,15 @@ def upgrade_message(msg):
     wait_for_end_of_video()
 
     if ADDON.getSetting('lastnotified_version') < ADDON_VERSION:
-        xbmcgui.Dialog().ok(
+        answer = xbmcgui.Dialog().ok(
             ADDON_NAME,
             '[CR]'.join([localise(msg), localise(32001), localise(32002)])
         )
     else:
+        answer = False
         log('Already notified one time for upgrading.')
+
+    return answer
 
 
 def upgrade_message2(version_installed, version_available, version_stable, old_version):
