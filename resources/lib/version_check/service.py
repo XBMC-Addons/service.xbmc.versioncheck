@@ -27,8 +27,8 @@ from .common import log
 from .common import wait_for_abort
 from .common import message_restart
 from .common import message_upgrade_success
-from .common import upgrade_message
-from .common import upgrade_message2
+from .common import linux_upgrade_message
+from .common import non_linux_upgrade_message
 from .json_interface import get_version_file_list
 from .json_interface import get_installed_version
 from .versions import compare_version
@@ -105,7 +105,7 @@ def _version_check_linux(packages):
 
         if handler:
             if handler.check_upgrade_available(packages[0]):
-                if upgrade_message(32012):
+                if linux_upgrade_message(32012):
                     if ADDON.getSetting('upgrade_system') == 'false':
                         result = handler.upgrade_package(packages[0])
                     else:
@@ -171,4 +171,4 @@ def run():
         else:
             old_version, version_installed, version_available, version_stable = _version_check()
             if old_version:
-                upgrade_message2(version_installed, version_available, version_stable, old_version)
+                non_linux_upgrade_message(version_installed, version_available, version_stable, old_version)
