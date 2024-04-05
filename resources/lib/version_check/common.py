@@ -163,7 +163,7 @@ def dialog_yes_no(line1=0, line2=0):
     return xbmcgui.Dialog().yesno(ADDON_NAME, '[CR]'.join([localise(line1), localise(line2)]))
 
 
-def upgrade_message(msg):
+def linux_upgrade_message(msg):
     """ Prompt user with upgrade suggestion message
 
     :param msg: string id for prompt message
@@ -183,7 +183,7 @@ def upgrade_message(msg):
     return answer
 
 
-def upgrade_message2(version_installed, version_available, version_stable, old_version):
+def non_linux_upgrade_message(version_installed, version_available, version_stable, old_version):
     """ Prompt user with upgrade suggestion message
 
     :param version_installed: currently installed version
