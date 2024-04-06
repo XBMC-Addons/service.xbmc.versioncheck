@@ -46,7 +46,6 @@ jobs:
           rm -rf .??*
           mv ../.git .
           rm *.md
-          rm changelog.txt
           git add .
           git commit -m "Remove unwanted files"
         working-directory: ${{ github.event.repository.name }}
