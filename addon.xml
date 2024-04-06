@@ -6,8 +6,10 @@
     <extension point="xbmc.service" library="resources/lib/runner.py"/>
     <extension point="xbmc.addon.metadata">
         <news>
-- add Kodi 20.2 release
-- add Kodi 21.0 Beta 1 release
+- add Kodi 21.0 release
+- add Kodi 20.5 release
+- add webOS indentification
+- upgrade and exception fixes |contrib: clement-dufour|
 - Update translations from Weblate
         </news>
         <assets>
