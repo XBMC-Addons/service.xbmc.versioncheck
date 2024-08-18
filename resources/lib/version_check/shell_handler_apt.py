@@ -19,7 +19,7 @@ from .handler import Handler
 
 
 try:
-    from subprocess import check_output
+    from subprocess import check_output, CalledProcessError
 except ImportError:
     def check_output(*args, **kwargs):
         return
@@ -86,8 +86,12 @@ class ShellHandlerApt(Handler):
         _cmd = 'apt-get update'
         try:
             if self.sudo:
-                _ = check_output('echo \'%s\' | sudo -S %s' %
-                                 (self._get_password(), _cmd), shell=True)
+                try:
+                    _ = check_output('sudo -n %s' %
+                                     (_cmd), shell=True)
+                except CalledProcessError:
+                    _ = check_output('echo \'%s\' | sudo -S %s' %
+                                     (self._get_password(), _cmd), shell=True)
             else:
                 _ = check_output(_cmd.split())
         except Exception as error:  # pylint: disable=broad-except
@@ -107,8 +111,12 @@ class ShellHandlerApt(Handler):
         _cmd = 'apt-get install -y ' + package
         try:
             if self.sudo:
-                _ = check_output('echo \'%s\' | sudo -S %s' %
-                                 (self._get_password(), _cmd), shell=True)
+                try:
+                    _ = check_output('sudo -n %s' %
+                                     (_cmd), shell=True)
+                except CalledProcessError:
+                    _ = check_output('echo \'%s\' | sudo -S %s' %
+                                     (self._get_password(), _cmd), shell=True)
             else:
                 _ = check_output(_cmd.split())
             log('Upgrade successful')
@@ -128,8 +136,12 @@ class ShellHandlerApt(Handler):
         try:
             log('Upgrading system')
             if self.sudo:
-                _ = check_output('echo \'%s\' | sudo -S %s' %
-                                 (self._get_password(), _cmd), shell=True)
+                try:
+                    _ = check_output('sudo -n %s' %
+                                     (_cmd), shell=True)
+                except CalledProcessError:
+                    _ = check_output('echo \'%s\' | sudo -S %s' %
+                                     (self._get_password(), _cmd), shell=True)
             else:
                 _ = check_output(_cmd.split())
         except Exception as error:  # pylint: disable=broad-except
