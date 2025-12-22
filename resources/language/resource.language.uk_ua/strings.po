@@ -5,69 +5,70 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Addons\n"
-"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Kodi Translation Team\n"
-"Language-Team: Ukrainian (http://www.transifex.com/projects/p/xbmc-addons/language/uk/)\n"
-"Language: uk\n"
+"PO-Revision-Date: 2025-07-11 09:29+0000\n"
+"Last-Translator: Pavlo Marianov <acid@jack.kyiv.ua>\n"
+"Language-Team: Ukrainian <https://kodi.weblate.cloud/projects/kodi-core/service-xbmc-versioncheck/uk_ua/>\n"
+"Language: uk_ua\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.12.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi Version Check checks if you are running latest released version."
-msgstr ""
+msgstr "Модуль Kodi Version Check перевіряє наявність нових версій Kodi."
 
 msgctxt "Addon Description"
 msgid "Kodi Version Check only supports a number of platforms/distros as releases may differ between them. For more information visit the kodi.tv website."
-msgstr ""
+msgstr "Модуль Kodi Version Check підтримує тільки певні платформи та дистрибутиви, оскільки версії можуть відрізнятись між ними. Подробиці див. на веб-сайті kodi.tv."
 
 msgctxt "Addon Disclaimer"
 msgid "Feel free to use this script. For information visit kodi.tv"
-msgstr ""
+msgstr "Ви можете сміливо використовувати цей скрипт. Більше інформації див. на kodi.tv"
 
 msgctxt "#32001"
 msgid "We would like to recommend you to upgrade."
-msgstr ""
+msgstr "Радимо оновитись."
 
 msgctxt "#32002"
 msgid "Visit Kodi.tv for more information."
-msgstr ""
+msgstr "Більше інформації див. на веб-сайті kodi.tv."
 
 # empty strings from id 32003 to 32008
 msgctxt "#32009"
 msgid "Would you like to remove this reminder?"
-msgstr ""
+msgstr "Прибрати це нагадування?"
 
 msgctxt "#32010"
 msgid "You can enable/disable it through add-on settings."
-msgstr ""
+msgstr "Його можна увімкнути/вимкнути в налаштуваннях додатку."
 
 msgctxt "#32011"
 msgid "Use your package manager(apt) to upgrade."
-msgstr ""
+msgstr "Для оновлення скористайтесь своїм менеджером пакетів (apt)."
 
 msgctxt "#32012"
 msgid "A new version is available, do you want to upgrade now?"
-msgstr ""
+msgstr "Доступна нова версія. Оновити зараз?"
 
 msgctxt "#32013"
 msgid "Upgrade successful"
-msgstr ""
+msgstr "Kodi успішно оновлено"
 
 msgctxt "#32014"
 msgid "Do you want to restart Kodi to finish the upgrade?"
-msgstr ""
+msgstr "Перезапустити Kodi, щоб завершити оновлення?"
 
 msgctxt "#32015"
 msgid "Do you want to check the repository for a new version?"
-msgstr ""
+msgstr "Перевірити наявність нової версії в репозиторії?"
 
 msgctxt "#32016"
 msgid "There is a newer stable Kodi version available."
-msgstr ""
+msgstr "Доступна більш нова стабільна версія Kodi."
 
 msgctxt "#32020"
 msgid "General"
@@ -75,49 +76,49 @@ msgstr "Загальні"
 
 msgctxt "#32021"
 msgid "Enable Kodi version check?"
-msgstr ""
+msgstr "Увімкнути перевірку нових версій Kodi?"
 
 msgctxt "#32022"
 msgid "Please enter your password"
-msgstr ""
+msgstr "Введіть свій пароль"
 
 msgctxt "#32023"
 msgid "Linux: Upgrade complete system"
-msgstr ""
+msgstr "Linux: оновлення всієї системи"
 
 msgctxt "#32024"
 msgid "Linux: Upgrade using apt"
-msgstr ""
+msgstr "Linux: оновлення з використанням apt"
 
 #. Used in OK dialog
 msgctxt "#32032"
 msgid "A new stable version of Kodi is available."
-msgstr ""
+msgstr "Доступна нова стабільна версія Kodi."
 
 #. Direct people to the website. Used in OK dialog
 msgctxt "#32033"
 msgid "Visit http://kodi.tv for more information."
-msgstr ""
+msgstr "Подробиці дів. на веб-сайті http://kodi.tv."
 
 #. For example: "You are using 13.1 prealpha while 13.2 stable is available"
 msgctxt "#32034"
 msgid "Using %s while %s is available."
-msgstr ""
+msgstr "Використовується: %s, доступно: %s."
 
 #. Used in OK dialog
 msgctxt "#32035"
 msgid "It is recommended that you upgrade to a newer version."
-msgstr ""
+msgstr "Радимо оновитись до нової версії."
 
 # empty strings from id 32036 to 32039
 msgctxt "#32040"
 msgid "Your version %s of the Python cryptography module is too old. You need at least version 1.7."
-msgstr ""
+msgstr "Версія встановленого криптографічного модуля Python дуже застаріла: %s. Потрібна як мінімум 1.7."
 
 msgctxt "#32041"
 msgid "Please upgrade your operating system."
-msgstr ""
+msgstr "Оновіть операційну систему."
 
 msgctxt "#32042"
 msgid "For more information, see https://kodi.wiki/view/Linux"
-msgstr ""
+msgstr "Додаткові відомості див. на веб-сайті https://kodi.wiki/view/Linux"
