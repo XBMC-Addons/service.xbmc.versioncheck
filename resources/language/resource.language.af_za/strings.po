@@ -5,69 +5,70 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Addons\n"
-"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Kodi Translation Team\n"
-"Language-Team: Afrikaans (http://www.transifex.com/projects/p/xbmc-addons/language/af/)\n"
-"Language: af\n"
+"PO-Revision-Date: 2025-01-21 13:06+0000\n"
+"Last-Translator: Heiko Berner <berner.h@gmail.com>\n"
+"Language-Team: Afrikaans (South Africa) <https://kodi.weblate.cloud/projects/kodi-core/service-xbmc-versioncheck/af_za/>\n"
+"Language: af_za\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.9.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi Version Check checks if you are running latest released version."
-msgstr ""
+msgstr "Kodi Version Check gaan na dat jy die laatste vrygestelde weergawe hardloop."
 
 msgctxt "Addon Description"
 msgid "Kodi Version Check only supports a number of platforms/distros as releases may differ between them. For more information visit the kodi.tv website."
-msgstr ""
+msgstr "Kodi Version Check ondersteun slegs 'n aantal platvorms/distros aangesien vrystellings mag verskil tussen hulle. Vir meer inligting besoek die kodi.tv webwerf."
 
 msgctxt "Addon Disclaimer"
 msgid "Feel free to use this script. For information visit kodi.tv"
-msgstr ""
+msgstr "Voel vry om hierdie skrip te gebruik. Vir inligting besoek kode.tv"
 
 msgctxt "#32001"
 msgid "We would like to recommend you to upgrade."
-msgstr ""
+msgstr "Ons wil jou aanbeveel om op te gradeer."
 
 msgctxt "#32002"
 msgid "Visit Kodi.tv for more information."
-msgstr ""
+msgstr "Besoek kodi.tv vir meer inligting."
 
 # empty strings from id 32003 to 32008
 msgctxt "#32009"
 msgid "Would you like to remove this reminder?"
-msgstr ""
+msgstr "Wil jy hierdie herinnering verwyder?"
 
 msgctxt "#32010"
 msgid "You can enable/disable it through add-on settings."
-msgstr ""
+msgstr "Jy kan in staat stel/nie in staat stel deur byvoegsel instellings."
 
 msgctxt "#32011"
 msgid "Use your package manager(apt) to upgrade."
-msgstr ""
+msgstr "Gebruik jou pakket bestuurder (apt) om op te gradeer."
 
 msgctxt "#32012"
 msgid "A new version is available, do you want to upgrade now?"
-msgstr ""
+msgstr "'n Nuwe weergawe is beskikbaar, wil jy nou opgradeer?"
 
 msgctxt "#32013"
 msgid "Upgrade successful"
-msgstr ""
+msgstr "Opgradering suksesvol"
 
 msgctxt "#32014"
 msgid "Do you want to restart Kodi to finish the upgrade?"
-msgstr ""
+msgstr "Wil jy Kodi oor begin om die opgradering klaar te maak?"
 
 msgctxt "#32015"
 msgid "Do you want to check the repository for a new version?"
-msgstr ""
+msgstr "Wil jy die stoorplek nagaan vir 'n nuwe weergawe?"
 
 msgctxt "#32016"
 msgid "There is a newer stable Kodi version available."
-msgstr ""
+msgstr "Daar is 'n nuwer stabiele Kodi weergawe beskikbaar."
 
 msgctxt "#32020"
 msgid "General"
@@ -75,49 +76,49 @@ msgstr "Algemeen"
 
 msgctxt "#32021"
 msgid "Enable Kodi version check?"
-msgstr ""
+msgstr "Stel Kodi weergawe nagaan in staat?"
 
 msgctxt "#32022"
 msgid "Please enter your password"
-msgstr ""
+msgstr "Tik asseblief jou wagwoord in"
 
 msgctxt "#32023"
 msgid "Linux: Upgrade complete system"
-msgstr ""
+msgstr "Linux: Opgradeer volledige stelsel"
 
 msgctxt "#32024"
 msgid "Linux: Upgrade using apt"
-msgstr ""
+msgstr "Linux: Opgradeer met gebruik van apt"
 
 #. Used in OK dialog
 msgctxt "#32032"
 msgid "A new stable version of Kodi is available."
-msgstr ""
+msgstr "'n Nuwe stabiele weergawe van Kodi is beskikbaar."
 
 #. Direct people to the website. Used in OK dialog
 msgctxt "#32033"
 msgid "Visit http://kodi.tv for more information."
-msgstr ""
+msgstr "Besoek http://kodi.tv vir meer inligting."
 
 #. For example: "You are using 13.1 prealpha while 13.2 stable is available"
 msgctxt "#32034"
 msgid "Using %s while %s is available."
-msgstr ""
+msgstr "Gebruik %s terwyl %s beskikbaar is."
 
 #. Used in OK dialog
 msgctxt "#32035"
 msgid "It is recommended that you upgrade to a newer version."
-msgstr ""
+msgstr "Dit word aanbeveel dat jy opgradeer na 'n nuwer weergawe."
 
 # empty strings from id 32036 to 32039
 msgctxt "#32040"
 msgid "Your version %s of the Python cryptography module is too old. You need at least version 1.7."
-msgstr ""
+msgstr "Jou weergawe %s van die Python kriptografie module is te oud. Jy benodig ten minste weergawe 1.7."
 
 msgctxt "#32041"
 msgid "Please upgrade your operating system."
-msgstr ""
+msgstr "Opgradeer asseblief jou bedryfstelsel."
 
 msgctxt "#32042"
 msgid "For more information, see https://kodi.wiki/view/Linux"
-msgstr ""
+msgstr "Vir meer inligting, sien https://kodi.wiki/view/Linux"
